@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site com Barra Lateral e Header</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #0D3966;
+            color: #D3D3D3;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        } 
+
+        div.evento{
+          text-decoration: none;
+          color: inherit
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .header {
+            background-color: #0D3966;
+            color: #D3D3D3;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            margin: -20px;
+        }
+        .header div {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .conteudo-principal {
+          display: flex;
+          justify-content: center;
+          color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Barra Lateral</h2>
+        <p>Minha formatura</p>
+        <p>Empresas auxiliares</p>
+        <p>usuários</p>
+        <p>categorias</p>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <a href="evento.html">
+              <div>Evento</div>
+            </a>
+            <div>Planilha</div>
+            <div>Valor Total</div>
+            <div>Comissão</div>
+        </div>
+    </div>
+    <div class="conteudo-principal">
+       <h1>EVENTOS</h1>
+    </div>
+</body>
+</html>
