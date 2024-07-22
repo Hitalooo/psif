@@ -14,9 +14,8 @@ body {
   box-sizing: border-box;
 } 
 
-div.evento{
-text-decoration: none;
-color: inherit
+#evento {
+  text-decoration: none;
 }
 
 .main-content {
