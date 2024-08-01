@@ -21,7 +21,7 @@ body {
   height: 80vh;
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, .212);
-  align-items: center
+  margin-top: 4.5rem;
 }
 
 .form-image {
