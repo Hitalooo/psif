@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados do Banco de Dados</title>
+</head>
+<body>
+    <h1>Dados do Banco de Dados MySQL</h1>
+    <ol style="list-style: upper-roman;">
+        {% for item in dados %}
+            <li>Nome: {{ item.alu_nome }} - Nascimento: {{ item.alu_data_nascimento }} </li>
+        {% endfor %}
+    </ol>
+</body>
+</html>
