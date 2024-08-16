@@ -108,16 +108,14 @@
                         <div class="pes"><input type="checkbox" name="mar_bola" value="10" {% if 'mar_bola' in checked_items %}checked{% endif %}></div>
                         <div class="pes"><input type="checkbox" name="apr_bola" value="10" {% if 'apr_bola' in checked_items %}checked{% endif %}></div>
                     </div>
-                        <div class="calcular"><input type="submit" value="Calcular "></div>
-                    </form>
-                    {% if total is not none %}
-                        <div class="footer">
-                            <h3>Valor Total: {{ total }}</h3>
-                        </div>
-                    {% endif %}
-                </div>
-                
+                    <!-- TODO: adicionar coluna com total por pessoa -->
+                    <div class="calcular"><input type="submit" value="Calcular "></div>
+        </form>
+        {% if total is not none %}
+            <div class="footer">
+                <h3>Valor Total: {{ total }}</h3>
             </div>
+        {% endif %}
     </div>
 </body>
 </html>
