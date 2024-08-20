@@ -10,7 +10,6 @@ def index():
 def submit():
     opcao = request.args.get('opcao')
     
-    # Redireciona para a página correspondente à opção selecionada
     if opcao == 'Piscina':
         return redirect(url_for('piscina'))
     elif opcao == 'Churras':
