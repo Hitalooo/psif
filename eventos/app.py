@@ -20,8 +20,6 @@ def submit():
 # def evento():
 #     evento = request.args.get('evento')
     
-#     if 'evento' in request.cookies:
-#         if evento != request.cookies['evento']:
 
 #             template = render_template('evento.html')
 #             response = make_response(template)
