@@ -40,7 +40,7 @@
                 </form>
 
                 <!-- Modal -->
-                <!-- <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -49,8 +49,19 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body"> -->
-                                
+                            <div class="modal-body">
+                                {% if valor_total_simples is not none %}
+                                <h5>Juros Simples</h5>
+                                <p>Objetivo: R$ {{ objetivo }}</p>
+                                <p>Taxa de Juros: {{ taxa_juros }}%</p>
+                                <p>Período: {{ periodo_meses }} meses</p>
+                                <p>Mensalidade: R$ {{ mensalidade_simples }}</p>
+                                {% if mensalidade_por_pessoa_simples is not none %}
+                                <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa_simples }}</p>
+                                <p>Valor Total após juros: R$ {{ valor_total_simples }}</p>
+                                {% endif %}
+                                {% endif %}
+
                                 <!-- {% if montante_composto is not none %}
                                 <h5>Juros Compostos</h5>
                                 <p>Montante Final: R$ {{ montante_composto }}</p>
@@ -64,56 +75,41 @@
                                 <p>Juros Compostos baseado no valor mensal: R$ {{ juros_compostos_mensal }}</p>
                                 {% endif %}
                                 {% endif %} -->
-                            <!-- </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
-                <!-- Script para abrir o modal após o formulário ser submetido
-                ####### FAZER DEPOIS #########
+                <!-- Script para abrir o modal após o formulário ser submetido -->
                 <script>
                     document.getElementById('calculationForm').addEventListener('submit', function(event) {
                         event.preventDefault(); // Impede o envio padrão do formulário
                         var form = event.target;
                         var formData = new FormData(form);
-                        
+
                         // Enviar o formulário via AJAX
-                        fetch('/juros', {
+                        fetch('/', {
                             method: 'POST',
                             body: formData
-                            })
-                            .then(response => response.text())
-                            .then(html => {
-                                // Atualiza o conteúdo da página com a resposta do servidor
-                                document.open();
-                                document.write(html);
-                                document.close();
-                                
-                                // Exibe o modal após o conteúdo ser atualizado
-                                $('#resultadoModal').modal('show');
-                                })
-                                .catch(error => console.error('Error:', error));
-                                }); 
-                            </script> -->
-                        </div>
-                        <div class="resultados">
-                            {% if valor_total_simples is not none %}
-                            <h5>Juros Simples</h5>
-                            <p>Objetivo: R$ {{ objetivo }}</p>
-                            <p>Taxa de Juros: {{ taxa_juros }}%</p>
-                            <p>Período: {{ periodo_meses }} meses</p>
-                            <p>Mensalidade: R$ {{ mensalidade_simples }}</p>
-                            {% if mensalidade_por_pessoa_simples is not none %}
-                            <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa_simples }}</p>
-                            <p>Valor Total após juros: R$ {{ valor_total_simples }}</p>
-                            {% endif %}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </body>
-            </html>
-            
+                        })
+                        .then(response => response.text())
+                        .then(html => {
+                            // Atualiza o conteúdo da página com a resposta do servidor
+                            document.open();
+                            document.write(html);
+                            document.close();
+
+                            // Exibe o modal após o conteúdo ser atualizado
+                            $('#resultadoModal').modal('show');
+                        })
+                        .catch(error => console.error('Error:', error));
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
