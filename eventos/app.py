@@ -36,3 +36,4 @@ def submit():
 #             response.delete_cookie('evento')
 #             response.set_cookie('evento', string)
 #             return response
+
