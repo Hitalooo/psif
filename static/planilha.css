@@ -1,0 +1,52 @@
+.conteudo {
+    width: 722px;
+    height: 250px;
+    border: 2px black solid;
+    display: flex;
+    flex-direction: column;
+}
+.mes {
+    width: 120px;
+    height: 17px;
+    border-right: 1px black solid;
+    display: flex;
+    flex-direction: row;
+}
+.categorias {
+    width: 722px;
+    height: 17px;
+    border: 1px black solid;
+    display: flex;
+    flex-direction: row;
+}
+.pessoas {
+    width: 119px;
+    margin-right: 1.6px;
+    margin-left: 0.2px;
+}
+.pes {
+    width: 100%;
+    height: 17px;
+    border: 1px black solid;
+    padding: 0.5px;
+}
+.teste {
+    display: flex;
+    flex-direction: row;
+}
+.calcular{
+    width: 2px;
+    height: 5px;
+    margin-left: 20px;
+    margin-top: 2px;
+}
+.total{
+    padding: 20px;
+}
+h3{
+    margin-top: 25px;
+}
+.footer{
+    width: 97px;
+    height: 15px;
+}
