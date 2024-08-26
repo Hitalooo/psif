@@ -2,6 +2,7 @@ from flask import Flask, session, request, render_template, url_for, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.secret_key = 'chave_secreta'
 
 bancodados = {}
 
