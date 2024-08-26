@@ -70,7 +70,6 @@ def juros():
             taxa_juros = float(request.form['taxa'])
             periodo_meses = float(request.form['periodo'])
             num_pessoas = request.form.get('pessoas', 1)
-
             num_pessoas = int(num_pessoas) if num_pessoas else 1  # Definindo um valor padrão para evitar divisão por zero
             
             # Cálculo de juros simples
