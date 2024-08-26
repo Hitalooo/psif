@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulação de Juros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="result-box">
+                <h1>Simulação de Juros</h1>
+                <form method="post" class="form-container" id="calculationForm">
+                    <div class="form-group">
+                        <label for="valor">Objetivo (R$):</label>
+                        <input type="text" id="valor" name="valor" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taxa">Taxa de Juros (% ao ano):</label>
+                        <input type="text" id="taxa" name="taxa" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="periodo">Período (meses):</label>
+                        <input type="text" id="periodo" name="periodo" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pessoas">Número de Pessoas:</label>
+                        <input type="text" id="pessoas" name="pessoas" class="form-control" required>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="valor_mensal">Valor Mensal:</label>
+                        <input type="text" id="valor_mensal" name="valor_mensal" class="form-control" required>
+                    </div> -->
+                    <button type="submit" class="btn btn-primary" id="calculateButton">Calcular</button>
+                </form>
+
+                <!-- Modal -->
+                <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabel">Resultados da Simulação</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% if valor_total_simples is not none %}
+                                <h5>Juros Simples</h5>
+                                <p>Objetivo: R$ {{ objetivo }}</p>
+                                <p>Taxa de Juros: {{ taxa_juros }}%</p>
+                                <p>Período: {{ periodo_meses }} meses</p>
+                                <p>Mensalidade: R$ {{ mensalidade_simples }}</p>
+                                {% if mensalidade_por_pessoa_simples is not none %}
+                                <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa_simples }}</p>
+                                <p>Valor Total após juros: R$ {{ valor_total_simples }}</p>
+                                {% endif %}
+                                {% endif %}
+
+                                <!-- {% if montante_composto is not none %}
+                                <h5>Juros Compostos</h5>
+                                <p>Montante Final: R$ {{ montante_composto }}</p>
+                                <p>Juros Compostos: R$ {{ juros_compostos }}</p>
+                                <p>Mensalidade: R$ {{ mensalidade_composta }}</p>
+                                {% if mensalidade_por_pessoa_composta is not none %}
+                                <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa_composta }}</p>
+                                {% endif %}
+                                {% if valor_total_composto_mensal is not none %}
+                                <p>Valor Total com base no valor mensal: R$ {{ valor_total_composto_mensal }}</p>
+                                <p>Juros Compostos baseado no valor mensal: R$ {{ juros_compostos_mensal }}</p>
+                                {% endif %}
+                                {% endif %} -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Script para abrir o modal após o formulário ser submetido -->
+                <script>
+                    document.getElementById('calculationForm').addEventListener('submit', function(event) {
+                        event.preventDefault(); // Impede o envio padrão do formulário
+                        var form = event.target;
+                        var formData = new FormData(form);
+
+                        // Enviar o formulário via AJAX
+                        fetch('/', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.text())
+                        .then(html => {
+                            // Atualiza o conteúdo da página com a resposta do servidor
+                            document.open();
+                            document.write(html);
+                            document.close();
+
+                            // Exibe o modal após o conteúdo ser atualizado
+                            $('#resultadoModal').modal('show');
+                        })
+                        .catch(error => console.error('Error:', error));
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
