@@ -1,5 +1,11 @@
 body {
-    background-color: greenyellow;
+    background-color: gray;
+}
+
+.resultados{
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
 }
 
 .container {
