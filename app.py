@@ -1,4 +1,5 @@
 from flask import Flask, session, request, render_template, url_for, redirect
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
@@ -58,9 +59,9 @@ def submit():
 def piscina():
     return render_template('piscina.html')
 
-@app.route('/churras')
+@app.route('/churrasco')
 def churras():
-    return render_template('churras.html')
+    return render_template('churrasco.html')
 
 ####################################################################
 
@@ -147,6 +148,69 @@ def juros():
             return render_template('juros.html', error="Por favor, insira valores numéricos válidos.")
     
     return render_template('juros.html')
+
+#################################################################################
+
+usuarios_db = {
+    "nilso" : {
+        "senha": generate_password_hash("admin123"),
+        "eh_admin": True
+    },
+    
+}
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        nome_usuario = request.form['nome_usuario']
+        senha = request.form['senha']
+
+        usuario = usuarios_db.get(nome_usuario)
+
+        if usuario and check_password_hash(usuario['senha'], senha):
+            session['nome_usuario'] = nome_usuario
+            session['eh_admin'] = usuario.get('eh_admin', False)
+            return redirect(url_for('painel'))
+        else:
+            return "Credenciais inválidas", 401
+
+    return render_template('login.html')
+
+@app.route('/painel')
+def painel():
+    if 'nome_usuario' not in session:
+        return redirect(url_for('login'))
+
+    if session.get('eh_admin'):
+        return render_template('painel.html', usuarios=usuarios_db)
+    return "Acesso negado", 403
+
+@app.route('/adicionar_usuario', methods=['GET', 'POST'])
+def adicionar_usuario():
+    if 'nome_usuario' not in session or not session.get('eh_admin'):
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        nome_usuario = request.form['nome_usuario']
+        senha = request.form['senha']
+        eh_admin = 'eh_admin' in request.form
+
+        if nome_usuario in usuarios_db:
+            return "Usuário já existe", 400
+
+        usuarios_db[nome_usuario] = {
+            "senha": generate_password_hash(senha),
+            "eh_admin": eh_admin
+        }
+        return redirect(url_for('painel'))
+
+    return render_template('adicionar_usuario.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('nome_usuario', None)
+    session.pop('eh_admin', None)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

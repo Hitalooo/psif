@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header {
+    background-color: #171a4a;
+    color: #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.container {
+    display: flex;
+    flex: 1;
+}
+aside {
+    width: 15vw;
+    background-color: #171a4a;
+    color: #ccc;
+    height: 100vh;
+    position: fixed;
+}
+.content {
+    margin-left: 20vw; 
+    padding: 20px;
+    flex: 1;
+}
+footer {
+    background-color: #171a4a;
+    color: #ccc;
+    padding: 10px;
+    text-align: center;
+}
