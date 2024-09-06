@@ -57,13 +57,12 @@
                         <div class="pes"><input type="checkbox" name='apr_bola' value="10" {% if 'apr_bola' in checked_items %}checked{% endif %}></div>
                     </div>
                     <div class="pessoas">
-                        <div class="pes"> {% if 'vini' in totais %}{{totais['vini']}}{% endif %}</div>
-                        <div class="pes"> {% if 'lolo' in totais %}{{totais['lolo']}}{% endif %}</div>
-                        <div class="pes"> {% if 'sama' in totais %}{{totais['sama']}}{% endif %}</div>
-                        <div class="pes"> {% if 'bola' in totais %}{{totais['bola']}}{% endif %}</div>
+                        <div class="pes"> {% if 'vini' in total_por_pessoa %}{{total_por_pessoa['vini']}}{% endif %}</div>
+                        <div class="pes"> {% if 'lolo' in total_por_pessoa %}{{total_por_pessoa['lolo']}}{% endif %}</div>
+                        <div class="pes"> {% if 'sama' in total_por_pessoa %}{{total_por_pessoa['sama']}}{% endif %}</div>
+                        <div class="pes"> {% if 'bola' in total_por_pessoa %}{{total_por_pessoa['bola']}}{% endif %}</div>
                     </div>
-                  
-                      
+
                     </form>
                 </div>
                 <div class="total" style="font-size: 15px;"> VALOR TOTAL
@@ -73,8 +72,7 @@
                         <div class="footer">
                             <h3>Valor Total: {{ total }}</h3>
                         </div>
-                    {% endif %}
-                    <h3>{{total_por_pessoa}}</h3>
+                {% endif %}
                 </div>
                 </div>
                 
