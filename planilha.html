@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='planilha.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>PLANILHA</h1>
+        </div>
+        <form method="post">
+            <div class="conteudo">
+                <div class="categorias">
+                    <div class="mes">PESSOAS</div>
+                    <div class="mes"> JAN</div>
+                    <div class="mes"> FEV</div>
+                    <div class="mes"> MAR</div>
+                    <div class="mes"> ABR</div>
+                    <div class="mes"> TOTAL</div>
+                    
+                </div>
+                <div class="teste">
+                    <div class="pessoas">
+                        <div class="pes">vini</div>
+                        <div class="pes">lolo</div>
+                        <div class="pes">sama</div>
+                        <div class="pes">bola</div>
+                    </div>
+                    <div class="pessoas">
+                        <div class="pes"><input type="checkbox" name='jan_vini' value="10" {% if 'jan_vini' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='jan_lolo' value="10" {% if 'jan_lolo' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='jan_sama' value="10" {% if 'jan_sama' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='jan_bola' value="10" {% if 'jan_bola' in checked_items %}checked{% endif %}></div>
+                    </div>
+                   
+                    <div class="pessoas">
+                        <div class="pes"><input type="checkbox" name='feb_vini' value="10" {% if 'feb_vini' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='feb_lolo' value="10" {% if 'feb_lolo' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='feb_sama' value="10" {% if 'feb_sama' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='feb_bola' value="10" {% if 'feb_bola' in checked_items %}checked{% endif %}></div>
+                    </div>
+
+                    <div class="pessoas">
+                        <div class="pes"><input type="checkbox" name='mar_vini' value="10" {% if 'mar_vini' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='mar_lolo' value="10" {% if 'mar_lolo' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='mar_sama' value="10" {% if 'mar_sama' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='mar_bola' value="10" {% if 'mar_bola' in checked_items %}checked{% endif %}></div>
+                    </div>
+
+                    <div class="pessoas">
+                        <div class="pes"><input type="checkbox" name='apr_vini' value="10" {% if 'apr_vini' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='apr_lolo' value="10" {% if 'apr_lolo' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='apr_sama' value="10" {% if 'apr_sama' in checked_items %}checked{% endif %}></div>
+                        <div class="pes"><input type="checkbox" name='apr_bola' value="10" {% if 'apr_bola' in checked_items %}checked{% endif %}></div>
+                    </div>
+                    <div class="pessoas">
+                        <div class="pes"> {% if 'vini' in total_por_pessoa %}{{total_por_pessoa['vini']}}{% endif %}</div>
+                        <div class="pes"> {% if 'lolo' in total_por_pessoa %}{{total_por_pessoa['lolo']}}{% endif %}</div>
+                        <div class="pes"> {% if 'sama' in total_por_pessoa %}{{total_por_pessoa['sama']}}{% endif %}</div>
+                        <div class="pes"> {% if 'bola' in total_por_pessoa %}{{total_por_pessoa['bola']}}{% endif %}</div>
+                    </div>
+
+                    </form>
+                </div>
+                <div class="total" style="font-size: 15px;"> VALOR TOTAL
+
+                    <div class="calcular"><input class="calcular1" type="submit" value="Calcular "></div>
+                {% if total is not none %}
+                        <div class="footer">
+                            <h3>Valor Total: {{ total }}</h3>
+                        </div>
+                {% endif %}
+                </div>
+                </div>
+                
+
+           
+    </div>
+</body>
+</html>
