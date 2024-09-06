@@ -1,0 +1,13 @@
+# Ignore ficheiros e diretórios do Python
+__pycache__/
+
+# Ignore ficheiros e diretórios dos ambientes virtuais
+env/
+.env
+
+# Ignore ficheiros de IDEs
+.vscode/
+
+# Outros ficheiros e diretórios relevantes
+Lib/
+Scripts/
