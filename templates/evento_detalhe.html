@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='evento.css') }}">
+    <title>{{ nome_evento }}</title>
+</head>
+<body>
+    <header>
+        <h1>{{ nome_evento }}</h1>
+        <nav>
+            <ul>
+                <li>Informações massa</li>
+                <li>Muito legal</li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <section>
+            <h2>Bem-vindo ao evento de {{ nome_evento }}</h2>
+
+            {% if nome_evento == 'Piscina' %}
+                <p>Prepare-se para um dia relaxante na piscina!</p>
+            {% elif nome_evento == 'Churrasco' %}
+                <p>Venha curtir um delicioso churrasco com a gente!</p>
+            {% else %}
+                <p>Evento não especificado.</p>
+            {% endif %}
+        </section>
+        <button><a href="/evento">Escolher Outro Evento</a></button>
+    </div>
+
+    <footer id="contato">
+        <p>&copy; 2024 - PSIF. Todos os direitos reservados.</p>
+        <p>Contato: <a href="psif@gmail.com">psif@eventos.com</a></p>
+    </footer>
+
+</body>
+</html>

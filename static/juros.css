@@ -12,6 +12,10 @@ h1 {
    color: #ffcc50; 
 }
 
+a{
+    text-decoration: none;
+}
+
 .resultados{
     display: flex;
     flex-direction: column;

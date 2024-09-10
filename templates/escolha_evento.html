@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='evento.css') }}">
     <title>Formulário Select</title>
-    
 </head>
 <body>
     <div class="container">
         <h1>ESCOLHA O SEU EVENTO:</h1>
         <div class="opcoes">
-            <form action="/submit" method="GET">
+            <form action="{{ url_for('submit') }}" method="GET">
                 <h2> Opções Disponíveis </h2>
                 <div class="selecionar">
                     <select name="opcao" id="opcao">
                         <option value="Piscina">Casa com Piscina</option>
-                        <option value="Churras">Churrasco</option>
+                        <option value="Churrasco">Churrasco</option>
                     </select>
                     <button type="submit">Enviar</button>
                 </div>

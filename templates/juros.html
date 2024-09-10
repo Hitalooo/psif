@@ -32,72 +32,9 @@
                         <label class="informações" for="pessoas">Número de Pessoas:</label>
                         <input type="text" id="pessoas" name="pessoas" class="form-control" required>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="valor_mensal">Valor Mensal:</label>
-                        <input type="text" id="valor_mensal" name="valor_mensal" class="form-control" required>
-                    </div> -->
                     <button type="submit" class="button" id="calculateButton">Calcular</button>
+                    <button type="submit" class="button"><a href="{{ url_for('index' ) }}">Voltar para a Página Inicial</a></button>
                 </form>
-
-                <!-- Modal -->
-                <!-- <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLabel">Resultados da Simulação</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body"> -->
-                                
-                                <!-- {% if montante_composto is not none %}
-                                <h5>Juros Compostos</h5>
-                                <p>Montante Final: R$ {{ montante_composto }}</p>
-                                <p>Juros Compostos: R$ {{ juros_compostos }}</p>
-                                <p>Mensalidade: R$ {{ mensalidade_composta }}</p>
-                                {% if mensalidade_por_pessoa_composta is not none %}
-                                <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa_composta }}</p>
-                                {% endif %}
-                                {% if valor_total_composto_mensal is not none %}
-                                <p>Valor Total com base no valor mensal: R$ {{ valor_total_composto_mensal }}</p>
-                                <p>Juros Compostos baseado no valor mensal: R$ {{ juros_compostos_mensal }}</p>
-                                {% endif %}
-                                {% endif %} -->
-                            <!-- </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Script para abrir o modal após o formulário ser submetido
-                ####### FAZER DEPOIS #########
-                <script>
-                    document.getElementById('calculationForm').addEventListener('submit', function(event) {
-                        event.preventDefault(); // Impede o envio padrão do formulário
-                        var form = event.target;
-                        var formData = new FormData(form);
-                        
-                        // Enviar o formulário via AJAX
-                        fetch('/juros', {
-                            method: 'POST',
-                            body: formData
-                            })
-                            .then(response => response.text())
-                            .then(html => {
-                                // Atualiza o conteúdo da página com a resposta do servidor
-                                document.open();
-                                document.write(html);
-                                document.close();
-                                
-                                // Exibe o modal após o conteúdo ser atualizado
-                                $('#resultadoModal').modal('show');
-                                })
-                                .catch(error => console.error('Error:', error));
-                                }); 
-                            </script> -->
                         </div>
                         <div class="resultados">
                             {% if valor_total_simples is not none %}
