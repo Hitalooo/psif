@@ -22,7 +22,6 @@ def planilha():
     totais = {}
     
     if request.method == 'POST':
-      
         for key, value in request.form.items():
             try:
                 nome = key[4:]
@@ -34,7 +33,6 @@ def planilha():
                 checked_items[key] = True
                 print (key, value)
             except ValueError:
-               
                 continue
     
     return render_template('planilha.html', total=total, checked_items=checked_items, total_por_pessoa=totais)
