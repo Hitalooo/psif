@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
-    <title>Adicionar Usuário</title>
-</head>
-<body>
-    <div class="add-user-container">
-        <h1>Adicionar Usuário</h1>
-        <form method="POST" action="{{ url_for('adicionar_usuario') }}">
-            <input type="text" name="nome_usuario" placeholder="Nome de usuário" required>
-            <input type="password" name="senha" placeholder="Senha" required>
-            <label for="eh_admin">
-                <input type="checkbox" name="eh_admin"> Administrador
-            </label>
-            <button type="submit">Adicionar Usuário</button>
-        </form>
-    </div>
-</body>
-</html>
+{% extends 'layout.html' %}
+{% block title %}Adicionar Usuários{% endblock %}
+{% block content %}
+
+<div class="add-user-container">
+    <h2>Adicionar Usuário</h2>
+    <form method="POST" action="{{ url_for('adicionar_usuario') }}">
+        <input type="text" name="nome_usuario" placeholder="Nome de usuário" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <label for="eh_admin">
+            <input type="checkbox" name="eh_admin"> Administrador
+        </label>
+        <button type="submit">Adicionar Usuário</button>
+    </form>
+</div>
+{% endblock %}

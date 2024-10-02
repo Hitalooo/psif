@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulação de Juros</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='juros.css') }}">
-</head>
-<body>
-    <div class="container">
+{% extends 'layout.html' %}
+{% block title %}Juros{% endblock %}
+{% block content %}
+    <div class="content">
         <div class="content-wrapper">
             <div class="result-box">
-                <h1>Simulação de Juros</h1>
+                <h2>Simulação de Juros</h2>
                 <form method="post" class="form-container" id="calculationForm">
                     <div class="form-group">
                         <label class="informações" for="valor">Objetivo (R$):</label>
@@ -51,6 +41,5 @@
                         </div>
                     </div>
                 </div>
-            </body>
-            </html>
+{% endblock %}
             
