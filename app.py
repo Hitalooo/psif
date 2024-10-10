@@ -1,10 +1,14 @@
 from flask import Flask, session, request, render_template, url_for, redirect
+import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta'
 
-bancodados = {}
+def obter_conexao():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
 #  Chave para criptografia de cookies na sessão
 app.config['SECRET_KEY'] = 'superdificil'
@@ -105,13 +109,33 @@ def juros():
 
 #################################################################################
 
-usuarios_db = {
-    "nilso" : {
-        "senha": generate_password_hash("admin123"),
-        "eh_admin": True
-    },
-    
-}
+@app.route('/cadastro', methods=['GET', 'POST'])
+def registrar():
+    if request.method == 'POST':
+        nome_usuario = request.form['nome_usuario']
+        senha = request.form['senha']
+        eh_admin = 'eh_admin' in request.form  # Define se o usuário será admin
+
+        # Verificar se o usuário já existe no banco de dados
+        conn = obter_conexao()
+        usuario_existente = conn.execute('SELECT * FROM Usuarios WHERE nome_usuario = ?', (nome_usuario,)).fetchone()
+
+        if usuario_existente:
+            conn.close()
+            return "Usuário já existe", 400
+
+        # Inserir novo usuário no banco de dados
+        senha_hash = generate_password_hash(senha)
+        conn.execute('INSERT INTO Usuarios (nome_usuario, senha_hash, eh_admin) VALUES (?, ?, ?)',
+                     (nome_usuario, senha_hash, eh_admin))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('login'))
+
+    return render_template('cadastro.html')
+
+#################################################################################
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -119,25 +143,39 @@ def login():
         nome_usuario = request.form['nome_usuario']
         senha = request.form['senha']
 
-        usuario = usuarios_db.get(nome_usuario)
+        # Conectar ao banco e buscar o usuário
+        conn = obter_conexao()
+        usuario = conn.execute('SELECT * FROM Usuarios WHERE nome_usuario = ?', (nome_usuario,)).fetchone()
+        conn.close()
 
-        if usuario and check_password_hash(usuario['senha'], senha):
+        if usuario and check_password_hash(usuario['senha_hash'], senha):
             session['nome_usuario'] = nome_usuario
-            session['eh_admin'] = usuario.get('eh_admin', False)
+            session['eh_admin'] = usuario['eh_admin']
             return redirect(url_for('painel'))
         else:
             return "Credenciais inválidas", 401
 
     return render_template('login.html')
 
+#################################################################################
+
 @app.route('/painel')
 def painel():
+    # Verificar se o usuário está logado
     if 'nome_usuario' not in session:
         return redirect(url_for('login'))
 
-    if session.get('eh_admin'):
-        return render_template('painel.html', usuarios=usuarios_db)
-    return "Acesso negado", 403
+    # Conectar ao banco para buscar a lista de usuários
+    conn = obter_conexao()
+    usuarios = conn.execute('SELECT * FROM Usuarios').fetchall()
+    conn.close()
+
+    # Renderizar o painel, passando se o usuário é admin ou não
+    return render_template('painel.html', usuarios=usuarios, eh_admin=session.get('eh_admin'))
+
+
+
+#################################################################################
 
 @app.route('/adicionar_usuario', methods=['GET', 'POST'])
 def adicionar_usuario():
@@ -147,18 +185,30 @@ def adicionar_usuario():
     if request.method == 'POST':
         nome_usuario = request.form['nome_usuario']
         senha = request.form['senha']
-        eh_admin = 'eh_admin' in request.form
+        eh_admin = 'eh_admin' in request.form  # Define se o usuário é admin
 
-        if nome_usuario in usuarios_db:
+        # Verificar se o usuário já existe no banco de dados
+        conn = obter_conexao()
+        usuario_existente = conn.execute('SELECT * FROM Usuarios WHERE nome_usuario = ?', (nome_usuario,)).fetchone()
+
+        if usuario_existente:
+            conn.close()
             return "Usuário já existe", 400
 
-        usuarios_db[nome_usuario] = {
-            "senha": generate_password_hash(senha),
-            "eh_admin": eh_admin
-        }
+        # Inserir novo usuário no banco de dados
+        senha_hash = generate_password_hash(senha)
+        conn.execute('INSERT INTO Usuarios (nome_usuario, senha_hash, eh_admin) VALUES (?, ?, ?)',
+                     (nome_usuario, senha_hash, eh_admin))
+        conn.commit()
+        conn.close()
+
         return redirect(url_for('painel'))
 
     return render_template('adicionar_usuario.html')
+
+######## SENHA ADMIN:admin OUTROS USUARIOS: 123
+
+#################################################################################
 
 @app.route('/logout')
 def logout():
