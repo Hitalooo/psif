@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='evento.css') }}">
-    <title>Formulário Select</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}Escolha seu evento{% endblock %}
+{% block content %}
     <div class="container">
-        <h1>ESCOLHA O SEU EVENTO:</h1>
+        <h2>ESCOLHA O SEU EVENTO:</h2>
         <div class="opcoes">
             <form action="{{ url_for('submit') }}" method="GET">
                 <h2> Opções Disponíveis </h2>
@@ -22,5 +16,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

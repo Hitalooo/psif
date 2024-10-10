@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
-    <title>Painel de Controle</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}Painel{% endblock %}
+{% block content %}
     <div class="dashboard-container">
-        <h1>Painel de Controle</h1>
+        <h2>Painel de Controle</h2>
         <p>Bem-vindo(a), {{ session['nome_usuario'] }}</p>
         <a href="{{ url_for('adicionar_usuario') }}">Adicionar Usuário</a>
         <a href="{{ url_for('logout') }}">Sair</a>
 
-        <h2>Lista de Usuários</h2>
+        <h3>Lista de Usuários</h3>
         <ul>
             {% for usuario in usuarios %}
                 <li>{{ usuario }}</li>
             {% endfor %}
         </ul>
     </div>
-</body>
-</html>
+{% endblock %}

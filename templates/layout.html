@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título Padrão{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>PSIF</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% block content %}
+        <!-- Conteúdo principal será inserido aqui -->
+        {% endblock %}
+    </div>
+
+    <footer id="contato">
+        <p>&copy; 2024 - PSIF. Todos os direitos reservados.</p>
+        <p>Contato: <a href="psif@example.com">psif@example.com</a></p>
+    </footer>
+</body>
+</html>
