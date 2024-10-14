@@ -69,43 +69,45 @@ def evento_detalhe(nome_evento):
 def juros():
     if request.method == 'POST':
         try:
-            objetivo = float(request.form['valor'])
-            taxa_juros = float(request.form['taxa'])
-            periodo_meses = float(request.form['periodo'])
-            num_pessoas = request.form.get('pessoas', 1)
-            num_pessoas = int(num_pessoas) if num_pessoas else 1  # Definindo um valor padrão para evitar divisão por zero
+            objetivo = float(request.form['objetivo'])  # Valor total que se quer juntar
+            taxa_juros = float(request.form['taxa']) / 100 / 12  # Convertendo para taxa mensal
+            periodo_meses = int(request.form['periodo'])  # Período em meses
+            num_pessoas = int(request.form['pessoas'])  # Número de pessoas
             
-            # Cálculo de juros simples
-            juros_simples = objetivo * taxa_juros * (periodo_meses / 12) / 100
-            valor_total_simples = objetivo + juros_simples
+            # Cálculo da mensalidade total
+            mensalidade_total = objetivo / periodo_meses
             
-            # Cálculo da mensalidade para juros simples
-            mensalidade_simples = objetivo / periodo_meses
+            # Cálculo da mensalidade por pessoa
+            mensalidade_por_pessoa = mensalidade_total / num_pessoas
             
-            # Dividindo a mensalidade pelo número de pessoas
-            mensalidade_por_pessoa_simples = mensalidade_simples / num_pessoas if num_pessoas > 0 else None
+            # Cálculo do montante acumulado usando a fórmula M = C x (1 + i)^t
+            if taxa_juros > 0:
+                montante_acumulado = mensalidade_total * (((1 + taxa_juros) ** periodo_meses - 1) / taxa_juros)
+            else:
+                montante_acumulado = mensalidade_total * periodo_meses  # Sem juros, apenas somando
 
+            # Arredondar valores para exibição
             objetivo = round(objetivo, 2)
-            taxa_juros = round(taxa_juros, 2)
+            taxa_juros = round(taxa_juros * 100 * 12, 2)  # Convertendo de volta para percentual anual
             periodo_meses = round(periodo_meses, 2)
-            valor_total_simples = round(valor_total_simples, 2)
-            mensalidade_simples = round(mensalidade_simples, 2)
-            mensalidade_por_pessoa_simples = round(mensalidade_por_pessoa_simples, 2) if mensalidade_por_pessoa_simples is not None else None
-            
+            mensalidade_por_pessoa = round(mensalidade_por_pessoa, 2)
+            mensalidade_total = round(mensalidade_total, 2)
+            montante_acumulado = round(montante_acumulado, 2)
 
             return render_template('juros.html', 
                                    objetivo=objetivo, 
                                    taxa_juros=taxa_juros, 
-                                   valor_total_simples=valor_total_simples,
                                    periodo_meses=periodo_meses,
-                                   mensalidade_simples=mensalidade_simples,
-                                   num_pessoas=num_pessoas,
-                                   mensalidade_por_pessoa_simples=mensalidade_por_pessoa_simples,
-                                )
+                                   mensalidade_por_pessoa=mensalidade_por_pessoa,
+                                   mensalidade_total=mensalidade_total,
+                                   montante_acumulado=montante_acumulado
+                                  )
         except ValueError:
             return render_template('juros.html', error="Por favor, insira valores numéricos válidos.")
-    
+
     return render_template('juros.html')
+
+
 
 #################################################################################
 

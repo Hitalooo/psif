@@ -1,45 +1,45 @@
 {% extends 'layout.html' %}
-{% block title %}Juros{% endblock %}
+{% block title %}Simulação de Juros{% endblock %}
 {% block content %}
-    <div class="content">
-        <div class="content-wrapper">
-            <div class="result-box">
-                <h2>Simulação de Juros</h2>
-                <form method="post" class="form-container" id="calculationForm">
-                    <div class="form-group">
-                        <label class="informações" for="valor">Objetivo (R$):</label>
-                        <input type="text" id="valor" name="valor" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="informações" for="taxa">Taxa de Juros (% ao ano):</label>
-                        <input type="text" id="taxa" name="taxa" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="informações" for="periodo">Período (meses):</label>
-                        <input type="text" id="periodo" name="periodo" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="informações" for="pessoas">Número de Pessoas:</label>
-                        <input type="text" id="pessoas" name="pessoas" class="form-control" required>
-                    </div>
-                    <button type="submit" class="button" id="calculateButton">Calcular</button>
-                    <button type="submit" class="button"><a href="{{ url_for('index' ) }}">Voltar para a Página Inicial</a></button>
-                </form>
-                        </div>
-                        <div class="resultados">
-                            {% if valor_total_simples is not none %}
-                            <h5>Juros Simples</h5>
-                            <p>Objetivo: R$ {{ objetivo }}</p>
-                            <p>Taxa de Juros: {{ taxa_juros }}%</p>
-                            <p>Período: {{ periodo_meses }} meses</p>
-                            <p>Mensalidade: R$ {{ mensalidade_simples }}</p>
-                            {% if mensalidade_por_pessoa_simples is not none %}
-                            <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa_simples }}</p>
-                            <p>Valor Total após juros: R$ {{ valor_total_simples }}</p>
-                            {% endif %}
-                            {% endif %}
-                        </div>
-                    </div>
+<div class="content">
+    <div class="content-wrapper">
+        <div class="result-box">
+            <h2>Simulação de Juros</h2>
+            <form method="post" class="form-container" id="calculationForm">
+                <div class="form-group">
+                    <label class="informações" for="objetivo">Objetivo (R$):</label>
+                    <input type="text" id="objetivo" name="objetivo" class="form-control" required>
                 </div>
-{% endblock %}
+                <div class="form-group">
+                    <label class="informações" for="taxa">Taxa de Juros (% ao ano):</label>
+                    <input type="text" id="taxa" name="taxa" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="informações" for="periodo">Período (meses):</label>
+                    <input type="text" id="periodo" name="periodo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="informações" for="pessoas">Número de Pessoas:</label>
+                    <input type="text" id="pessoas" name="pessoas" class="form-control" required>
+                </div>
+                <button type="submit" class="button" id="calculateButton">Calcular</button>
+            </form>
+        </div>
+
+        <div class="resultados">
+            {% if montante_acumulado is not none %}
+            <h5>Simulação de Rendimento</h5>
+            <p>Objetivo: R$ {{ objetivo }}</p>
+            <p>Taxa de Juros: {{ taxa_juros }}% ao ano</p>
+            <p>Período: {{ periodo_meses }} meses</p>
+            <p>Mensalidade Total: R$ {{ mensalidade_total }}</p>
+            <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa }}</p>
+            <p>Montante Acumulado após Rendimento: R$ {{ montante_acumulado }}</p>
+            {% endif %}
+        </div>
             
+    </div>
+</div>
+
+
+{% endblock %}
