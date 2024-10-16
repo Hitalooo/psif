@@ -26,7 +26,10 @@
             </form>
         </div>
 
+        
         <div class="resultados">
+            <p>Taxa de Juros padrão Caixinhas Nubank / Cofrinhos PicPay = 10% </p>
+            <br>
             {% if montante_acumulado is not none %}
             <h5>Simulação de Rendimento</h5>
             <p>Objetivo: R$ {{ objetivo }}</p>
@@ -35,7 +38,10 @@
             <p>Mensalidade Total: R$ {{ mensalidade_total }}</p>
             <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa }}</p>
             <p>Montante Acumulado após Rendimento: R$ {{ montante_acumulado }}</p>
-            {% endif %}
+            {% endif %} 
+            <br>
+
+            <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
         </div>
             
     </div>

@@ -169,6 +169,8 @@ input[type="password"] {
 /* RESULTADOS E OUTRAS SEÇÕES */
 .resultados {
   display: flex;
+  width: 50vw;
+  gap: 10px;
   flex-direction: column;
 }
 
