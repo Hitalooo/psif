@@ -4,13 +4,17 @@
     <div class="dashboard-container">
         <h2>Painel de Controle</h2>
         <p>Bem-vindo(a), {{ session['nome_usuario'] }}</p>
-        <a href="{{ url_for('adicionar_usuario') }}">Adicionar Usuário</a>
         <a href="{{ url_for('logout') }}">Sair</a>
+
+        {% if eh_admin %}
+            <!-- Apenas administradores podem ver este link -->
+            <a href="{{ url_for('adicionar_usuario') }}">Adicionar Usuário</a>
+        {% endif %}
 
         <h3>Lista de Usuários</h3>
         <ul>
             {% for usuario in usuarios %}
-                <li>{{ usuario }}</li>
+                <li>{{ usuario['nome_usuario'] }} - Admin: {{ 'Sim' if usuario['eh_admin'] else 'Não' }}</li>
             {% endfor %}
         </ul>
     </div>

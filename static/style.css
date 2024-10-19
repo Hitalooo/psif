@@ -51,6 +51,7 @@ a {
 
 button {
   background-color: #ccc;
+  color: black;
   font-style: oblique;
   font-weight: bold;
   cursor: pointer;
@@ -168,6 +169,8 @@ input[type="password"] {
 /* RESULTADOS E OUTRAS SEÇÕES */
 .resultados {
   display: flex;
+  width: 50vw;
+  gap: 10px;
   flex-direction: column;
 }
 
@@ -178,9 +181,9 @@ input[type="password"] {
     justify-content: center;
     background-color: #171a4a;
     height: 100vh;
-    width: 50vw;
-    padding: 2vh;
+    width: 50vw;    
     border-radius: 8px;
+    gap: 10px;
     
 }
 
@@ -208,8 +211,8 @@ input[type="password"] {
     width: 80vw;
 }
 
-.form-container {
+.form-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 10px;
 }

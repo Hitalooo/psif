@@ -21,4 +21,5 @@ button{
     background-color: white;
     font-style: oblique;
     font-weight: bold;
+    cursor: pointer;
 }

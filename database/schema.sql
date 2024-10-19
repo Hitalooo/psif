@@ -25,10 +25,10 @@ CREATE TABLE Planilhas (
 );
 
 
-CREATE TABLE PlanilhaItens (
+CREATE TABLE Itens (
     id_item INTEGER PRIMARY KEY AUTOINCREMENT,
     id_planilha INTEGER NOT NULL,
-    nome_item TEXT NOT NULL,
-    valor_item REAL NOT NULL,
+    descricao TEXT NOT NULL,
+    valor REAL NOT NULL,
     FOREIGN KEY (id_planilha) REFERENCES Planilhas(id_planilha)
 );

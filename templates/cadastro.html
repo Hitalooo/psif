@@ -1,71 +1,20 @@
 {% extends 'layout.html' %}
 {% block title %}Cadastro{% endblock %}
 {% block content %}
-  <div class="container">
-    <div class="form-image">
-      <img src="#" alt="Vai ser a logo do projeto">
-    </div>
-    <div class="form">
-      <form action="#">
-        <div class="form-header">
-          <div class="title">
-            <h1>Cadastre-se</h1>
-          </div>
-          <div class="login-button">
-            <button><a href="#">Entrar</a></button>
-          </div>
-        </div>
-        <div class="input-group">
-          <div class="input-box">
-            <label for="firstname">Primeiro nome</label>
-            <input id="firstname" type="text" name="firstname" placeholder="Digite seu primeiro nome" required>
-          </div>
+<h2>Registrar Usuário</h2>
 
-          <div class="input-box">
-            <label for="lastname">Sobrenome</label>
-            <input id="lastname" type="text" name="lastname" placeholder="Digite seu último nome" required>
-          </div>  
-            <div class="input-box">
-              <label for="email">E-mail</label>
-              <input id="email" type="email" name="email" placeholder="Digite seu e-mail" required>
-            </div>
+<form method="POST">
+    <label for="nome_usuario">Nome de Usuário:</label>
+    <input type="text" id="nome_usuario" name="nome_usuario" required><br><br>
 
-            <div class="input-box">
-              <label for="number">Celular:</label>
-              <input id="number" type="tel" name="number" placeholder="(XX)X.XXXX-XXXX" required>
-            </div>
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha" required><br><br>
 
-              
-            <div class="input-box">
-              <label for="password">Senha:</label>
-              <input id="password" type="password" name="password" placeholder="Digite sua senha" required>
-            </div>
+    <label for="eh_admin">Administrador:</label>
+    <input type="checkbox" id="eh_admin" name="eh_admin"><br><br>
 
-            <div class="input-box">
-              <label for="password">Confirme sua senha:</label>
-              <input id="Confirmpassword" type="password" name="Confirmpassword" placeholder="Digite sua senha" required>
-            </div>
-          </div>
-          
-        <div class="gender-inputs">
-          <div class="gender-title">
-            <h6>Gênero</h6>
-          </div>
+    <input type="submit" value="Registrar">
+</form>
 
-          <div class="gender-group">
-            <input type="radio" name="gender" id="female">
-            <label for="female">Feminino</label>
-          </div>
-
-          <div class="gender-group">
-            <input type="radio" name="gender" id="male">
-            <label for="female">Masculino</label>
-          </div>
-        </div>
-        <div class="continue-button">
-          <button><a href="#">Continuar</a></button>
-        </div>
-      </form>
-    </div>
-  </div>
+<p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login aqui</a>.</p>
 {% endblock %}
