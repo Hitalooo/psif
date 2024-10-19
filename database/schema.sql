@@ -10,6 +10,7 @@ CREATE TABLE Usuarios (
 CREATE TABLE Eventos (
     id_evento INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_evento TEXT NOT NULL,
+    data_pgmt INTEGER NOT NULL,
     id_usuario INTEGER,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
@@ -30,16 +31,4 @@ CREATE TABLE PlanilhaItens (
     nome_item TEXT NOT NULL,
     valor_item REAL NOT NULL,
     FOREIGN KEY (id_planilha) REFERENCES Planilhas(id_planilha)
-);
-
-
-CREATE TABLE Juros (
-    id_juros INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_usuario INTEGER NOT NULL,
-    objetivo REAL NOT NULL,
-    taxa_juros REAL NOT NULL,
-    periodo_meses INTEGER NOT NULL,
-    valor_total REAL NOT NULL,
-    mensalidade REAL NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
