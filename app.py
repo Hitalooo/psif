@@ -24,7 +24,10 @@ def planilha():
     total = 0
     checked_items = {}
     totais = {}
-    
+
+    conn = obter_conexao()
+    usuarios = conn.execute('SELECT * FROM Usuarios').fetchall()
+    conn.close()
     if request.method == 'POST':
         for key, value in request.form.items():
             try:
@@ -39,7 +42,7 @@ def planilha():
             except ValueError:
                 continue
     
-    return render_template('planilha.html', total=total, checked_items=checked_items, total_por_pessoa=totais)
+    return render_template('planilha.html', total=total, checked_items=checked_items, total_por_pessoa=totais, usuarios=usuarios)
 
 ###############################################################
 

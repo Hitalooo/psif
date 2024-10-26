@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block title %}Planilha{% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="div-planilha">
         <div class="head">
             <h2>PLANILHA</h2>
         </div>
@@ -24,54 +24,26 @@
                         <td>DEZ</td>
                         <td>TOTAL</td>
                     </tr>
-                    <tr>
-                        <td>VINICIOS</td>
-                        <td><input type="checkbox" name='jan_vini' value="10" {% if 'jan_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='fev_vini' value="10" {% if 'fev_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='mar_vini' value="10" {% if 'mar_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='abr_vini' value="10" {% if 'abr_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='mai_vini' value="10" {% if 'mai_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='jun_vini' value="10" {% if 'jun_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='jul_vini' value="10" {% if 'jul_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='ago_vini' value="10" {% if 'ago_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='set_vini' value="10" {% if 'set_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='out_vini' value="10" {% if 'out_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='nov_vini' value="10" {% if 'nov_vini' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='dez_vini' value="10" {% if 'dez_vini' in checked_items %}checked{% endif %}></td>
-                        <td>{% if 'vini' in total_por_pessoa %}{{total_por_pessoa['vini']}}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td>LOURRANNY</td>
-                        <td><input type="checkbox" name='jan_lourranny' value="10" {% if 'jan_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='fev_lourranny' value="10" {% if 'fev_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='mar_lourranny' value="10" {% if 'mar_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='abr_lourranny' value="10" {% if 'abr_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='mai_lourranny' value="10" {% if 'mai_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='jun_lourranny' value="10" {% if 'jun_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='jul_lourranny' value="10" {% if 'jul_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='ago_lourranny' value="10" {% if 'ago_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='set_lourranny' value="10" {% if 'set_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='out_lourranny' value="10" {% if 'out_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='nov_lourranny' value="10" {% if 'nov_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='dez_lourranny' value="10" {% if 'dez_lourranny' in checked_items %}checked{% endif %}></td>
-                        <td>{% if 'lourranny' in total_por_pessoa %}{{total_por_pessoa['lourranny']}}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <td>CLENILSON</td>
-                        <td><input type="checkbox" name='jan_clenilson' value="10" {% if 'jan_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='fev_clenilson' value="10" {% if 'fev_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='mar_clenilson' value="10" {% if 'mar_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='abr_clenilson' value="10" {% if 'abr_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='mai_clenilson' value="10" {% if 'mai_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='jun_clenilson' value="10" {% if 'jun_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='jul_clenilson' value="10" {% if 'jul_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='ago_clenilson' value="10" {% if 'ago_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='set_clenilson' value="10" {% if 'set_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='out_clenilson' value="10" {% if 'out_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='nov_clenilson' value="10" {% if 'nov_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td><input type="checkbox" name='dez_clenilson' value="10" {% if 'dez_clenilson' in checked_items %}checked{% endif %}></td>
-                        <td>{% if 'clenilson' in total_por_pessoa %}{{total_por_pessoa['clenilson']}}{% endif %}</td>
-                    </tr>
+                    {% for usuario in usuarios%}
+
+                        <tr>
+                            <td>{{usuario['nome_usuario']}}</td>
+                            <td><input type="checkbox" name="jan_{{ usuario['nome_usuario'] }}" value="10" {% if "jan_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="fev_{{ usuario['nome_usuario'] }}" value="10" {% if "fev_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="mar_{{ usuario['nome_usuario'] }}" value="10" {% if "mar_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="abr_{{ usuario['nome_usuario'] }}" value="10" {% if "abr_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="mai_{{ usuario['nome_usuario'] }}" value="10" {% if "mai_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="jun_{{ usuario['nome_usuario'] }}" value="10" {% if "jun_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="jul_{{ usuario['nome_usuario'] }}" value="10" {% if "jul_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="ago_{{ usuario['nome_usuario'] }}" value="10" {% if "ago_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="set_{{ usuario['nome_usuario'] }}" value="10" {% if "set_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="out_{{ usuario['nome_usuario'] }}" value="10" {% if "out_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="nov_{{ usuario['nome_usuario'] }}" value="10" {% if "nov_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td><input type="checkbox" name="dez_{{ usuario['nome_usuario'] }}" value="10" {% if "dez_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
+                            <td>{% if usuario['nome_usuario'] in total_por_pessoa %}{{total_por_pessoa[usuario['nome_usuario']]}}{% endif %}</td>
+                        </tr>
+
+                    {% endfor %}
                 </table>
                 <div class="total" style="font-size: 15px;">
                     <div class="calcular"><input class="calcular1" type="submit" value="Calcular "></div>

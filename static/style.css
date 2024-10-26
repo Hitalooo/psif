@@ -22,6 +22,13 @@ body {
 header{
     position: fixed;
     top: 0;
+    background-color:#171a4a;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 135px;
 }
 
 header ul{
@@ -66,9 +73,8 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 10vw;
+  margin-top: 135px;
   background-color: #171a4a;
-  gap: 100px;
   flex-direction: column;
   padding: 20px;
   border-radius: 8px;
@@ -215,4 +221,14 @@ input[type="password"] {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.form-registro{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  width: 250px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  gap: 10px;
 }
