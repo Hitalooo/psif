@@ -1,21 +1,25 @@
 from flask import Flask, session, request, render_template, url_for, redirect
-import sqlite3
+from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
+from models.lancamentos import Lancamento
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta'
 
-def obter_conexao():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
 #  Chave para criptografia de cookies na sessão
 app.config['SECRET_KEY'] = 'superdificil'
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        participante = request.form.get('participante')
+        descricao = request.form.get('descricao')
+        data = request.form.get('data')
+        valor = request.form.get('valor')
+        l = Lancamento(participante, descricao, data, valor)
+        l.salvar()
+
+    return render_template('lancamentos.html', lancamentos=Lancamento.todos())
 
 ########################################################################
 

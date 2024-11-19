@@ -1,0 +1,16 @@
+<form method="post">
+    Participante: <input type="text" name="participante">
+    Descrição: <input type="text" name="descricao">
+    Data: <input type="date" name="data">
+    Valor: <input type="number" name="valor">
+    <input type="submit" value="Adicionar">
+</form>
+
+{% for l in lancamentos %}
+<div>
+    Participante: {{ l.participante }}
+    Descrição: {{ l.descricao }}
+    Data: {{ l.data }}
+    Valor: {{ l.valor }}
+</div>
+{% endfor %}
