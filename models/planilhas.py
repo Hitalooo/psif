@@ -20,7 +20,7 @@ class Planilha:
         conn.close()
     
     @classmethod
-    def consultar(cls, sqlquery: str, parametros: tuple) -> list['Planilha']:
+    def consultar(cls, sqlquery: str, parametros: tuple = tuple()) -> list['Planilha']:
         '''Executa uma consulta SQL e retorna as planilhas.
         
         Parâmetros:

@@ -18,7 +18,7 @@ class Lancamento:
         conn.close()
 
     @staticmethod
-    def consultar(sqlquery: str, parametros: tuple) -> list['Lancamento']:
+    def consultar(sqlquery: str, parametros: tuple = tuple()) -> list['Lancamento']:
         '''Executa uma consulta SQL e retorna os lancamentos.
         
         Parâmetros:
