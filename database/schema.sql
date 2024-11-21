@@ -1,17 +1,19 @@
-/*CREATE TABLE Planilhas (
-    plan_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_usuario INTEGER NOT NULL,
-    objetivo REAL NOT NULL,
-    data_submissao TEXT NOT NULL,
-    plan_desc TEXT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
-);
-*/
-
-CREATE TABLE Lancamentos (
+CREATE TABLE planilhas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_participante TEXT /*trocar por um id de verdade*/,
-    data DATE,
-    descricao TEXT,
-    valor REAL
+    descricao TEXT NOT NULL,
+    objetivo REAL NOT NULL,
+    data_ini DATE NOT NULL,
+    data_fim DATE NOT NULL
 );
+
+CREATE TABLE lancamentos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_planilha INTEGER NOT NULL,
+    id_participante TEXT NOT NULL /*trocar por um id de verdade*/,
+    data DATE NOT NULL,
+    descricao TEXT NOT NULL,
+    valor REAL NOT NULL,
+
+    FOREIGN KEY (id_planilha) REFERENCES planilhas
+);
+
