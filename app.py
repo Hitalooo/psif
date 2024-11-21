@@ -2,6 +2,7 @@ from flask import Flask, session, request, render_template, url_for, redirect
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.lancamentos import Lancamento
+from models.planilhas import Planilha
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta'
@@ -11,42 +12,42 @@ app.config['SECRET_KEY'] = 'superdificil'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # TODO: Mover para a rota correta
     if request.method == 'POST':
+        id_planilha = request.form.get('id_planilha')
         participante = request.form.get('participante')
         descricao = request.form.get('descricao')
         data = request.form.get('data')
         valor = request.form.get('valor')
-        l = Lancamento(participante, descricao, data, valor)
+        l = Lancamento(id_planilha, participante, descricao, data, valor)
         l.salvar()
-
-    return render_template('lancamentos.html', lancamentos=Lancamento.todos())
+    lancamentos = Lancamento.consultar('SELECT * FROM lancamentos')  # TODO: Remover essa linha
+    return render_template('lancamentos.html', lancamentos=lancamentos)
 
 ########################################################################
 
-@app.route('/planilha', methods=['GET', 'POST'])
-def planilha():
-    total = 0
-    checked_items = {}
-    totais = {}
+@app.route('/planilhas/<id>', methods=['GET', 'POST'])
+def planilha(id):
+    p = Planilha.find(id)
+    if not p:
+        return render_template('erro404.html')
+    return render_template('planilha.html', planilha=p)
 
-    conn = obter_conexao()
-    usuarios = conn.execute('SELECT * FROM Usuarios').fetchall()
-    conn.close()
+########################################################################
+
+@app.route('/planilhas', methods=['GET', 'POST'])
+def planilhas():
     if request.method == 'POST':
-        for key, value in request.form.items():
-            try:
-                nome = key[4:]
-                if nome not in totais:
-                    totais[nome] = 0
-                valor = float(value)
-                totais[nome] += valor
-                total += valor
-                checked_items[key] = True
-                print (key, value)
-            except ValueError:
-                continue
+        objetivo = request.form.get('objetivo')
+        descricao = request.form.get('descricao')
+        data_ini = request.form.get('data_ini')
+        data_fim = request.form.get('data_fim')
+        p = Planilha(descricao, objetivo, data_ini, data_fim)
+        p.salvar()
     
-    return render_template('planilha.html', total=total, checked_items=checked_items, total_por_pessoa=totais, usuarios=usuarios)
+    planilhas = Planilha.consultar('SELECT * FROM planilhas')  # TODO: Filtrar pelo usuário logado
+    return render_template('planilhas.html', planilhas=planilhas)
+
 
 ###############################################################
 

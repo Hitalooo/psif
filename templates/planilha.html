@@ -3,59 +3,21 @@
 {% block content %}
     <div class="div-planilha">
         <div class="head">
-            <h2>PLANILHA</h2>
+            <h2>{{planilha.descricao}}</h2>
         </div>
-
-        <form method="post">
-                <table border="1">
-                    <tr>
-                        <td>PESSOAS</td>
-                        <td>JAN</td>
-                        <td>FEV</td>
-                        <td>MAR</td>
-                        <td>ABR</td>
-                        <td>MAI</td>
-                        <td>JUN</td>
-                        <td>JUL</td>
-                        <td>AGO</td>
-                        <td>SET</td>
-                        <td>OUT</td>
-                        <td>NOV</td>
-                        <td>DEZ</td>
-                        <td>TOTAL</td>
-                    </tr>
-                    {% for usuario in usuarios%}
-
-                        <tr>
-                            <td>{{usuario['nome_usuario']}}</td>
-                            <td><input type="checkbox" name="jan_{{ usuario['nome_usuario'] }}" value="10" {% if "jan_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="fev_{{ usuario['nome_usuario'] }}" value="10" {% if "fev_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="mar_{{ usuario['nome_usuario'] }}" value="10" {% if "mar_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="abr_{{ usuario['nome_usuario'] }}" value="10" {% if "abr_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="mai_{{ usuario['nome_usuario'] }}" value="10" {% if "mai_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="jun_{{ usuario['nome_usuario'] }}" value="10" {% if "jun_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="jul_{{ usuario['nome_usuario'] }}" value="10" {% if "jul_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="ago_{{ usuario['nome_usuario'] }}" value="10" {% if "ago_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="set_{{ usuario['nome_usuario'] }}" value="10" {% if "set_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="out_{{ usuario['nome_usuario'] }}" value="10" {% if "out_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="nov_{{ usuario['nome_usuario'] }}" value="10" {% if "nov_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td><input type="checkbox" name="dez_{{ usuario['nome_usuario'] }}" value="10" {% if "dez_" + usuario['nome_usuario'] in checked_items %}checked{% endif %}></td>
-                            <td>{% if usuario['nome_usuario'] in total_por_pessoa %}{{total_por_pessoa[usuario['nome_usuario']]}}{% endif %}</td>
-                        </tr>
-
-                    {% endfor %}
-                </table>
-                <div class="total" style="font-size: 15px;">
-                    <div class="calcular"><input class="calcular1" type="submit" value="Calcular "></div>
-                </div>
-
-                {% if total is not none %}
-                <div class="footer">
-                    <h3>Valor Total: {{ total }}</h3>
-                </div>
-                {% endif %}
-        </form>
-
+        <div>
+            Objetivo: <div>{{planilha.objetivo}}</div>
+            Início: <div>{{planilha.data_ini}}</div>
+            Fim: <div>{{planilha.data_fim}}</div>
         </div>
+        Lançamentos:
+        <ul>
+        {% for l in planilha.lancamentos %}
+            <li>{{l.participante}} |
+            {{l.descricao}} |
+            {{l.data}} |
+            {{l.valor}}</li>
+        {% endfor %}
+    </ul>
     </div>
 {% endblock %}

@@ -1,4 +1,5 @@
 <form method="post">
+    Plainha: <input type="number" name="id_planilha">
     Participante: <input type="text" name="participante">
     Descrição: <input type="text" name="descricao">
     Data: <input type="date" name="data">
@@ -8,6 +9,7 @@
 
 {% for l in lancamentos %}
 <div>
+    Planilha: {{l.id_planilha}}
     Participante: {{ l.participante }}
     Descrição: {{ l.descricao }}
     Data: {{ l.data }}

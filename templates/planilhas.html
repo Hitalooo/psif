@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}Planilha{% endblock %}
+
+{% block content %}
+<form action="/planilhas" method="POST">
+    Descrição: <input type="text" name="descricao">
+    Objetivo: <input type="number" name="objetivo">
+    Data de Início: <input type="date" name="data_ini">
+    Data de Fim: <input type="date" name="data_fim">
+    <input type="submit" value="Cadastrar">
+</form>
+
+{% for p in planilhas %}
+    <div>
+        {{p.id}}
+        {{p.descricao}}
+        {{p.objetivo}}
+        {{p.data_ini}}
+        {{p.data_fim}}
+    </div>
+{% endfor %}
+{% endblock %}
