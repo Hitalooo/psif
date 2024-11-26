@@ -1,36 +1,38 @@
-from database.db import obter_conexao
 from models.base import Base
 
 
 class Lancamento(Base):
-    def __init__(self, id_planilha, participante, descricao, data, valor):
-        '''Um lançamento de uma planilha.
+    '''Um lançamento de uma planilha.
 
-        Subclasse de models.base.Modelo.
+    Subclasse de models.base.Modelo.
 
-        Parâmetros:
+    Atributos:
             - id_planilha: o ID da planilha correspondente. TODO: Receber objeto Planilha no lugar do id.
             - participante: o participante. TODO: Receber objeto Participante no lugar do id.
             - descricao: Uma descrição breve.
             - data: A data em que ocorreu o lançamento.
             - valor: O valor do lançamento. Pode assumir valores negativos para indicar saques, por exemplo.
-        '''
-        super().__init__(
-            tabela='lancamentos',
-            atributos=['id_planilha', 'participante', 'descricao', 'data',
-                       'valor'])
+    '''
+    def __init__(self, id_planilha, participante, descricao, data, valor):
+        super().__init__(tabela='lancamentos')
         self.id_planilha = id_planilha
         self.participante = participante
         self.descricao = descricao
         self.data = data
         self.valor = valor
 
-    def _valores_atributos(self):
-        '''Retorna a tupla do valor dos atributos na mesma ordem da tabela `lancamentos`.
+    def _atributos(self) -> dict:
+        '''Retorna o dicionário de atributos na mesma ordem da tabela `lancamentos`.
         É usado na classe models.base.Modelo para salvar as entidades no banco.
         '''
-        return tuple(self.id_planilha, self.participante, self.descricao,
-                     self.data, self.valor)
+        d = {
+            'id_planilha': self.id_planilha,
+            'id_participante': self.participante,
+            'descricao': self.descricao,
+            'data': self.data,
+            'valor': self.valor,
+        }
+        return d
 
     @classmethod
     def _carregar_registro(cls, registro: list) -> 'Lancamento':
@@ -43,6 +45,6 @@ class Lancamento(Base):
         descricao = registro[3]
         data = registro[4]
         valor = registro[5]
-        l = Lancamento(id_planilha, participante, descricao, data, valor)
+        l = cls(id_planilha, participante, descricao, data, valor)
         l.id = id
         return l
