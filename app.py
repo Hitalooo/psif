@@ -10,19 +10,9 @@ app.secret_key = 'chave_secreta'
 #  Chave para criptografia de cookies na sessão
 app.config['SECRET_KEY'] = 'superdificil'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    # TODO: Mover para a rota correta
-    if request.method == 'POST':
-        id_planilha = request.form.get('id_planilha')
-        participante = request.form.get('participante')
-        descricao = request.form.get('descricao')
-        data = request.form.get('data')
-        valor = request.form.get('valor')
-        l = Lancamento(id_planilha, participante, descricao, data, valor)
-        l.salvar()
-    lancamentos = Lancamento.consultar('SELECT * FROM lancamentos')  # TODO: Remover essa linha
-    return render_template('lancamentos.html', lancamentos=lancamentos)
+    return render_template('index.html')
 
 ########################################################################
 
@@ -48,8 +38,30 @@ def planilhas():
     planilhas = Planilha.consultar('SELECT * FROM planilhas')  # TODO: Filtrar pelo usuário logado
     return render_template('planilhas.html', planilhas=planilhas)
 
+###############################################################
+
+@app.route('/lancamentos', methods=['GET', 'POST'])
+def lancamentos():
+    # TODO: Mover para a rota correta
+    if request.method == 'POST':
+        id_planilha = request.form.get('id_planilha')
+        participante = request.form.get('participante')
+        descricao = request.form.get('descricao')
+        data = request.form.get('data')
+        valor = request.form.get('valor')
+        l = Lancamento(id_planilha, participante, descricao, data, valor)
+        l.salvar()
+    lancamentos = Lancamento.consultar('SELECT * FROM lancamentos')  # TODO: Remover essa linha
+    return render_template('lancamentos.html', lancamentos=lancamentos)
 
 ###############################################################
+
+@app.route('/lancamentos/excluir/<int:id_lancamento>', methods=['POST'])
+def excluir_lancamento(id_lancamento):
+    Lancamento.excluir(id_lancamento)
+    return redirect(url_for('lancamentos'))
+
+#################################################################
 
 @app.route('/evento')
 def evento():

@@ -48,3 +48,11 @@ class Lancamento(Base):
         l = cls(id_planilha, participante, descricao, data, valor)
         l.id = id
         return l
+
+    @staticmethod
+    def excluir(id_lancamento: int):
+        '''Exclui um lançamento do banco com base no ID.'''
+        conn = Base._obter_conexao()
+        conn.execute('DELETE FROM lancamentos WHERE id = ?', (id_lancamento,))
+        conn.commit()
+        conn.close()
