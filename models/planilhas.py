@@ -49,3 +49,11 @@ class Planilha(Base):
         p = cls(descricao, objetivo, data_ini, data_fim)
         p.id = id
         return p
+
+    @staticmethod
+    def excluir(id_planilha: int):
+        '''Exclui uma planilha do banco com base no ID.'''
+        conn = Base._obter_conexao()
+        conn.execute('DELETE FROM planilhas WHERE id = ?', (id_planilha,))
+        conn.commit()
+        conn.close()

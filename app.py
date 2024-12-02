@@ -40,9 +40,15 @@ def planilhas():
 
 ###############################################################
 
+@app.route('/planilhas/excluir/<int:id_planilha>', methods=['POST'])
+def excluir_planilha(id_planilha):
+    Planilha.excluir(id_planilha)
+    return redirect(url_for('planilhas'))
+
+###############################################################
+
 @app.route('/lancamentos', methods=['GET', 'POST'])
 def lancamentos():
-    # TODO: Mover para a rota correta
     if request.method == 'POST':
         id_planilha = request.form.get('id_planilha')
         participante = request.form.get('participante')
