@@ -31,6 +31,13 @@ class Base:
         conn.commit()
         conn.close()
     
+    def excluir(self):
+        '''Exclui o registro do banco.'''
+        conn = self._obter_conexao()
+        conn.execute(f'DELETE FROM {self._tabela} WHERE id = ?', (self.id,))
+        conn.commit()
+        conn.close()
+
     def _atributos(self) -> dict:
         '''Retorna um dicionário contendo o nome e o valor das colunas na mesma ordem da tabela.
         Método abstrato. Deve ser sobrescrito nas subclasses.

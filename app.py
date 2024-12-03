@@ -42,7 +42,8 @@ def planilhas():
 
 @app.route('/planilhas/excluir/<int:id_planilha>', methods=['POST'])
 def excluir_planilha(id_planilha):
-    Planilha.excluir(id_planilha)
+    p = Planilha.encontrar(id_planilha)
+    p.excluir()
     return redirect(url_for('planilhas'))
 
 ###############################################################
@@ -64,7 +65,8 @@ def lancamentos():
 
 @app.route('/lancamentos/excluir/<int:id_lancamento>', methods=['POST'])
 def excluir_lancamento(id_lancamento):
-    Lancamento.excluir(id_lancamento)
+    l = Lancamento.encontrar(id_lancamento)
+    l.excluir()
     return redirect(url_for('lancamentos'))
 
 #################################################################
