@@ -3,6 +3,17 @@ from models.base import Base
 from models.lancamentos import Lancamento
 
 class Planilha(Base):
+    '''Uma planilha.
+
+    Subclasse de models.base.Base.
+
+    Atributos:
+        - descricao: Uma descrição breve.
+        - objetivo: Valor em reais a ser atingido no final do investimento.
+        - data_ini: Data de início do investimento.
+        - data_fim: Data de fim do investimento.
+        - lancamentos: A lista de lançamentos ocorridos até o momento.
+    '''
     def __init__(self, descricao, objetivo, data_ini, data_fim, lancamentos=[]):
         super().__init__(tabela='planilhas')
         self.descricao = descricao
