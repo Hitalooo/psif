@@ -61,6 +61,11 @@ class Base:
             objetos += [objeto]
         return objetos
 
+    def encontrar(cls, id: int) -> 'Base | None':
+        '''Encontra um registro baseado no `id`.
+        Método abstrato. Deve ser sobrescrito nas subclasses.'''
+        raise MetodoAbstrato('encontrar')
+
 
 class MetodoAbstrato(Exception):
     def __init__(self, nome_do_metodo: str):
