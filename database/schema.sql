@@ -9,11 +9,20 @@ CREATE TABLE planilhas (
 CREATE TABLE lancamentos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_planilha INTEGER NOT NULL,
-    id_participante TEXT NOT NULL /*trocar por um id de verdade*/,
+    id_participante INTEGER NOT NULL,
     data DATE NOT NULL,
     descricao TEXT NOT NULL,
     valor REAL NOT NULL,
 
-    FOREIGN KEY (id_planilha) REFERENCES planilhas
+    FOREIGN KEY (id_planilha) REFERENCES planilhas,
+    FOREIGN KEY (id_participante) REFERENCES participantes
 );
 
+CREATE TABLE participantes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_planilha INTEGER NOT NULL,
+    nome TEXT NOT NULL,
+    contato TEXT NOT NULL,
+
+    FOREIGN KEY (id_planilha) REFERENCES planilhas
+);

@@ -38,9 +38,17 @@ def planilhas():
     planilhas = Planilha.consultar('SELECT * FROM planilhas')  # TODO: Filtrar pelo usuário logado
     return render_template('planilhas.html', planilhas=planilhas)
 
+########################################################################
+
+@app.route('/planilhas/<int:id_planilha>/participantes')
+def participantes(id_planilha):
+    # TODO: Terminar o cadastro de participantes
+    pass
+
+
 ###############################################################
 
-@app.route('/planilhas/excluir/<int:id_planilha>', methods=['POST'])
+@app.route('/planilhas/excluir/<int:id_planilha>', methods=['POST'])  # TODO: trocar rota para /planilhas/<int:id_planilha>/excluir
 def excluir_planilha(id_planilha):
     p = Planilha.encontrar(id_planilha)
     p.excluir()
@@ -245,6 +253,7 @@ def logout():
     session.pop('nome_usuario', None)
     session.pop('eh_admin', None)
     return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

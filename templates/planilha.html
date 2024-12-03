@@ -10,6 +10,19 @@
             Início: <div>{{planilha.data_ini}}</div>
             Fim: <div>{{planilha.data_fim}}</div>
         </div>
+
+        <div>
+            Particpantes:
+            <form method="POST" action="{{ url_for() }}">
+                Cadastrar Participante: <br>
+                Nome: <input type="text" name="nome_participante"> Contato: <input type="text" name="contato_participante">
+                <input type="submit" value="Cadastrar">
+            </form>
+            <ul>
+    
+            </ul>
+        </div>
+
         Lançamentos:
         <ul>
         {% for l in planilha.lancamentos %}
@@ -18,6 +31,6 @@
             {{l.data}} |
             {{l.valor}}</li>
         {% endfor %}
-    </ul>
+        </ul>
     </div>
 {% endblock %}
