@@ -50,10 +50,24 @@ class Planilha(Base):
         p.id = id
         return p
 
-    @staticmethod
-    def excluir(id_planilha: int):
-        '''Exclui uma planilha do banco com base no ID.'''
-        conn = Base._obter_conexao()
-        conn.execute('DELETE FROM planilhas WHERE id = ?', (id_planilha,))
-        conn.commit()
-        conn.close()
+    @classmethod
+    def encontrar(cls, id: int) -> 'Planilha | None':
+        '''Encontra uma planilha no banco.
+        
+        Lança Exception caso haja mais de uma Planilha com o mesmo `id`.
+
+        Parâmetros:
+            - id: O id da planilha.
+
+        Retorna:
+            O objeto Planilha ou None, caso não encontre.
+        
+        TODO: Ver uma forma de não repetir esse código em todos os modelos.
+        '''
+        planilhas = cls.consultar(f'SELECT * FROM planilhas WHERE id = ?', (id,))
+        if len(planilhas) == 1:
+            return planilhas[0]
+        if len(planilhas) == 0:
+            return None
+        # Erro
+        raise Exception(f'Há mais de uma planilha com id={id}.')
