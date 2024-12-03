@@ -4,7 +4,7 @@ from models.base import Base
 class Lancamento(Base):
     '''Um lançamento de uma planilha.
 
-    Subclasse de models.base.Modelo.
+    Subclasse de models.base.Base.
 
     Atributos:
             - id_planilha: o ID da planilha correspondente. TODO: Receber objeto Planilha no lugar do id.
