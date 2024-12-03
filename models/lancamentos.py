@@ -49,10 +49,24 @@ class Lancamento(Base):
         l.id = id
         return l
 
-    @staticmethod
-    def excluir(id_lancamento: int):
-        '''Exclui um lançamento do banco com base no ID.'''
-        conn = Base._obter_conexao()
-        conn.execute('DELETE FROM lancamentos WHERE id = ?', (id_lancamento,))
-        conn.commit()
-        conn.close()
+    @classmethod
+    def encontrar(cls, id: int) -> 'Lancamento | None':
+        '''Encontra um lançamento no banco.
+        
+        Lança Exception caso haja mais de um Lancamento com o mesmo `id`.
+
+        Parâmetros:
+            - id: O id do lançamento.
+
+        Retorna:
+            O objeto Lancamento ou None, caso não encontre.
+        
+        TODO: Ver uma forma de não repetir esse código em todos os modelos.
+        '''
+        lancamentos = cls.consultar(f'SELECT * FROM lancamentos WHERE id = ?', (id,))
+        if len(lancamentos) == 1:
+            return lancamentos[0]
+        if len(lancamentos) == 0:
+            return None
+        # Erro
+        raise Exception(f'Há mais de um lançamento com id={id}.')
