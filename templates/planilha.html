@@ -22,7 +22,7 @@
             </form>
             <ul>
                 {% for p in planilha.participantes %}
-                <li>{{ p.nome }} | Contato: {{ p.contato }}</li>
+                <li>{{ p.id }} | {{ p.nome }} | Contato: {{ p.contato }}</li>
                 {% endfor %}
             </ul>
         </div>
