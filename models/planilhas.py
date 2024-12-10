@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from models.base import Base
 
 from models.lancamentos import Lancamento
@@ -88,3 +90,14 @@ class Planilha(Base):
             return None
         # Erro
         raise Exception(f'Há mais de uma planilha com id={id}.')
+
+    def dados_grafico(self) -> dict:
+        '''Retorna os dados necessários para desenhar o gráfico da planilha.'''
+        dados = { p.id: {} for p in self.participantes }
+        for l in self.lancamentos:
+            data = datetime.strptime(l.data, "%Y-%m-%d")
+            mes_ano = (data.month, data.year)
+            if mes_ano not in dados[l.participante]:
+                dados[l.participante][mes_ano] = 0
+            dados[l.participante][mes_ano] += l.valor
+        return dados
