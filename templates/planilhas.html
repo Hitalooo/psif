@@ -13,11 +13,11 @@
 
 {% for p in planilhas %}
     <div>
-        {{p.id}}
+        <a href="{{ url_for('planilha', id=p.id) }}">{{p.id}}
         {{p.descricao}}
         {{p.objetivo}}
         {{p.data_ini}}
-        {{p.data_fim}}
+        {{p.data_fim}}</a>
         <form action="{{ url_for('excluir_planilha', id_planilha=p.id) }}" method="post">
             <button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir esta Planilha?')">Excluir</button>
         </form>

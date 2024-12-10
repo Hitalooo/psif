@@ -28,13 +28,34 @@
         </div>
 
         <strong>Lançamentos:</strong>
-        <ul>
+
+        <div class="form-container-lancamento">
+            <form class="form-lancamento" action="{{ url_for('lancamentos', id_planilha=planilha.id) }}" method="post">
+                <div class="form-row">
+                    <!-- TODO: Implementar dropbox para selecionar o participante. -->
+                    <label>Participante: <input type="text" name="participante" required></label>
+                    <label>Descrição: <input type="text" name="descricao" required></label>
+                </div>
+                <div class="form-row">
+                    <label>Data: <input type="date" name="data" required></label>
+                    <label>Valor: <input type="number" name="valor" step="0.01" required></label>
+                </div>
+                <button type="submit" class="btn-adicionar">Adicionar</button>
+            </form>
+        </div>
+        
+        <div>
             {% for l in planilha.lancamentos %}
-            <li>{{ l.participante }} |
-                {{ l.descricao }} |
-                {{ l.data }} |
-                {{ l.valor }}</li>
+            <ul>
+                <li>{{ l.participante }} |
+                    {{ l.descricao }} |
+                    {{ l.data }} |
+                    {{ l.valor }}</li>
+                </ul>
+                <form action="{{ url_for('excluir_lancamento', id_planilha=planilha.id, id_lancamento=l.id) }}" method="post">
+                    <button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este lançamento?')">Excluir</button>
+                </form>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

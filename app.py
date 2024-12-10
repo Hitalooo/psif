@@ -63,26 +63,24 @@ def excluir_planilha(id_planilha):
 
 ###############################################################
 
-@app.route('/lancamentos', methods=['GET', 'POST'])
-def lancamentos():
+@app.route('/planilhas/<int:id_planilha>/lancamentos', methods=['GET', 'POST'])
+def lancamentos(id_planilha):
     if request.method == 'POST':
-        id_planilha = request.form.get('id_planilha')
         participante = request.form.get('participante')
         descricao = request.form.get('descricao')
         data = request.form.get('data')
         valor = request.form.get('valor')
         l = Lancamento(id_planilha, participante, descricao, data, valor)
         l.salvar()
-    lancamentos = Lancamento.consultar('SELECT * FROM lancamentos')  # TODO: Remover essa linha
-    return render_template('lancamentos.html', lancamentos=lancamentos)
+    return redirect(url_for('planilha', id=id_planilha))
 
 ###############################################################
 
-@app.route('/lancamentos/excluir/<int:id_lancamento>', methods=['POST'])
-def excluir_lancamento(id_lancamento):
+@app.route('/planilhas/<int:id_planilha>/lancamentos/<int:id_lancamento>/excluir', methods=['POST'])
+def excluir_lancamento(id_planilha, id_lancamento):
     l = Lancamento.encontrar(id_lancamento)
     l.excluir()
-    return redirect(url_for('lancamentos'))
+    return redirect(url_for('planilha', id=id_planilha))
 
 #################################################################
 
