@@ -2,6 +2,7 @@ from flask import Flask, session, request, render_template, url_for, redirect
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.lancamentos import Lancamento
+from models.participantes import Participante
 from models.planilhas import Planilha
 
 app = Flask(__name__)
@@ -40,10 +41,16 @@ def planilhas():
 
 ########################################################################
 
-@app.route('/planilhas/<int:id_planilha>/participantes')
+@app.route('/planilhas/<int:id_planilha>/participantes', methods=['GET', 'POST'])
 def participantes(id_planilha):
-    # TODO: Terminar o cadastro de participantes
-    pass
+    if request.method == 'POST':
+        # TODO: tratar dados ausentes
+        nome = request.form.get('nome_participante')
+        contato = request.form.get('contato_participante')
+        p = Participante(id_planilha=id_planilha, contato=contato, nome=nome)
+        p.salvar()
+
+    return redirect(url_for('planilha', id=id_planilha))
 
 
 ###############################################################

@@ -13,16 +13,15 @@
 
         <div>
             <strong>Participantes:</strong>
-            <form method="POST" action="{{ url_for('planilha', id=planilha.id) }}">
+            <form method="POST" action="{{ url_for('participantes', id_planilha=planilha.id) }}">
                 <label>Cadastrar Participante:</label><br>
                 Nome: <input type="text" name="nome_participante" required>
-                Email: <input type="text" name="email_participante" required>
                 Contato: <input type="text" name="contato_participante" required>
                 
                 <input type="submit" value="Cadastrar">
             </form>
             <ul>
-                {% for p in participantes %}
+                {% for p in planilha.participantes %}
                 <li>{{ p.nome }} | Contato: {{ p.contato }}</li>
                 {% endfor %}
             </ul>

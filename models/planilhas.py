@@ -1,6 +1,7 @@
 from models.base import Base
 
 from models.lancamentos import Lancamento
+from models.participantes import Participante
 
 class Planilha(Base):
     '''Uma planilha.
@@ -13,17 +14,20 @@ class Planilha(Base):
         - data_ini: Data de início do investimento.
         - data_fim: Data de fim do investimento.
         - lancamentos: A lista de lançamentos ocorridos até o momento.
+        - participantes: A lista de participantes.
     '''
-    def __init__(self, descricao, objetivo, data_ini, data_fim, lancamentos=[]):
+    def __init__(self, descricao, objetivo, data_ini, data_fim, lancamentos=[], participantes=[]):
         super().__init__(tabela='planilhas')
         self.descricao = descricao
         self.objetivo = objetivo
         self.data_ini = data_ini
         self.data_fim = data_fim
         self.lancamentos = lancamentos
+        self.participantes = participantes
 
     @classmethod
-    def find(cls, id: int, carregar_lancamentos: bool = True) -> 'Planilha | None':
+    def find(cls, id: int, carregar_lancamentos: bool = True,
+                carregar_participantes: bool = True) -> 'Planilha | None':
         '''Retorna a Planilha com o `id` informado ou None, caso não encontre.'''
         res = cls.consultar('SELECT * FROM planilhas WHERE id = ?', (id))
         if len(res) == 0:
@@ -33,6 +37,8 @@ class Planilha(Base):
         p = res[0]
         if carregar_lancamentos:
             p.lancamentos = Lancamento.consultar('SELECT * FROM lancamentos WHERE id_planilha = ?', (p.id,))
+        if carregar_participantes:
+            p.participantes = Participante.consultar('SELECT * FROM participantes WHERE id_planilha = ?', (p.id,))
         return p
 
     def _atributos(self) -> dict:
