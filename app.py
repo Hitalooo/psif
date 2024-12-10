@@ -40,49 +40,10 @@ def planilhas():
 
 ########################################################################
 
-@app.route('/planilhas/<int:id_planilha>', methods=['GET', 'POST'])
-def planilha(id_planilha):
-    conn = obter_conexao()
-
-
-    planilha = conn.execute('SELECT * FROM planilhas WHERE id = ?', (id_planilha,)).fetchone()
-    if not planilha:
-        return render_template('erro404.html')
-
- 
-    if request.method == 'POST':
-        nome = request.form.get('nome_participante')
-        email = request.form.get('email_participante')
-        contato = request.form.get('contato_participante')
-
-        if nome and contato:
-            conn.execute(
-                'INSERT INTO participantes (id_planilha, nome, contato) VALUES (?, ?, ?)',
-                (id_planilha, nome, email, contato)
-            )
-            conn.commit()
-
-  
-    participantes = conn.execute(
-        'SELECT nome, contato FROM participantes WHERE id_planilha = ?',
-        (id_planilha,)
-    ).fetchall()
-
-    
-    lancamentos = conn.execute(
-        'SELECT * FROM lancamentos WHERE id_planilha = ?',
-        (id_planilha,)
-    ).fetchall()
-
-    conn.close()
-
-
-    return render_template(
-        'planilha.html',
-        planilha=planilha,
-        participantes=participantes,
-        lancamentos=lancamentos
-    )
+@app.route('/planilhas/<int:id_planilha>/participantes')
+def participantes(id_planilha):
+    # TODO: Terminar o cadastro de participantes
+    pass
 
 
 ###############################################################
@@ -295,4 +256,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 
