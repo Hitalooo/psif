@@ -42,8 +42,8 @@ class Lancamento(Base):
         id = registro[0]
         id_planilha = registro[1]
         participante = registro[2]
-        descricao = registro[3]
-        data = registro[4]
+        data = registro[3]
+        descricao = registro[4]
         valor = registro[5]
         l = cls(id_planilha, participante, descricao, data, valor)
         l.id = id
