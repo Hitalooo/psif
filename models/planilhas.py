@@ -4,6 +4,7 @@ from models.base import Base
 
 from models.lancamentos import Lancamento
 from models.participantes import Participante
+from util.datas import diferenca_meses
 
 class Planilha(Base):
     '''Uma planilha.
@@ -91,13 +92,34 @@ class Planilha(Base):
         # Erro
         raise Exception(f'Há mais de uma planilha com id={id}.')
 
-    def dados_grafico(self) -> dict:
+    def dados_grafico(self) -> list[list]:
         '''Retorna os dados necessários para desenhar o gráfico da planilha.'''
-        dados = { p.id: {} for p in self.participantes }
+        datetime_ini = datetime.strptime(self.data_ini, '%Y-%m-%d')
+        datetime_fim = datetime.strptime(self.data_fim, '%Y-%m-%d')
+        # O +1 é pra contar pelo menos 1 mês
+        diferenca = diferenca_meses(datetime_ini, datetime_fim) + 1
+
+        # Associa cada participante a uma linha na matriz
+        id_indice = {}
+        indice = 0
+        for p in self.participantes:
+            id_indice[p.id] = indice
+            indice += 1
+        
+        # Cria colunas zeradas para cada mês e cada participante
+        dados = []
+        for p in self.participantes:
+            colunas = [p]
+            for _ in range(diferenca):
+                colunas += [0]
+            dados += [colunas]
+        
+        # Soma os lançamentos ao mês correspondente
         for l in self.lancamentos:
-            data = datetime.strptime(l.data, "%Y-%m-%d")
-            mes_ano = (data.month, data.year)
-            if mes_ano not in dados[l.participante]:
-                dados[l.participante][mes_ano] = 0
-            dados[l.participante][mes_ano] += l.valor
+            data_lancamento = datetime.strptime(l.data, "%Y-%m-%d")
+            # Esse +1 compensa o participante
+            mes = diferenca_meses(datetime_ini, data_lancamento) + 1
+            linha = id_indice[l.participante]
+            dados[linha][mes] += l.valor
+
         return dados
