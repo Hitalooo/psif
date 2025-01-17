@@ -1,9 +1,14 @@
+from datetime import datetime
+
 from flask import Flask, session, request, render_template, url_for, redirect
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from models.lancamentos import Lancamento
 from models.participantes import Participante
 from models.planilhas import Planilha
+from util import datas
+
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta'
@@ -20,9 +25,23 @@ def index():
 @app.route('/planilhas/<id>', methods=['GET', 'POST'])
 def planilha(id):
     p = Planilha.find(id)
+
     if not p:
         return render_template('erro404.html')
-    return render_template('planilha.html', planilha=p)
+    
+    datetime_ini = datetime.strptime(p.data_ini, '%Y-%m-%d')
+    datetime_fim = datetime.strptime(p.data_fim, '%Y-%m-%d')
+    # O +1 é pra contar pelo menos 1 mês
+    diferenca = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
+    # Gera o nome dos meses
+    meses = []
+    for i in range(diferenca):
+        m = (i + datetime_ini.month) % 12
+        # TODO: Gambiarra. Resolver de outra forma depois.
+        if m == 0:
+            m = 12
+        meses += [datas.mes(m)]
+    return render_template('planilha.html', planilha=p, meses=meses)
 
 ########################################################################
 

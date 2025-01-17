@@ -12,6 +12,30 @@
         </div>
 
         <div>
+            <h2>Gráfico</h2>
+            <div>
+                <table>
+                    <th>Participante</th>
+                    {% for m in meses %}
+                    <th>{{ m }}</th>
+                    {% endfor %}
+                    {% for linha in planilha.dados_grafico() %}
+                    <tr>
+                        <td>
+                            {{ linha[0].nome }}
+                        </td>
+                        {% for dado in linha[1:] %}
+                        <td>
+                            {{ dado }}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div>
             <strong>Participantes:</strong>
             <form method="POST" action="{{ url_for('participantes', id_planilha=planilha.id) }}">
                 <label>Cadastrar Participante:</label><br>
