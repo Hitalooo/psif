@@ -35,6 +35,8 @@
             </div>
         </div>
 
+        <a href="{{ url_for('grafico', id_planilha=planilha.id) }}">Gráfico Ampliado -> </a>
+
         <div>
             <strong>Participantes:</strong>
             <form method="POST" action="{{ url_for('participantes', id_planilha=planilha.id) }}">
@@ -57,7 +59,14 @@
             <form class="form-lancamento" action="{{ url_for('lancamentos', id_planilha=planilha.id) }}" method="post">
                 <div class="form-row">
                     <!-- TODO: Implementar dropbox para selecionar o participante. -->
-                    <label>Participante: <input type="text" name="participante" required></label>
+                    <label>Participante: 
+                        <select name="participante">
+                        <option value="">Selecionar</option>
+                        {% for p in planilha.participantes %}
+                            <option value="{{ p.id }}">{{ p.nome }}</option>
+                        {% endfor %}
+                        </select>
+                    </label>
                     <label>Descrição: <input type="text" name="descricao" required></label>
                 </div>
                 <div class="form-row">
