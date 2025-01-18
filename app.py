@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Flask, session, request, render_template, url_for, redirect
+from flask import Flask, session, request, render_template, url_for, redirect, flash
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -89,6 +89,9 @@ def lancamentos(id_planilha):
         descricao = request.form.get('descricao')
         data = request.form.get('data')
         valor = request.form.get('valor')
+        if not participante:
+            flash('Por favor, selecione um participante.', 'error')
+            return redirect(url_for('planilha', id=id_planilha))
         l = Lancamento(id_planilha, participante, descricao, data, valor)
         l.salvar()
     return redirect(url_for('planilha', id=id_planilha))
@@ -100,6 +103,14 @@ def excluir_lancamento(id_planilha, id_lancamento):
     l = Lancamento.encontrar(id_lancamento)
     l.excluir()
     return redirect(url_for('planilha', id=id_planilha))
+
+#################################################################
+
+@app.route('/planilhas/<int:id_planilha>/grafico', methods=['GET'])
+def grafico(id_planilha):
+    p = Planilha.encontrar(id_planilha)
+
+    return render_template('grafico.html', planilha=p)
 
 #################################################################
 
