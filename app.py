@@ -239,9 +239,9 @@ def login():
         usuario = conn.execute('SELECT * FROM usuarios WHERE email = ?', (email,)).fetchone()
         conn.close()
 
-        if usuario and check_password_hash(usuario['senha_hash'], senha):
+        if usuario and check_password_hash(usuario['senha'], senha):
             session['email'] = email
-            return redirect(url_for('painel'))
+            return redirect(url_for('planilhas'))
         else:
             return "Credenciais inválidas", 401
 
@@ -252,7 +252,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('nome', None)
+    session.pop('email', None)
     return redirect(url_for('index'))
 
 
