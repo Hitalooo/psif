@@ -74,7 +74,7 @@ def participantes(id_planilha):
 
 ###############################################################
 
-@app.route('/planilhas/excluir/<int:id_planilha>', methods=['POST'])  # TODO: trocar rota para /planilhas/<int:id_planilha>/excluir
+@app.route('/planilhas/<int:id_planilha>/excluir', methods=['POST'])  # TODO: trocar rota para /planilhas/<int:id_planilha>/excluir
 def excluir_planilha(id_planilha):
     p = Planilha.encontrar(id_planilha)
     p.excluir()
@@ -108,9 +108,27 @@ def excluir_lancamento(id_planilha, id_lancamento):
 
 @app.route('/planilhas/<int:id_planilha>/grafico', methods=['GET'])
 def grafico(id_planilha):
-    p = Planilha.encontrar(id_planilha)
+    # TODO: Criar função para não repetir esse código da rota Planilhas.
 
-    return render_template('grafico.html', planilha=p)
+    p = Planilha.find(id_planilha)
+
+    if not p:
+        return render_template('erro404.html')
+    
+    datetime_ini = datetime.strptime(p.data_ini, '%Y-%m-%d')
+    datetime_fim = datetime.strptime(p.data_fim, '%Y-%m-%d')
+    # O +1 é pra contar pelo menos 1 mês
+    diferenca = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
+    # Gera o nome dos meses
+    meses = []
+    for i in range(diferenca):
+        m = (i + datetime_ini.month) % 12
+        # TODO: Gambiarra. Resolver de outra forma depois.
+        if m == 0:
+            m = 12
+        meses += [datas.mes(m)]
+
+    return render_template('grafico.html', planilha=p, meses=meses)
 
 #################################################################
 

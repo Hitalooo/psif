@@ -32,7 +32,7 @@ class Planilha(Base):
     def find(cls, id: int, carregar_lancamentos: bool = True,
                 carregar_participantes: bool = True) -> 'Planilha | None':
         '''Retorna a Planilha com o `id` informado ou None, caso não encontre.'''
-        res = cls.consultar('SELECT * FROM planilhas WHERE id = ?', (id))
+        res = cls.consultar('SELECT * FROM planilhas WHERE id = ?', (id,))
         if len(res) == 0:
             return None
         if len(res) > 1:
