@@ -203,13 +203,13 @@ def juros():
 @app.route('/cadastro', methods=['GET', 'POST'])
 def registrar():
     if request.method == 'POST':
-        nome_usuario = request.form['nome_usuario']
+        nome = request.form['nome']
+        email = request.form['email']
         senha = request.form['senha']
-        eh_admin = 'eh_admin' in request.form  # Define se o usuário será admin
 
         # Verificar se o usuário já existe no banco de dados
         conn = obter_conexao()
-        usuario_existente = conn.execute('SELECT * FROM Usuarios WHERE nome_usuario = ?', (nome_usuario,)).fetchone()
+        usuario_existente = conn.execute('SELECT * FROM usuarios WHERE email = ?', (email,)).fetchone()
 
         if usuario_existente:
             conn.close()
@@ -217,8 +217,8 @@ def registrar():
 
         # Inserir novo usuário no banco de dados
         senha_hash = generate_password_hash(senha)
-        conn.execute('INSERT INTO Usuarios (nome_usuario, senha_hash, eh_admin) VALUES (?, ?, ?)',
-                     (nome_usuario, senha_hash, eh_admin))
+        conn.execute('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)',
+                     (nome, email, senha_hash))
         conn.commit()
         conn.close()
 
@@ -231,17 +231,16 @@ def registrar():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        nome_usuario = request.form['nome_usuario']
+        email = request.form['email']
         senha = request.form['senha']
 
         # Conectar ao banco e buscar o usuário
         conn = obter_conexao()
-        usuario = conn.execute('SELECT * FROM Usuarios WHERE nome_usuario = ?', (nome_usuario,)).fetchone()
+        usuario = conn.execute('SELECT * FROM usuarios WHERE email = ?', (email,)).fetchone()
         conn.close()
 
         if usuario and check_password_hash(usuario['senha_hash'], senha):
-            session['nome_usuario'] = nome_usuario
-            session['eh_admin'] = usuario['eh_admin']
+            session['email'] = email
             return redirect(url_for('painel'))
         else:
             return "Credenciais inválidas", 401
@@ -250,61 +249,10 @@ def login():
 
 #################################################################################
 
-@app.route('/painel')
-def painel():
-    # Verificar se o usuário está logado
-    if 'nome_usuario' not in session:
-        return redirect(url_for('login'))
-
-    # Conectar ao banco para buscar a lista de usuários
-    conn = obter_conexao()
-    usuarios = conn.execute('SELECT * FROM Usuarios').fetchall()
-    conn.close()
-
-    # Renderizar o painel, passando se o usuário é admin ou não
-    return render_template('painel.html', usuarios=usuarios, eh_admin=session.get('eh_admin'))
-
-
-
-#################################################################################
-
-@app.route('/adicionar_usuario', methods=['GET', 'POST'])
-def adicionar_usuario():
-    if 'nome_usuario' not in session or not session.get('eh_admin'):
-        return redirect(url_for('login'))
-
-    if request.method == 'POST':
-        nome_usuario = request.form['nome_usuario']
-        senha = request.form['senha']
-        eh_admin = 'eh_admin' in request.form  # Define se o usuário é admin
-
-        # Verificar se o usuário já existe no banco de dados
-        conn = obter_conexao()
-        usuario_existente = conn.execute('SELECT * FROM Usuarios WHERE nome_usuario = ?', (nome_usuario,)).fetchone()
-
-        if usuario_existente:
-            conn.close()
-            return "Usuário já existe", 400
-
-        # Inserir novo usuário no banco de dados
-        senha_hash = generate_password_hash(senha)
-        conn.execute('INSERT INTO Usuarios (nome_usuario, senha_hash, eh_admin) VALUES (?, ?, ?)',
-                     (nome_usuario, senha_hash, eh_admin))
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for('painel'))
-
-    return render_template('adicionar_usuario.html')
-
-######## SENHA ADMIN:admin OUTROS USUARIOS: 123
-
-#################################################################################
 
 @app.route('/logout')
 def logout():
-    session.pop('nome_usuario', None)
-    session.pop('eh_admin', None)
+    session.pop('nome', None)
     return redirect(url_for('index'))
 
 
