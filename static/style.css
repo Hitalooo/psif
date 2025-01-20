@@ -338,6 +338,57 @@ input[type="password"] {
   justify-content: center;
 }
 
+/* MENU NO TOPO */
+.top-nav {
+  width: 100%;
+  background-color: #0d0f2e;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.top-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.top-nav ul li {
+  display: inline-block;
+}
+
+.top-nav ul li a {
+  text-decoration: none;
+  color: #ffcc50;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+
+.top-nav ul li a:hover {
+  color: white;
+  background-color: #4789cc;
+  border-radius: 5px;
+}
+
+/* CABEÇALHO PRINCIPAL */
+.main-header {
+  margin-top: 60px; /* Para compensar a altura do menu fixo */
+  text-align: center;
+  color: #ffcc50;
+}
+
+header h1 {
+  font-size: 100px;
+  margin: 20px 0;
+}
+
+
 /* Responsividade */
 @media screen and (max-width: 768px) {
   .form-row {

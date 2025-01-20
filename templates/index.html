@@ -12,9 +12,10 @@
         <h1>PSIF</h1>
         <p>Plataforma de Simulação de Investimentos para Formatura</p>
     </div>
+    {% if session.get('nome') %}
+        <a href="/juros"><button>Começar Simulação</button></a>
+    {% else %}
     <a href="/cadastro"><button>CADASTRO</button></a>
-    <a href="/juros"><button>JUROS</button></a>
-    <a href="/planilhas"><button>PLANILHA</button></a>
-    <a href="/evento"><button>EVENTO</button></a>
+    {% endif %}
 </body>
-</html> 
+</html>
