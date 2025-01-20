@@ -8,6 +8,7 @@ from models.lancamentos import Lancamento
 from models.participantes import Participante
 from models.planilhas import Planilha
 from util import datas
+from util.decorador import login_required
 
 
 app = Flask(__name__)
@@ -23,6 +24,7 @@ def index():
 ########################################################################
 
 @app.route('/planilhas/<id>', methods=['GET', 'POST'])
+@login_required
 def planilha(id):
     p = Planilha.find(id)
 
@@ -46,6 +48,7 @@ def planilha(id):
 ########################################################################
 
 @app.route('/planilhas', methods=['GET', 'POST'])
+@login_required
 def planilhas():
     if request.method == 'POST':
         objetivo = request.form.get('objetivo')
@@ -61,6 +64,7 @@ def planilhas():
 ########################################################################
 
 @app.route('/planilhas/<int:id_planilha>/participantes', methods=['GET', 'POST'])
+@login_required 
 def participantes(id_planilha):
     if request.method == 'POST':
         # TODO: tratar dados ausentes
@@ -74,7 +78,7 @@ def participantes(id_planilha):
 
 ###############################################################
 
-@app.route('/planilhas/<int:id_planilha>/excluir', methods=['POST'])  # TODO: trocar rota para /planilhas/<int:id_planilha>/excluir
+@app.route('/planilhas/<int:id_planilha>/excluir', methods=['POST'])
 def excluir_planilha(id_planilha):
     p = Planilha.encontrar(id_planilha)
     p.excluir()
@@ -83,6 +87,7 @@ def excluir_planilha(id_planilha):
 ###############################################################
 
 @app.route('/planilhas/<int:id_planilha>/lancamentos', methods=['GET', 'POST'])
+@login_required
 def lancamentos(id_planilha):
     if request.method == 'POST':
         participante = request.form.get('participante')
@@ -99,6 +104,7 @@ def lancamentos(id_planilha):
 ###############################################################
 
 @app.route('/planilhas/<int:id_planilha>/lancamentos/<int:id_lancamento>/excluir', methods=['POST'])
+@login_required
 def excluir_lancamento(id_planilha, id_lancamento):
     l = Lancamento.encontrar(id_lancamento)
     l.excluir()
@@ -107,6 +113,7 @@ def excluir_lancamento(id_planilha, id_lancamento):
 #################################################################
 
 @app.route('/planilhas/<int:id_planilha>/grafico', methods=['GET'])
+@login_required
 def grafico(id_planilha):
     # TODO: Criar função para não repetir esse código da rota Planilhas.
 
@@ -155,6 +162,7 @@ def evento_detalhe(nome_evento):
 ####################################################################
 
 @app.route('/juros', methods=['GET', 'POST'])
+@login_required
 def juros():
     if request.method == 'POST':
         try:
@@ -201,7 +209,7 @@ def juros():
 #################################################################################
 
 @app.route('/cadastro', methods=['GET', 'POST'])
-def registrar():
+def cadastro():
     if request.method == 'POST':
         nome = request.form['nome']
         email = request.form['email']
@@ -241,7 +249,8 @@ def login():
 
         if usuario and check_password_hash(usuario['senha'], senha):
             session['email'] = email
-            return redirect(url_for('planilhas'))
+            session['nome'] = usuario['nome']
+            return redirect(url_for('juros'))
         else:
             return "Credenciais inválidas", 401
 
@@ -251,10 +260,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
-    session.pop('email', None)
+    session.clear()
     return redirect(url_for('index'))
-
-
-if __name__ == '__main__':
-    app.run(debug=True) 
