@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block title %}Gráfico{% endblock %}
+{% block content %}
+<div>
+    <h2>Lista de Lançamentos</h2>
+    <div class="lancamentos">
+        {% for l in planilha.lancamentos %}
+        <ul>
+            <li>{{ l.participante }} |
+                {{ l.descricao }} |
+                {{ l.data }} |
+                {{ l.valor }}</li>
+            </ul>
+            <form action="{{ url_for('excluir_lancamento', id_planilha=planilha.id, id_lancamento=l.id) }}" method="post">
+                <button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este lançamento?')">Excluir</button>
+            </form>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}

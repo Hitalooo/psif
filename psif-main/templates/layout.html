@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título Padrão{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="top-nav">
+            <ul>
+                {% if session.get('nome') %}
+                <li>Bem-vindo, {{ session['nome'] }}!</li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('juros') }}">Juros</a></li>
+                    <li><a href="{{ url_for('evento') }}">Eventos</a></li>
+                    <li><a href="{{ url_for('planilhas') }}">Planilhas</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                <li><a href="/">Home</a></li>              
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="main-header">
+            <h1>PSIF</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        {% block content %}
+        <!-- Conteúdo principal será inserido aqui -->
+        {% endblock %}
+    </div>
+
+    <footer id="contato">
+        <p>2024 - PSIF</p>
+        <p>Contato: <a href="psif@example.com">psif@example.com</a></p>
+    </footer>
+</body>
+</html>

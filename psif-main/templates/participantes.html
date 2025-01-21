@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block title %}Gráfico{% endblock %}
+{% block content %}
+<div>
+    <h2>Lista de Participantes</h2>
+    
+    {% for p in planilha.participantes %}
+        <li>{{ p.id }} | {{ p.nome }} | Contato: {{ p.contato }}</li>
+    {% endfor %}
+
+<a href="{{ request.referrer }}">← Voltar para a planilha</a>
+</div>
+{% endblock %}

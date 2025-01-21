@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block title %}Planilha{% endblock %}
+{% block content %}
+        <div class="dados-planilha">
+            <div class="titulo-planilha">
+                <h2>{{ planilha.descricao }}</h2>
+            </div>
+            <div class="info-planilha">
+                <strong>Objetivo:</strong> <div>{{ planilha.objetivo }}</div> |
+                <strong>Início:</strong> <div>{{ planilha.data_ini }}</div> |
+                <strong>Fim:</strong> <div>{{ planilha.data_fim }}</div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('grafico', id_planilha=planilha.id) }}">Gráfico Ampliado -> </a>
+        
+        <div class="graf-part">
+
+            <div>
+                <strong>Participantes:</strong>
+                <form method="POST" action="{{ url_for('participantes', id_planilha=planilha.id) }}">
+                    <label>Cadastrar Participante:</label><br>
+                    Nome: <input type="text" name="nome_participante" required>
+                    Contato: <input type="text" name="contato_participante" required>
+                    
+                    <input type="submit" value="Cadastrar">
+                </form>
+                <a href="{{ url_for('lista_participantes', id_planilha=planilha.id) }}">Lista de Participantes -> </a>
+
+            </div>
+            <div class="lancamentos">
+                <strong>Lançamentos:</strong>
+
+                <div class="form-container-lancamento">
+                    <form class="form-lancamento" action="{{ url_for('lancamentos', id_planilha=planilha.id) }}" method="post">
+                        <div class="form-row">
+                            <label>Participante: 
+                                <select name="participante">
+                                <option value="">Selecionar</option>
+                                {% for p in planilha.participantes %}
+                                    <option value="{{ p.id }}">{{ p.nome }}</option>
+                                {% endfor %}
+                                </select>
+                            </label>
+                            <label>Descrição: <input type="text" name="descricao" required></label>
+                        </div>
+                        <div class="form-row">
+                            <label>Data: <input type="date" name="data" required></label>
+                            <label>Valor: <input type="number" name="valor" step="0.01" required></label>
+                        </div>
+                        <button type="submit" class="btn-adicionar">Adicionar</button>
+                    </form>
+                </div>
+                <a href="{{ url_for('lista_lancamentos', id_planilha=planilha.id) }}">Lista de Lançamentos -> </a>
+                
+            </div>
+        </div>
+{% endblock %}
