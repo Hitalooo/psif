@@ -139,6 +139,34 @@ def grafico(id_planilha):
 
 #################################################################
 
+@app.route('/planilhas/<int:id_planilha>/lista_participantes', methods=['GET'])
+@login_required
+def lista_participantes(id_planilha):
+    # TODO: Criar função para não repetir esse código da rota Planilhas.
+
+    p = Planilha.find(id_planilha)
+
+    if not p:
+        return render_template('erro404.html')
+    
+    return render_template('participantes.html', planilha=p)
+
+#################################################################
+
+@app.route('/planilhas/<int:id_planilha>/lista_lancamentos', methods=['GET'])
+@login_required
+def lista_lancamentos(id_planilha):
+    # TODO: Criar função para não repetir esse código da rota Planilhas.
+
+    p = Planilha.find(id_planilha)
+
+    if not p:
+        return render_template('erro404.html')
+    
+    return render_template('lancamentos.html', planilha=p)
+
+#################################################################
+
 @app.route('/evento')
 def evento():
     return render_template('escolha_evento.html')

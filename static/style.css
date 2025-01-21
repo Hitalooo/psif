@@ -399,3 +399,46 @@ header h1 {
       width: 100%; /* Cards ocupam toda a largura */
   }
 }
+
+.graf-part{
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 200px;
+}
+
+.dados-planilha{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 35px;
+  border: 1px solid wheat;
+  padding: 30px;
+}
+.info-planilha{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: black;
+}
+th, td {
+  border: 1px solid white;
+  text-align: left;
+  padding: 8px;
+  color: black;
+}
+th {
+  background-color: white; /* Cor do cabeçalho */
+  color: black;
+}
+tr:nth-child(even) {
+  background-color: white; /* Cor das linhas pares */
+  
+}
+tr:nth-child(odd) {
+  background-color: white; /* Cor das linhas ímpares */
+}

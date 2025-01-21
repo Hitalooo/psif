@@ -5,22 +5,28 @@
     <h2>Gráfico</h2>
     <div>
         <table>
-            <th>Participante</th>
-            {% for m in meses %}
-            <th>{{ m }}</th>
-            {% endfor %}
-            {% for linha in planilha.dados_grafico() %}
-            <tr>
-                <td>
-                    {{ linha[0].nome }}
-                </td>
-                {% for dado in linha[1:] %}
-                <td>
-                    {{ dado }}
-                </td>
+            <thead>
+                <tr>
+                    <th>Participante</th>
+                    {% for m in meses %}
+                    <th>{{ m }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for linha in planilha.dados_grafico() %}
+                <tr>
+                    <td>
+                        {{ linha[0].nome }}
+                    </td>
+                    {% for dado in linha[1:] %}
+                    <td>
+                        {{ dado }}
+                    </td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
-            {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>
