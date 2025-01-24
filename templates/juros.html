@@ -8,19 +8,19 @@
             <form method="post" class="form-container" id="calculationForm">
                 <div class="form-group">
                     <label class="informações" for="objetivo">Objetivo (R$):</label>
-                    <input type="text" id="objetivo" name="objetivo" class="form-control" required>
+                    <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
                 </div>
                 <div class="form-group">
                     <label class="informações" for="taxa">Taxa de Juros (% ao ano):</label>
-                    <input type="text" id="taxa" name="taxa" class="form-control" required>
+                    <input type="text" id="taxa" name="taxa" class="form-control" required value="{{ taxa_juros }}">
                 </div>
                 <div class="form-group">
                     <label class="informações" for="periodo">Período (meses):</label>
-                    <input type="text" id="periodo" name="periodo" class="form-control" required>
+                    <input type="text" id="periodo" name="periodo" class="form-control" required value="{{ periodo_meses }}">
                 </div>
                 <div class="form-group">
                     <label class="informações" for="pessoas">Número de Pessoas:</label>
-                    <input type="text" id="pessoas" name="pessoas" class="form-control" required>
+                    <input type="text" id="pessoas" name="pessoas" class="form-control" required value="{{ num_participantes }}">
                 </div>
                 <button type="submit" class="button" id="calculateButton">Calcular</button>
             </form>
