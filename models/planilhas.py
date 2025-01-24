@@ -64,6 +64,7 @@ class Planilha(Base):
         id = registro[0]
         descricao = registro[1]
         objetivo = registro[2]
+        # TODO: converter datas para datetime
         data_ini = registro[3]
         data_fim = registro[4]
         p = cls(descricao, objetivo, data_ini, data_fim)
