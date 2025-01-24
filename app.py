@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models.lancamentos import Lancamento
 from models.participantes import Participante
 from models.planilhas import Planilha
+from simulacoes import SimulacaoJurosCompostos
 from util import datas
 from util.decorador import login_required
 
@@ -197,19 +198,10 @@ def juros():
             objetivo = float(request.form['objetivo'])  # Valor total que se quer juntar
             taxa_juros = float(request.form['taxa']) / 100 / 12  # Convertendo para taxa mensal
             periodo_meses = int(request.form['periodo'])  # Período em meses
-            num_pessoas = int(request.form['pessoas'])  # Número de pessoas
+            num_participantes = int(request.form['pessoas'])  # Número de pessoas
             
-            # Cálculo da mensalidade total
-            mensalidade_total = objetivo / periodo_meses
-            
-            # Cálculo da mensalidade por pessoa
-            mensalidade_por_pessoa = mensalidade_total / num_pessoas
-            
-            # Cálculo do montante acumulado usando a fórmula M = C x (1 + i)^t
-            if taxa_juros > 0:
-                montante_acumulado = mensalidade_total * (((1 + taxa_juros) ** periodo_meses - 1) / taxa_juros)
-            else:
-                montante_acumulado = mensalidade_total * periodo_meses  # Sem juros, apenas somando
+            modelo = SimulacaoJurosCompostos(objetivo, taxa_juros, periodo_meses, num_participantes)
+            mensalidade_por_pessoa, mensalidade_total, montante_acumulado = modelo.simular()
 
             # Arredondar valores para exibição
             objetivo = round(objetivo, 2)
@@ -223,6 +215,7 @@ def juros():
                                    objetivo=objetivo, 
                                    taxa_juros=taxa_juros, 
                                    periodo_meses=periodo_meses,
+                                   num_participantes=num_participantes,
                                    mensalidade_por_pessoa=mensalidade_por_pessoa,
                                    mensalidade_total=mensalidade_total,
                                    montante_acumulado=montante_acumulado
