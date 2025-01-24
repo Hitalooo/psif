@@ -14,6 +14,7 @@
                 <li>Bem-vindo, {{ session['nome'] }}!</li>
                     <li><a href="/">Home</a></li>
                     <li><a href="{{ url_for('juros') }}">Juros</a></li>
+                    <li><a href="{{ url_for('simulacao_sem_rendimentos') }}">Simulação Sem Rendimentos</a></li>
                     <li><a href="{{ url_for('evento') }}">Eventos</a></li>
                     <li><a href="{{ url_for('planilhas') }}">Planilhas</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>

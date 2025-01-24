@@ -7,9 +7,26 @@ class Simulacao:
         raise Exception('Método abstrato.')
 
 
-class SimulacaoJurosSimples(Simulacao):
-    '''Modelo de simulação de rendimento com juros simples.'''
-    pass
+class SimulacaoSemRendimento(Simulacao):
+    '''Modelo de simulação sem rendimento.
+
+    Atributos
+        - `objetivo`: O valor que se quer dividir entre os participantes.
+        - `num_parcelas`: Quantidade de parcelas mensais pagas por cada participante.
+        - `num_participantes`: Quantidade de participantes do investimento.
+    '''
+
+    def __init__(self, objetivo: float, num_parcelas: int, num_participantes: int):
+        self.objetivo = objetivo
+        self.num_parcelas = num_parcelas
+        self.num_participantes = num_participantes
+
+    def simular(self) -> tuple[float, float, float]:
+        '''Calcula o investimento sem considerar rendimentos.'''
+        montante_acumulado = self.objetivo
+        mensalidade_total = self.objetivo / self.num_parcelas
+        mensalidade_por_participante = self.objetivo / self.num_parcelas / self.num_participantes
+        return mensalidade_por_participante, mensalidade_total, montante_acumulado 
 
 
 class SimulacaoJurosCompostos(Simulacao):

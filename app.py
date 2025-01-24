@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from models.lancamentos import Lancamento
 from models.participantes import Participante
 from models.planilhas import Planilha
-from simulacoes import SimulacaoJurosCompostos
+from simulacoes import SimulacaoJurosCompostos, SimulacaoSemRendimento
 from util import datas
 from util.decorador import login_required
 
@@ -224,6 +224,41 @@ def juros():
             return render_template('juros.html', error="Por favor, insira valores numéricos válidos.")
 
     return render_template('juros.html')
+
+####################################################################
+
+@app.route('/simulacao_sem_rendimentos', methods=['GET', 'POST'])
+@login_required
+def simulacao_sem_rendimentos():
+    if request.method == 'POST':
+        try:
+            objetivo = float(request.form['objetivo'])  # Valor total que se quer juntar
+            num_parcelas = int(request.form['num_parcelas'])  # Número de parcelas
+            num_participantes = int(request.form['num_participantes'])  # Número de participantes
+        except ValueError:
+            return render_template('simulacao_sem_rendimentos.html', error="Por favor, insira valores numéricos válidos.")
+
+        modelo = SimulacaoSemRendimento(objetivo, num_parcelas, num_participantes)
+        mensalidade_por_participante, mensalidade_total, montante_acumulado = modelo.simular()
+
+        # Arredondar valores para exibição
+        objetivo = round(objetivo, 2)
+        num_parcelas = round(num_parcelas, 2)
+        mensalidade_por_participante = round(mensalidade_por_participante, 2)
+        mensalidade_total = round(mensalidade_total, 2)
+        montante_acumulado = round(montante_acumulado, 2)
+
+        return render_template('simulacao_sem_rendimentos.html', 
+                                objetivo=objetivo, 
+                                num_parcelas=num_parcelas,
+                                num_participantes=num_participantes,
+                                mensalidade_por_participante=mensalidade_por_participante,
+                                mensalidade_total=mensalidade_total,
+                                montante_acumulado=montante_acumulado
+                                )
+
+    return render_template('simulacao_sem_rendimentos.html')
+
 
 
 
