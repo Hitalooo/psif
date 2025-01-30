@@ -19,17 +19,20 @@ class Base:
         conn.row_factory = sqlite3.Row
         return conn
 
-    def salvar(self):
-        '''Salva no banco.'''
+    def salvar(self) -> int:
+        '''Salva no banco e retorna o id gerado.'''
         conn = self._obter_conexao()
+        cursor = conn.cursor()
         atributos = self._atributos()
         interrogacoes = ('?, ' * len(atributos))[:-2]
         colunas = (', '.join(list(atributos.keys())))
         valores = list(atributos.values())
-        conn.execute(f'INSERT INTO {self._tabela} ({colunas}) VALUES ({interrogacoes})',
-                     valores)
+        cursor.execute(f'INSERT INTO {self._tabela} ({colunas}) VALUES ({interrogacoes})',
+                    valores)
         conn.commit()
+        self.id = cursor.lastrowid  # Obtém o id gerado
         conn.close()
+        return self.id  # Retorna o id gerado
     
     def excluir(self):
         '''Exclui o registro do banco.'''

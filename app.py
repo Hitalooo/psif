@@ -306,7 +306,7 @@ def login():
         if usuario and check_password_hash(usuario['senha'], senha):
             session['email'] = email
             session['nome'] = usuario['nome']
-            return redirect(url_for('juros'))
+            return redirect(url_for('juros_e_planilha'))
         else:
             return "Credenciais inválidas", 401
 
@@ -314,6 +314,59 @@ def login():
 
 #################################################################################
 
+##################### TESTE ####################################################
+
+@app.route('/juros_e_planilha', methods=['GET', 'POST'])
+@login_required
+def juros_e_planilha():
+    if request.method == 'POST':
+        try:
+            # Dados da simulação de juros
+            objetivo = float(request.form['objetivo'])
+            taxa_juros = float(request.form['taxa']) / 100 / 12
+            periodo_meses = int(request.form['periodo'])
+            num_participantes = int(request.form['pessoas'])
+            
+            # Simulação de juros
+            modelo = SimulacaoJurosCompostos(objetivo, taxa_juros, periodo_meses, num_participantes)
+            mensalidade_por_pessoa, mensalidade_total, montante_acumulado = modelo.simular()
+
+            # Arredondar valores para exibição
+            objetivo = round(objetivo, 2)
+            taxa_juros = round(taxa_juros * 100 * 12, 2)
+            periodo_meses = round(periodo_meses, 2)
+            mensalidade_por_pessoa = round(mensalidade_por_pessoa, 2)
+            mensalidade_total = round(mensalidade_total, 2)
+            montante_acumulado = round(montante_acumulado, 2)
+
+            # Dados da planilha
+            descricao = request.form.get('descricao')
+            data_ini = request.form.get('data_ini')
+            data_fim = request.form.get('data_fim')
+
+            # Criar a planilha se o botão for pressionado
+            if 'criar_planilha' in request.form:
+                planilha = Planilha(descricao=descricao, objetivo=objetivo, data_ini=data_ini, data_fim=data_fim)
+                planilha_id = planilha.salvar()  # Salva e obtém o id
+                flash('Planilha criada com sucesso!', 'success')
+                return redirect(url_for('planilha', id=planilha_id))  # Redireciona para a planilha criada
+
+            return render_template('juros_e_planilha.html', 
+                                   objetivo=objetivo, 
+                                   taxa_juros=taxa_juros, 
+                                   periodo_meses=periodo_meses,
+                                   num_participantes=num_participantes,
+                                   mensalidade_por_pessoa=mensalidade_por_pessoa,
+                                   mensalidade_total=mensalidade_total,
+                                   montante_acumulado=montante_acumulado,
+                                   descricao=descricao,
+                                   data_ini=data_ini,
+                                   data_fim=data_fim
+                                  )
+        except ValueError:
+            return render_template('juros_e_planilha.html', error="Por favor, insira valores numéricos válidos.")
+
+    return render_template('juros_e_planilha.html')
 
 @app.route('/logout')
 @login_required
