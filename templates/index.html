@@ -13,9 +13,10 @@
         <p>Plataforma de Simulação de Investimentos para Formatura</p>
     </div>
     {% if session.get('nome') %}
-        <a href="/juros"><button>Começar Simulação</button></a>
+        <a href="{{ url_for('juros_e_planilha' ) }}"><button>Começar Simulação</button></a>
     {% else %}
-    <a href="/cadastro"><button>CADASTRO</button></a>
+    <a href="{{ url_for('login' ) }}"><button>LOGIN</button></a>
+    <a href="{{ url_for('cadastro' ) }}"><button>CADASTRO</button></a>
     {% endif %}
 </body>
 </html>
