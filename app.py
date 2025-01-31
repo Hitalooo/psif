@@ -67,7 +67,7 @@ def planilhas():
         descricao = request.form.get('descricao')
         data_ini = request.form.get('data_ini')
         data_fim = request.form.get('data_fim')
-        p = Planilha(id_usuario,descricao, objetivo, data_ini, data_fim)
+        p = Planilha(id_usuario, descricao, objetivo, data_ini, data_fim)
         p.salvar()
         
     
@@ -202,11 +202,6 @@ def evento_detalhe(nome_evento):
 @app.route('/eventos', methods=['GET', 'POST'])
 @login_required
 def eventos():
-    usuario_id = session.get('usuario_id')
-    if not usuario_id:
-        flash('Você precisa estar logado para acessar esta página!', 'error')
-        return redirect(url_for('login'))
-
     conn = obter_conexao()
     if request.method == 'POST':
         nome = request.form['nome']
@@ -216,12 +211,12 @@ def eventos():
         local = request.form['local']
         
         conn.execute(
-            'INSERT INTO eventos (nome, contato, preco, data_horario, local, usuario_id) VALUES (?, ?, ?, ?, ?, ?)',
-            (nome, contato, preco, data_horario, local, usuario_id)
+            'INSERT INTO eventos (nome, contato, preco, data_horario, local, id_usuario) VALUES (?, ?, ?, ?, ?, ?)',
+            (nome, contato, preco, data_horario, local, current_user.id)
         )
         conn.commit()
     
-    eventos = conn.execute('SELECT * FROM eventos WHERE usuario_id = ?', (usuario_id,)).fetchall()
+    eventos = conn.execute('SELECT * FROM eventos WHERE id_usuario = ?', (current_user.id,)).fetchall()
     conn.close()
     return render_template('eventos.html', eventos=eventos)
 
@@ -229,7 +224,7 @@ def eventos():
 @login_required
 def editar_evento(id_evento):
     conn = obter_conexao()
-    evento = conn.execute('SELECT * FROM eventos WHERE id = ? AND usuario_id = ?', (id_evento, session['usuario_id'])).fetchone()
+    evento = conn.execute('SELECT * FROM eventos WHERE id = ? AND id_usuario = ?', (id_evento, current_user.id)).fetchone()
     
     if request.method == 'POST':
         nome = request.form['nome']
@@ -238,8 +233,8 @@ def editar_evento(id_evento):
         data_horario = request.form['data_horario']
         local = request.form['local']
         
-        conn.execute('UPDATE eventos SET nome = ?, contato = ?, preco = ?, data_horario = ?, local = ? WHERE id = ? AND usuario_id = ?',
-                     (nome, contato, preco, data_horario, local, id_evento, session['usuario_id']))
+        conn.execute('UPDATE eventos SET nome = ?, contato = ?, preco = ?, data_horario = ?, local = ? WHERE id = ? AND id_usuario = ?',
+                     (nome, contato, preco, data_horario, local, id_evento, current_user.id))
         conn.commit()
         conn.close()
         return redirect(url_for('eventos'))
@@ -251,7 +246,7 @@ def editar_evento(id_evento):
 @login_required
 def excluir_evento(id_evento):
     conn = obter_conexao()
-    conn.execute('DELETE FROM eventos WHERE id = ? AND usuario_id = ?', (id_evento, session['usuario_id']))
+    conn.execute('DELETE FROM eventos WHERE id = ? AND id_usuario = ?', (id_evento, current_user.id))
     conn.commit()
     conn.close()
     return redirect(url_for('eventos'))

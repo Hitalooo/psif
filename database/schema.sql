@@ -45,6 +45,6 @@ CREATE TABLE eventos (
     preco REAL NOT NULL,
     data_horario TEXT NOT NULL,
     local TEXT NOT NULL,
-    usuario_id INTEGER NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+    id_usuario INTEGER NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios (id) ON DELETE CASCADE
  )
