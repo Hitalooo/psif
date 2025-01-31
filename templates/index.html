@@ -12,8 +12,8 @@
         <h1>PSIF</h1>
         <p>Plataforma de Simulação de Investimentos para Formatura</p>
     </div>
-    {% if session.get('nome') %}
-        <a href="{{ url_for('juros_e_planilha' ) }}"><button>Começar Simulação</button></a>
+    {% if current_user.is_authenticated %}
+        <a href="/juros"><button>Começar Simulação</button></a>
     {% else %}
     <a href="{{ url_for('login' ) }}"><button>LOGIN</button></a>
     <a href="{{ url_for('cadastro' ) }}"><button>CADASTRO</button></a>

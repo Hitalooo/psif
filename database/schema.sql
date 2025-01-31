@@ -1,9 +1,12 @@
 CREATE TABLE planilhas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
     descricao TEXT NOT NULL,
     objetivo REAL NOT NULL,
     data_ini DATE NOT NULL,
-    data_fim DATE NOT NULL
+    data_fim DATE NOT NULL,
+
+    FOREIGN KEY (id_usuario) REFERENCES usuarios
 );
 
 CREATE TABLE lancamentos (
@@ -32,7 +35,7 @@ CREATE TABLE usuarios (
     nome TEXT NOT NULL,
     email TEXT NOT NULL,
     senha TEXT NOT NULL
-)
+);
 
 
 CREATE TABLE eventos (

@@ -19,8 +19,9 @@ class Planilha(Base):
         - lancamentos: A lista de lançamentos ocorridos até o momento.
         - participantes: A lista de participantes.
     '''
-    def __init__(self, descricao, objetivo, data_ini, data_fim, lancamentos=[], participantes=[]):
+    def __init__(self, id_usuario, descricao, objetivo, data_ini, data_fim, lancamentos=[], participantes=[]):
         super().__init__(tabela='planilhas')
+        self.id_usuario = id_usuario
         self.descricao = descricao
         self.objetivo = objetivo
         self.data_ini = data_ini
@@ -49,6 +50,7 @@ class Planilha(Base):
         É usado na classe models.base.Modelo para salvar as entidades no banco.
         '''
         p = {
+            'id_usuario': self.id_usuario,
             'descricao': self.descricao,
             'objetivo': self.objetivo,
             'data_ini': self.data_ini,
@@ -62,12 +64,13 @@ class Planilha(Base):
         É usado na classe models.base.Modelo para carregar as entidades nas consultas.
         '''
         id = registro[0]
-        descricao = registro[1]
-        objetivo = registro[2]
+        id_usuario = registro[1]  # TODO: Carregar objeto pra não ficar trabalhando com id
+        descricao = registro[2]
+        objetivo = registro[3]
         # TODO: converter datas para datetime
-        data_ini = registro[3]
-        data_fim = registro[4]
-        p = cls(descricao, objetivo, data_ini, data_fim)
+        data_ini = registro[4]
+        data_fim = registro[5]
+        p = cls(id_usuario, descricao, objetivo, data_ini, data_fim)
         p.id = id
         return p
 

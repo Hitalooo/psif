@@ -13,7 +13,7 @@
         </div>
         <nav class="top-nav">
             <ul>
-                {% if session.get('nome') %}
+                {% if current_user.is_authenticated %}
                 <li>Bem-vindo, {{ session['nome'] }}!</li>
                     <li><a href="/">Home</a></li>
                     <li><a href="{{ url_for('juros_e_planilha') }}">Simulação</a></li>

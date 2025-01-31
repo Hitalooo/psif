@@ -3,20 +3,25 @@ from datetime import datetime
 from flask import Flask, session, request, render_template, url_for, redirect, flash
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+from models.usuario import User
 from models.lancamentos import Lancamento
 from models.participantes import Participante
 from models.planilhas import Planilha
 from simulacoes import SimulacaoJurosCompostos, SimulacaoSemRendimento
 from util import datas
-from util.decorador import login_required
-
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta'
 
 #  Chave para criptografia de cookies na sessão
 app.config['SECRET_KEY'] = 'superdificil'
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 @app.route('/')
 def index():
@@ -31,20 +36,25 @@ def planilha(id):
 
     if not p:
         return render_template('erro404.html')
+
+    if p.id_usuario == current_user.id:
+
+        datetime_ini = datetime.strptime(p.data_ini, '%Y-%m-%d')
+        datetime_fim = datetime.strptime(p.data_fim, '%Y-%m-%d')
+        # O +1 é pra contar pelo menos 1 mês
+        diferenca = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
+        # Gera o nome dos meses
+        meses = []
+        for i in range(diferenca):
+            m = (i + datetime_ini.month) % 12
+            # TODO: Gambiarra. Resolver de outra forma depois.
+            if m == 0:
+                m = 12
+            meses += [datas.mes(m)]
+        return render_template('planilha.html', planilha=p, meses=meses)
     
-    datetime_ini = datetime.strptime(p.data_ini, '%Y-%m-%d')
-    datetime_fim = datetime.strptime(p.data_fim, '%Y-%m-%d')
-    # O +1 é pra contar pelo menos 1 mês
-    diferenca = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
-    # Gera o nome dos meses
-    meses = []
-    for i in range(diferenca):
-        m = (i + datetime_ini.month) % 12
-        # TODO: Gambiarra. Resolver de outra forma depois.
-        if m == 0:
-            m = 12
-        meses += [datas.mes(m)]
-    return render_template('planilha.html', planilha=p, meses=meses)
+    else:
+        return render_template('erro404.html')
 
 ########################################################################
 
@@ -52,14 +62,16 @@ def planilha(id):
 @login_required
 def planilhas():
     if request.method == 'POST':
+        id_usuario = current_user.id
         objetivo = request.form.get('objetivo')
         descricao = request.form.get('descricao')
         data_ini = request.form.get('data_ini')
         data_fim = request.form.get('data_fim')
-        p = Planilha(descricao, objetivo, data_ini, data_fim)
+        p = Planilha(id_usuario,descricao, objetivo, data_ini, data_fim)
         p.salvar()
+        
     
-    planilhas = Planilha.consultar('SELECT * FROM planilhas')  # TODO: Filtrar pelo usuário logado
+    planilhas = Planilha.consultar('SELECT * FROM planilhas WHERE id_usuario=?', (current_user.id,))  # TODO: Filtrar pelo usuário logado
     return render_template('planilhas.html', planilhas=planilhas)
 
 ########################################################################
@@ -358,15 +370,10 @@ def login():
         email = request.form['email']
         senha = request.form['senha']
 
-        # Conectar ao banco e buscar o usuário
-        conn = obter_conexao()
-        usuario = conn.execute('SELECT * FROM usuarios WHERE email = ?', (email,)).fetchone()
-        conn.close()
-
-        if usuario and check_password_hash(usuario['senha'], senha):
-            session['email'] = email
-            session['nome'] = usuario['nome']
-            return redirect(url_for('juros_e_planilha'))
+        usuario = User.encontrar(email)
+        if usuario and check_password_hash(usuario.senha, senha):
+            login_user(usuario)
+            return redirect(url_for('juros'))
         else:
             return "Credenciais inválidas", 401
 
@@ -406,7 +413,7 @@ def juros_e_planilha():
 
             # Criar a planilha se o botão for pressionado
             if 'criar_planilha' in request.form:
-                planilha = Planilha(descricao=descricao, objetivo=objetivo, data_ini=data_ini, data_fim=data_fim)
+                planilha = Planilha(id_usuario=current_user.id, descricao=descricao, objetivo=objetivo, data_ini=data_ini, data_fim=data_fim)
                 planilha_id = planilha.salvar()  # Salva e obtém o id
                 flash('Planilha criada com sucesso!', 'success')
                 return redirect(url_for('planilha', id=planilha_id))  # Redireciona para a planilha criada
@@ -429,7 +436,7 @@ def juros_e_planilha():
     return render_template('juros_e_planilha.html')
 
 @app.route('/logout')
-@login_required
+@login_required  # TODO: Não precisa estar logado para deslogar
 def logout():
-    session.clear()
+    logout_user()
     return redirect(url_for('index'))
