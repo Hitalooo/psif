@@ -383,10 +383,19 @@ def login():
 def juros_e_planilha():
     if request.method == 'POST':
         try:
+            # Dados da planilha
+            descricao = request.form.get('descricao')
+            data_ini = request.form.get('data_ini')
+            data_fim = request.form.get('data_fim')
+
+            datetime_ini = datetime.strptime(data_ini, '%Y-%m-%d')
+            datetime_fim = datetime.strptime(data_fim, '%Y-%m-%d')
+
             # Dados da simulação de juros
             objetivo = float(request.form['objetivo'])
             taxa_juros = float(request.form['taxa']) / 100 / 12
-            periodo_meses = int(request.form['periodo'])
+            # O +1 é pra contar pelo menos 1 mês
+            periodo_meses = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
             num_participantes = int(request.form['pessoas'])
             
             # Simulação de juros
@@ -396,15 +405,9 @@ def juros_e_planilha():
             # Arredondar valores para exibição
             objetivo = round(objetivo, 2)
             taxa_juros = round(taxa_juros * 100 * 12, 2)
-            periodo_meses = round(periodo_meses, 2)
             mensalidade_por_pessoa = round(mensalidade_por_pessoa, 2)
             mensalidade_total = round(mensalidade_total, 2)
             montante_acumulado = round(montante_acumulado, 2)
-
-            # Dados da planilha
-            descricao = request.form.get('descricao')
-            data_ini = request.form.get('data_ini')
-            data_fim = request.form.get('data_fim')
 
             # Criar a planilha se o botão for pressionado
             if 'criar_planilha' in request.form:

@@ -96,13 +96,18 @@ class Planilha(Base):
         # Erro
         raise Exception(f'Há mais de uma planilha com id={id}.')
 
-    def dados_grafico(self) -> list[list]:
-        '''Retorna os dados necessários para desenhar o gráfico da planilha.'''
+    def periodo_meses(self) -> int:
+        '''Retorna o período da planilha em meses.'''
         datetime_ini = datetime.strptime(self.data_ini, '%Y-%m-%d')
         datetime_fim = datetime.strptime(self.data_fim, '%Y-%m-%d')
         # O +1 é pra contar pelo menos 1 mês
         diferenca = diferenca_meses(datetime_ini, datetime_fim) + 1
+        return diferenca
 
+    def dados_grafico(self) -> list[list]:
+        '''Retorna os dados necessários para desenhar o gráfico da planilha.'''
+        datetime_ini = datetime.strptime(self.data_ini, '%Y-%m-%d')
+        
         # Associa cada participante a uma linha na matriz
         id_indice = {}
         indice = 0
@@ -114,7 +119,7 @@ class Planilha(Base):
         dados = []
         for p in self.participantes:
             colunas = [p]
-            for _ in range(diferenca):
+            for _ in range(self.periodo_meses()):
                 colunas += [0]
             dados += [colunas]
         
