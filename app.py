@@ -170,7 +170,7 @@ def lista_lancamentos(id_planilha):
 
 @app.route('/evento')
 def evento():
-    return render_template('escolha_evento.html')
+    return render_template('eventos.html')
 
 @app.route('/submit', methods=['GET'])
 def submit():
@@ -186,6 +186,66 @@ def submit():
 @app.route('/evento/<nome_evento>')
 def evento_detalhe(nome_evento):
     return render_template('evento_detalhe.html', nome_evento=nome_evento)
+
+@app.route('/eventos', methods=['GET', 'POST'])
+@login_required
+def eventos():
+    usuario_id = session.get('usuario_id')
+    if not usuario_id:
+        flash('Você precisa estar logado para acessar esta página!', 'error')
+        return redirect(url_for('login'))
+
+    conn = obter_conexao()
+    if request.method == 'POST':
+        nome = request.form['nome']
+        contato = request.form['contato']
+        preco = request.form['preco']
+        data_horario = request.form['data_horario']
+        local = request.form['local']
+        
+        conn.execute(
+            'INSERT INTO eventos (nome, contato, preco, data_horario, local, usuario_id) VALUES (?, ?, ?, ?, ?, ?)',
+            (nome, contato, preco, data_horario, local, usuario_id)
+        )
+        conn.commit()
+    
+    eventos = conn.execute('SELECT * FROM eventos WHERE usuario_id = ?', (usuario_id,)).fetchall()
+    conn.close()
+    return render_template('eventos.html', eventos=eventos)
+
+@app.route('/eventos/<int:id_evento>/editar', methods=['GET', 'POST'])
+@login_required
+def editar_evento(id_evento):
+    conn = obter_conexao()
+    evento = conn.execute('SELECT * FROM eventos WHERE id = ? AND usuario_id = ?', (id_evento, session['usuario_id'])).fetchone()
+    
+    if request.method == 'POST':
+        nome = request.form['nome']
+        contato = request.form['contato']
+        preco = request.form['preco']
+        data_horario = request.form['data_horario']
+        local = request.form['local']
+        
+        conn.execute('UPDATE eventos SET nome = ?, contato = ?, preco = ?, data_horario = ?, local = ? WHERE id = ? AND usuario_id = ?',
+                     (nome, contato, preco, data_horario, local, id_evento, session['usuario_id']))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('eventos'))
+    
+    conn.close()
+    return render_template('editar_evento.html', evento=evento)
+
+@app.route('/eventos/<int:id_evento>/excluir', methods=['POST'])
+@login_required
+def excluir_evento(id_evento):
+    conn = obter_conexao()
+    conn.execute('DELETE FROM eventos WHERE id = ? AND usuario_id = ?', (id_evento, session['usuario_id']))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('eventos'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 ####################################################################

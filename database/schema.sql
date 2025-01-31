@@ -33,3 +33,15 @@ CREATE TABLE usuarios (
     email TEXT NOT NULL,
     senha TEXT NOT NULL
 )
+
+
+CREATE TABLE eventos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    contato TEXT NOT NULL,
+    preco REAL NOT NULL,
+    data_horario TEXT NOT NULL,
+    local TEXT NOT NULL,
+    usuario_id INTEGER NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+ )
