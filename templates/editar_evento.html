@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Evento</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %} {{nome_evento}} {% endblock %}
+{% block content %}
     <h1>Editar Evento</h1>
 
     <form action="{{ url_for('editar_evento', id_evento=evento.id) }}" method="POST">
@@ -28,5 +23,4 @@
     </form>
 
     <a href="{{ url_for('eventos') }}">Cancelar</a>
-</body>
-</html>
+{% endblock %}

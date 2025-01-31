@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %} Eventos {% endblock %}
+{% block content %}
     <h1>Eventos</h1>
     
     <h2>Cadastrar Novo Evento</h2>
@@ -45,5 +39,4 @@
     </ul>
     
     <a href="{{ url_for('index') }}">Voltar</a>
-</body>
-</html>
+{% endblock %}

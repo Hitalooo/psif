@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from flask import Flask, session, request, render_template, url_for, redirect, flash
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash

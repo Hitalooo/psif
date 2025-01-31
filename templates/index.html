@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <title>Document</title>
+{% extends 'layout.html' %}
+{% block title %}Gráfico{% endblock %}
+{% block content %}
 
-</head>
-<body>
     <div class="cab">
         <h1>PSIF</h1>
         <p>Plataforma de Simulação de Investimentos para Formatura</p>
     </div>
-    {% if current_user.is_authenticated %}
-        <a href="/juros"><button>Começar Simulação</button></a>
-    {% else %}
+        {% if current_user.is_authenticated %}
+            <a href="/juros"><button>Começar Simulação</button></a>
+        {% else %}
     <a href="{{ url_for('login' ) }}"><button>LOGIN</button></a>
     <a href="{{ url_for('cadastro' ) }}"><button>CADASTRO</button></a>
-    {% endif %}
-</body>
-</html>
+        {% endif %}
+
+{% endblock %}
