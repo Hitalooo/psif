@@ -3,10 +3,19 @@
 {% block content %}
     <div class="login-container">
         <h2>Login</h2>
-        <form method="POST" action="{{ url_for('login') }}">
-            <input type="text" name="email" placeholder="Email" required>
-            <input type="password" name="senha" placeholder="Senha" required>
-            <button type="submit">Entrar</button>
+        <form method="POST" action="{{ url_for('login') }}" class="form-3">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="text" name="email" class="form-control"  placeholder="Email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" name="senha" class="form-control"  placeholder="Senha" required> 
+            </div>
+            
+            <button type="submit" class="btn btn-light" >Entrar</button>
+
         </form>
         <p>Não tem uma conta? <a href="{{ url_for('cadastro') }}">Cadastre-se aqui</a>.</p>
     </div>
