@@ -2,6 +2,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Poppins';
 }
 
 body {
@@ -9,11 +10,22 @@ body {
   height: 100vh;
 }
 
+.container-fluid {
+  background-color: #0d0f2e;
+}
+.container-fluid .navbar-brand{
+  color: white;
+}
+
+#navbarNav .nav-link{
+  color: white;
+}
+  
+
 .container-principal{
   width: 100%;
   height: 100%;
-  background-color: #0d0f2e;
-  color: white
+  background-color:white;
 }
 
 .login-container{
@@ -28,3 +40,79 @@ body {
 .form-3{
   width: 40%;
 }
+
+
+
+/* PÁGINA SIMULAÇÃO - simulaão de juros compostos e criação de planilha */
+
+.content .content-wrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items:center;
+}
+.content-wrapper{
+  gap: 8rem;
+}
+
+.content-wrapper .result-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #252642;
+  color: white;
+  height: 50vh;
+  width: 30vw;
+  gap: 3rem;
+  border-radius: 8px;
+  margin-top: 6rem;
+  box-shadow: 0px 4px 4px 0px gray;
+}
+
+.result-box .form-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-box .button{
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  height: 2rem;
+  width: 5rem;
+  gap: 3rem;
+  align-self: center;
+}
+
+.button:hover{
+  border: 2px solid white;
+  background-color: #0d0f2e;
+  color: white;
+}
+
+.content-wrapper .resultados{
+  display: flex;
+  justify-content:center;
+  align-items: last baseline;
+  flex-direction: column;
+  background-color:#cecfd5;
+  box-shadow: 0px 4px 4px 0px gray;
+  color: #0d0f2e;
+  text-align: justify;
+  width:60vh;
+  height: 50vh;
+  margin-top: 6rem;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+
+
+
+
+
+
