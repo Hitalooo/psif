@@ -10,9 +10,7 @@ body {
   height: 100vh;
 }
 
-.container-fluid {
-  background-color: #0d0f2e;
-}
+
 .container-fluid .navbar-brand{
   color: white;
 }
@@ -55,7 +53,7 @@ body {
   gap: 8rem;
 }
 
-.content-wrapper .result-box{
+.result-box{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,19 +61,22 @@ body {
   background-color: #252642;
   color: white;
   height: 50vh;
-  width: 30vw;
-  gap: 3rem;
+  width: 40vw;  
   border-radius: 8px;
   margin-top: 6rem;
   box-shadow: 0px 4px 4px 0px gray;
 }
-
-.result-box .form-container{
+.result-box .form-3{
+  width: 60%;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
   gap: 10px;
+}
+.form-gp{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }
 
 .result-box .button{
@@ -97,7 +98,6 @@ body {
 .content-wrapper .resultados{
   display: flex;
   justify-content:center;
-  align-items: last baseline;
   flex-direction: column;
   background-color:#cecfd5;
   box-shadow: 0px 4px 4px 0px gray;
