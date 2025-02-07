@@ -2,9 +2,9 @@
 {% block title %} Eventos {% endblock %}
 {% block content %}
 <div class="content">
-        <h3>Cadastrar Novo Evento</h3>
 
     <div class="content-event">
+        <h3>Cadastrar Novo Evento</h3>
         <form class="event-form" action="{{ url_for('eventos') }}" method="POST">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
@@ -25,22 +25,31 @@
         </form>
         
     </div>
-    
-    <h3>Meus Eventos</h3>
-    <ul>
-        {% for evento in eventos %}
-            <li>
-                <strong>{{ evento.nome }}</strong> - {{ evento.data_horario }} - {{ evento.local }} - R$ {{ evento.preco }}
-                <br>Contato: {{ evento.contato }}
-                <br>
-                <a href="{{ url_for('editar_evento', id_evento=evento.id) }}">Editar</a>
-                <form action="{{ url_for('excluir_evento', id_evento=evento.id) }}" method="POST" style="display:inline;">
-                    <button type="submit">Excluir</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <a class="Voltar" href="{{ url_for('index') }}">Voltar</a>
 
+    
+    <div class="my-event">
+        <h3>Meus Eventos</h3>
+        <ul>
+            {% for evento in eventos %}
+                <li>
+                    <strong>{{ evento.nome }}</strong> - {{ evento.data_horario }} - {{ evento.local }} - R$ {{ evento.preco }}
+                    <br>Contato: {{ evento.contato }}
+                    <br>
+                    <div class="but-2">
+                        <a class="but-editar" href="{{ url_for('editar_evento', id_evento=evento.id) }}">Editar</a>
+                        <form action="{{ url_for('excluir_evento', id_evento=evento.id) }}" method="POST" style="display:inline;">
+                            <button class="but-excluir" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+            <a class="voltar" href="{{ url_for('index') }}">Voltar</a>
+        </ul>    
+    </div>
+    
+    
+
+    
+    
 </div>
 {% endblock %}
