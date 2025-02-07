@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+{% block title %}Simulação de Juros e Planilha{% endblock %}
+{% block content %}
+<style>
+    .tabs {
+        margin: 20px 0;
+    }
+    .tab-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+    }
+    .tab-item {
+        cursor: pointer;
+        padding: 10px 20px;
+        background: #f1f1f1;
+        margin-right: 5px;
+        border-radius: 5px;
+    }
+    .tab-item.active {
+        background: #d1d1d1;
+        font-weight: bold;
+    }
+    .tab-content {
+        display: none;
+        margin-top: 20px;
+    }
+    .tab-content.active {
+        display: block;
+    }
+</style>
+
+<div class="content">
+    <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
+    <div class="content-wrapper">
+        <div class="tabs">
+            <h4>Escolha uma Simulação</h4>
+            <ul class="tab-list">
+                <li class="tab-item active" onclick="showTab('juros', event)">Simulação de Juros</li>
+                <li class="tab-item" onclick="showTab('sem_rendimento', event)">Simulação Sem Rendimentos</li>
+            </ul>
+        </div>
+
+        <div id="juros" class="tab-content active">
+            <div class="result-box">
+                <h4>Simulação de Juros Compostos</h4>
+
+                <form method="post" class="form-3" id="calculationForm">
+                    <div class="form-group">
+                        <label class="form-label" for="participantes">Número de Participantes:</label>
+                        <input type="text" id="participantes" name="participantes" class="form-control" required value="{{ num_participantes }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="descricao">Descrição da Planilha:</label>
+                        <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
+                    </div>
+                    <div class="form-gp">
+                        <div class="form-group">
+                            <label class="form-label" for="objetivo">Objetivo (R$):</label>
+                            <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="taxa">Taxa de Juros (% ao ano):</label>
+                            <input type="text" id="taxa" name="taxa" class="form-control" required value="{{ taxa_juros }}">
+                        </div>
+                    </div>
+                    <div class="form-gp">
+                        <div class="form-group">
+                            <label class="form-label" for="data_ini">Data de Início:</label>
+                            <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="data_fim">Data de Fim:</label>
+                            <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="button" id="calculateButton">Calcular</button>
+                </form>
+                
+            </div>
+
+            <div class="resultados">
+                {% if montante_acumulado is not none %}
+                <h5>Simulação de Rendimento</h5>
+                <p>Objetivo: R$ {{ objetivo }}</p>
+                <p>Taxa de Juros: {{ taxa_juros }}% ao ano</p>
+                <p>Período: {{ periodo_meses }} meses</p>
+                <p>Mensalidade Total: R$ {{ mensalidade_total }}</p>
+                <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_participante }}</p>
+                <p>Montante Acumulado após Rendimento: R$ {{ montante_acumulado }}</p>
+                <form method="post" action="{{ url_for('simulacao') }}">
+                    <input type="hidden" name="objetivo" value="{{ objetivo }}">
+                    <input type="hidden" name="taxa" value="{{ taxa_juros }}">
+                    <input type="hidden" name="periodo" value="{{ periodo_meses }}">
+                    <input type="hidden" name="participantes" value="{{ num_participantes }}">
+                    <input type="hidden" name="descricao" value="{{ descricao }}">
+                    <input type="hidden" name="data_ini" value="{{ data_ini }}">
+                    <input type="hidden" name="data_fim" value="{{ data_fim }}">
+                    <button type="submit" name="criar_planilha" class="button">Criar Planilha</button>
+                </form>
+                {% endif %}
+                <br>
+            </div>
+        </div>
+
+        <div id="sem_rendimento" class="tab-content">
+            <div class="result-box">
+                <h4>Simulação Sem Rendimentos</h4>
+
+                <form method="post" class="form-3" id="calculationFormSemRendimento">
+                    <div class="form-group">
+                        <label class="form-label" for="objetivo_sem_rendimento">Objetivo (R$):</label>
+                        <input type="text" id="objetivo_sem_rendimento" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="num_parcelas">Quantidade de Parcelas (meses):</label>
+                        <input type="text" id="num_parcelas" name="num_parcelas" class="form-control" required value="{{ num_parcelas }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="num_participantes">Quantidade de Participantes:</label>
+                        <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
+                    </div>
+                    <button type="submit" class="button" id="calculateButtonSemRendimento">Calcular</button>
+                </form>
+                
+            </div>
+
+            <div class="resultados">
+                {% if mensalidade_por_participante_sem_rendimento is not none %}
+                <h5>Resultados da Simulação Sem Rendimentos</h5>
+                <p>Objetivo: R$ {{ objetivo }}</p>
+                <p>Quantidade de Parcelas: {{ num_parcelas }}</p>
+                <p>Mensalidade Total: R$ {{ mensalidade_total_sem_rendimento }}</p>
+                <p>Mensalidade por Participante: R$ {{ mensalidade_por_participante_sem_rendimento }}</p>
+                <form method="post" action="{{ url_for('simulacao') }}">
+                    <input type="hidden" name="objetivo" value="{{ objetivo }}">
+                    <input type="hidden" name="num_parcelas" value="{{ num_parcelas }}">
+                    <input type="hidden" name="num_participantes" value="{{ num_participantes }}">
+                    <input type="hidden" name="descricao" value="{{ descricao }}">
+                    <button type="submit" name="criar_planilha" class="button">Criar Planilha</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showTab(tabName, event) {
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.getElementById(tabName).classList.add('active');
+
+    const tabItems = document.querySelectorAll('.tab-item');
+    tabItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
+</script>
+{% endblock %}

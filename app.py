@@ -124,9 +124,9 @@ def excluir_lancamento(id_planilha, id_lancamento):
 
 #################################################################
 
-@app.route('/planilhas/<int:id_planilha>/grafico', methods=['GET'])
+@app.route('/planilhas/<int:id_planilha>/tabela', methods=['GET'])
 @login_required
-def grafico(id_planilha):
+def tabela(id_planilha):
     # TODO: Criar função para não repetir esse código da rota Planilhas.
 
     p = Planilha.find(id_planilha)
@@ -147,7 +147,7 @@ def grafico(id_planilha):
             m = 12
         meses += [datas.mes(m)]
 
-    return render_template('grafico.html', planilha=p, meses=meses)
+    return render_template('tabela.html', planilha=p, meses=meses)
 
 #################################################################
 
@@ -250,46 +250,6 @@ def excluir_evento(id_evento):
     conn.close()
     return redirect(url_for('eventos'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-####################################################################
-
-@app.route('/juros', methods=['GET', 'POST'])
-@login_required
-def juros():
-    if request.method == 'POST':
-        try:
-            objetivo = float(request.form['objetivo'])  # Valor total que se quer juntar
-            taxa_juros = float(request.form['taxa']) / 100 / 12  # Convertendo para taxa mensal
-            periodo_meses = int(request.form['periodo'])  # Período em meses
-            num_participantes = int(request.form['pessoas'])  # Número de pessoas
-            
-            modelo = SimulacaoJurosCompostos(objetivo, taxa_juros, periodo_meses, num_participantes)
-            mensalidade_por_pessoa, mensalidade_total, montante_acumulado = modelo.simular()
-
-            # Arredondar valores para exibição
-            objetivo = round(objetivo, 2)
-            taxa_juros = round(taxa_juros * 100 * 12, 2)  # Convertendo de volta para percentual anual
-            periodo_meses = round(periodo_meses, 2)
-            mensalidade_por_pessoa = round(mensalidade_por_pessoa, 2)
-            mensalidade_total = round(mensalidade_total, 2)
-            montante_acumulado = round(montante_acumulado, 2)
-
-            return render_template('juros.html', 
-                                   objetivo=objetivo, 
-                                   taxa_juros=taxa_juros, 
-                                   periodo_meses=periodo_meses,
-                                   num_participantes=num_participantes,
-                                   mensalidade_por_pessoa=mensalidade_por_pessoa,
-                                   mensalidade_total=mensalidade_total,
-                                   montante_acumulado=montante_acumulado
-                                  )
-        except ValueError:
-            return render_template('juros.html', error="Por favor, insira valores numéricos válidos.")
-
-    return render_template('juros.html')
 
 ####################################################################
 
@@ -324,7 +284,6 @@ def simulacao_sem_rendimentos():
                                 )
 
     return render_template('simulacao_sem_rendimentos.html')
-
 
 
 
@@ -375,11 +334,10 @@ def login():
 
 #################################################################################
 
-##################### TESTE ####################################################
-
-@app.route('/juros_e_planilha', methods=['GET', 'POST'])
+@app.route('/simulacao', methods=['GET', 'POST'])
 @login_required
-def juros_e_planilha():
+def simulacao():
+    # TODO: Criar a lógica para criação da planilha sem rendimento  
     if request.method == 'POST':
         try:
             # Dados da planilha
@@ -390,47 +348,62 @@ def juros_e_planilha():
             datetime_ini = datetime.strptime(data_ini, '%Y-%m-%d')
             datetime_fim = datetime.strptime(data_fim, '%Y-%m-%d')
 
-            # Dados da simulação de juros
-            objetivo = float(request.form['objetivo'])
-            taxa_juros = float(request.form['taxa']) / 100 / 12
-            # O +1 é pra contar pelo menos 1 mês
-            periodo_meses = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
-            num_participantes = int(request.form['pessoas'])
+            # Verificação de qual simulação foi selecionada
+            if 'num_parcelas' in request.form:  # Simulação sem rendimento
+                objetivo = float(request.form['objetivo'])
+                num_parcelas = int(request.form['num_parcelas'])
+                num_participantes = int(request.form['num_participantes'])
+
+                # Simulação sem rendimento
+                modelo = SimulacaoSemRendimento(objetivo, num_parcelas, num_participantes)
+                mensalidade_por_participante, mensalidade_total, montante_acumulado = modelo.simular()
+
+            else:  # Simulação de juros
+                objetivo = float(request.form['objetivo'])
+                taxa_juros = float(request.form['taxa']) / 100 / 12
+                # O +1 é pra contar pelo menos 1 mês
+                periodo_meses = datas.diferenca_meses(datetime_ini, datetime_fim) + 1
+                num_participantes = int(request.form['participantes'])
+
+                # Simulação de juros
+                modelo = SimulacaoJurosCompostos(objetivo, taxa_juros, periodo_meses, num_participantes)
+                mensalidade_por_participante, mensalidade_total, montante_acumulado = modelo.simular()
             
-            # Simulação de juros
-            modelo = SimulacaoJurosCompostos(objetivo, taxa_juros, periodo_meses, num_participantes)
-            mensalidade_por_pessoa, mensalidade_total, montante_acumulado = modelo.simular()
+                # Criar a planilha se o botão for pressionado
+                if 'criar_planilha' in request.form:
+                    planilha = Planilha(
+                        id_usuario=current_user.id,
+                        descricao=descricao,
+                        objetivo=objetivo,
+                        data_ini=data_ini,
+                        data_fim=data_fim
+                    )
+                    planilha_id = planilha.salvar()  # Salva e obtém o id
+                    flash('Planilha criada com sucesso!', 'success')
+                    return redirect(url_for('planilha', id=planilha_id))  # Redireciona para a planilha criada
 
             # Arredondar valores para exibição
             objetivo = round(objetivo, 2)
-            taxa_juros = round(taxa_juros * 100 * 12, 2)
-            mensalidade_por_pessoa = round(mensalidade_por_pessoa, 2)
+            mensalidade_por_participante = round(mensalidade_por_participante, 2)
             mensalidade_total = round(mensalidade_total, 2)
             montante_acumulado = round(montante_acumulado, 2)
 
-            # Criar a planilha se o botão for pressionado
-            if 'criar_planilha' in request.form:
-                planilha = Planilha(id_usuario=current_user.id, descricao=descricao, objetivo=objetivo, data_ini=data_ini, data_fim=data_fim)
-                planilha_id = planilha.salvar()  # Salva e obtém o id
-                flash('Planilha criada com sucesso!', 'success')
-                return redirect(url_for('planilha', id=planilha_id))  # Redireciona para a planilha criada
-
-            return render_template('juros_e_planilha.html', 
-                                   objetivo=objetivo, 
-                                   taxa_juros=taxa_juros, 
-                                   periodo_meses=periodo_meses,
-                                   num_participantes=num_participantes,
-                                   mensalidade_por_pessoa=mensalidade_por_pessoa,
-                                   mensalidade_total=mensalidade_total,
-                                   montante_acumulado=montante_acumulado,
-                                   descricao=descricao,
-                                   data_ini=data_ini,
-                                   data_fim=data_fim
-                                  )
+            return render_template('simulacao.html', 
+                               objetivo=objetivo, 
+                               num_participantes=num_participantes,
+                               mensalidade_por_participante=mensalidade_por_participante,
+                               mensalidade_total=mensalidade_total,
+                               montante_acumulado=montante_acumulado,
+                               descricao=descricao,
+                               data_ini=data_ini,
+                               data_fim=data_fim,
+                               periodo_meses=periodo_meses,
+                               taxa_juros=taxa_juros
+                              )
         except ValueError:
-            return render_template('juros_e_planilha.html', error="Por favor, insira valores numéricos válidos.")
+            return render_template('simulacao.html', error="Por favor, insira valores numéricos válidos.")
 
-    return render_template('juros_e_planilha.html')
+    return render_template('simulacao.html')
 
 @app.route('/logout')
 @login_required  # TODO: Não precisa estar logado para deslogar
