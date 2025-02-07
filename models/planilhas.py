@@ -104,8 +104,8 @@ class Planilha(Base):
         diferenca = diferenca_meses(datetime_ini, datetime_fim) + 1
         return diferenca
 
-    def dados_grafico(self) -> list[list]:
-        '''Retorna os dados necessários para desenhar o gráfico da planilha.'''
+    def dados_tabela(self) -> list[list]:
+        '''Retorna os dados necessários para desenhar a tabela da planilha.'''
         datetime_ini = datetime.strptime(self.data_ini, '%Y-%m-%d')
         
         # Associa cada participante a uma linha na matriz
