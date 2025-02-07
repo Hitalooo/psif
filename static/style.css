@@ -2,6 +2,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Poppins';
 }
 
@@ -10,7 +11,9 @@ body {
   height: 100vh;
 }
 
-
+.container-fluid {
+  background-color: #0d0f2e;
+}
 .container-fluid .navbar-brand{
   color: white;
 }
@@ -53,7 +56,7 @@ body {
   gap: 8rem;
 }
 
-.result-box{
+.content-wrapper .result-box{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,22 +64,19 @@ body {
   background-color: #252642;
   color: white;
   height: 50vh;
-  width: 40vw;  
+  width: 30vw;
+  gap: 3rem;
   border-radius: 8px;
   margin-top: 6rem;
   box-shadow: 0px 4px 4px 0px gray;
 }
-.result-box .form-3{
-  width: 60%;
+
+.result-box .form-container{
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 10px;
-}
-.form-gp{
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
 }
 
 .result-box .button{
@@ -98,6 +98,7 @@ body {
 .content-wrapper .resultados{
   display: flex;
   justify-content:center;
+  align-items: last baseline;
   flex-direction: column;
   background-color:#cecfd5;
   box-shadow: 0px 4px 4px 0px gray;
@@ -109,6 +110,180 @@ body {
   border-radius: 8px;
   padding: 8px;
 }
+
+
+/*------------------ SIMULAÇÃO SEM RENDIMENTO  */
+
+
+
+/* -----------------PÁGINA EVENTOS - cadastrar novo evento */
+
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content h3{
+  margin: 1rem 0rem 1rem 0rem;
+}
+
+.content-event{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 63vh;
+  width: 32.5vw;
+  background-color: #cecfd5;
+  border-radius: 8px;
+
+}
+
+.event-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.event-form input{
+  border: none;
+  border-radius: 4px;
+  width: 15rem;
+  height: 2rem;
+}
+
+.event-form .but-event{
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  justify-items: center;
+  background-color:#0d0f2e;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  height: 2rem;
+  width: 10rem;
+  margin: 10px 0px 10px;
+}
+
+.event-form .but-event:hover{
+  background-color: aliceblue;
+  border: 2px solid #0d0f2e;
+  color: #0d0f2e;
+}
+
+.content .voltar{
+  width: 8rem;
+  height: 2rem;
+  background-color: white;
+  border: 2px solid #0d0f2e;
+}
+
+
+/* ------------------------------------PLANILHAS */
+.planilhas-conteiner{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0rem 0rem 0rem;
+}
+
+.planilhas-conteiner form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30vw;
+  height: 60vh;
+  background-color: #cecfd5;
+  gap: 1rem;
+  margin: 1rem 0rem 0rem 0rem;
+  border-radius: 8px;
+}
+
+form input{
+  border: none;
+  border-radius: 4px;
+  width: 13rem;
+  height: 1.5rem;
+}
+
+form .botao-planilha{
+  background-color: #252642;
+  color: white;
+  width: 10rem;
+}
+
+.botao-planilha:hover{
+  background-color: white;
+  border: 2px solid #0d0f2e;
+  color: #0d0f2e;
+
+}
+
+
+/* ------------------------JUROS E PLANILHA */
+
+.content-juros .box-juros{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  margin: 3rem 0rem 0rem 0rem;
+}
+
+.result h5{
+  margin: 0rem 0rem 2.5rem 0rem;
+}
+
+.box-juros .result{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #cecfd5;
+  width: 40vw;
+  height: 73vh;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.form-container .button{
+  background-color: #0d0f2e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 10rem;
+  margin: 1rem 0rem 0rem 0rem;
+  align-self: center;
+}
+
+.button:hover{
+  background-color: white;
+  border: 2px solid #0d0f2e;
+  color: #0d0f2e;
+}
+
+.box-juros .result-2{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  background-color: #cecfd5;
+  width: 40vw;
+  height: 73vh;
+  text-align: justify;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+
+
 
 
 

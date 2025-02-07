@@ -1,47 +1,40 @@
 {% extends 'layout.html' %}
 {% block title %}Simulação de Juros e Planilha{% endblock %}
 {% block content %}
-<div class="content">
-    <div class="content-wrapper">
-        <div class="result-box">
-            <h4>Simulação de Juros Compostos e Criação de Planilha</h4>
-
-            <form method="post" class="form-3" id="calculationForm">
+<div class="content-juros">
+    <div class="box-juros">
+        <div class="result">
+            <h5>Simulação de Juros Compostos e Criação de Planilha</h5>
+            <form method="post" class="form-container" id="calculationForm">
                 <div class="form-group">
-                    <label class="form-label" for="pessoas">Número de Pessoas:</label>
+                    <label class="informações" for="objetivo">Objetivo (R$):</label>
+                    <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                </div>
+                <div class="form-group">
+                    <label class="informações" for="taxa">Taxa de Juros (% ao ano):</label>
+                    <input type="text" id="taxa" name="taxa" class="form-control" required value="{{ taxa_juros }}">
+                </div>
+                <div class="form-group">
+                    <label class="informações" for="pessoas">Número de Pessoas:</label>
                     <input type="text" id="pessoas" name="pessoas" class="form-control" required value="{{ num_participantes }}">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="descricao">Descrição da Planilha:</label>
+                    <label class="informações" for="descricao">Descrição da Planilha:</label>
                     <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
                 </div>
-                <div class="form-gp">
-                    <div class="form-group">
-                        <label class="form-label" for="objetivo">Objetivo (R$):</label>
-                        <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label"for="taxa">Taxa de Juros (% ao ano):</label>
-                        <input type="text" id="taxa" name="taxa" class="form-control" required value="{{ taxa_juros }}">
-                    </div>
+                <div class="form-group">
+                    <label class="informações" for="data_ini">Data de Início:</label>
+                    <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
                 </div>
-                <div class="form-gp">
-                    <div class="form-group">
-                        <label class="form-label" for="data_ini">Data de Início:</label>
-                        <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="data_fim">Data de Fim:</label>
-                        <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
-                    </div>
+                <div class="form-group">
+                    <label class="informações" for="data_fim">Data de Fim:</label>
+                    <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
                 </div>
-                    
                 <button type="submit" class="button" id="calculateButton">Calcular</button>
             </form>
-            
         </div>
 
-        <div class="resultados">
+        <div class="result-2">
             {% if montante_acumulado is not none %}
             <h5>Simulação de Rendimento</h5>
             <p>Objetivo: R$ {{ objetivo }}</p>
@@ -50,7 +43,7 @@
             <p>Mensalidade Total: R$ {{ mensalidade_total }}</p>
             <p>Mensalidade por Pessoa: R$ {{ mensalidade_por_pessoa }}</p>
             <p>Montante Acumulado após Rendimento: R$ {{ montante_acumulado }}</p>
-            <form method="post" action="{{ url_for('juros_e_planilha') }}">
+            <form class="form-container" method="post" action="{{ url_for('juros_e_planilha') }}">
                 <input type="hidden" name="objetivo" value="{{ objetivo }}">
                 <input type="hidden" name="taxa" value="{{ taxa_juros }}">
                 <input type="hidden" name="periodo" value="{{ periodo_meses }}">
