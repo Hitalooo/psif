@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
-{% block title %}Gráfico{% endblock %}
+{% block title %}Tabela{% endblock %}
 {% block content %}
 <div>
-    <h2>Gráfico</h2>
+    <h2>Tabela</h2>
     <div>
         <table>
             <thead>
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for linha in planilha.dados_grafico() %}
+                {% for linha in planilha.dados_tabela() %}
                 <tr>
                     <td>
                         {{ linha[0].nome }}

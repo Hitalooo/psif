@@ -26,10 +26,7 @@
                 </li>
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('juros_e_planilha') }}">Simulação</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('simulacao_sem_rendimentos') }}">Simulação Sem Rendimento</a>
+                        <a class="nav-link" href="{{ url_for('simulacao') }}">Simulações</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('evento') }}">Eventos</a>

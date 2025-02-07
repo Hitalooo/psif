@@ -4,6 +4,7 @@ class Simulacao:
     def simular() -> float:
         '''Simula o rendimento baseado em juros compostos.
         '''
+        # TODO: Não retornar nada. Em vez disso, salvar em atributos da classe.
         raise Exception('Método abstrato.')
 
 
