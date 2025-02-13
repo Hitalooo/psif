@@ -6,6 +6,8 @@
         <div class="result-box">
             <h2>Simulação Sem Rendimentos</h2>
             <form method="post" class="form-container" id="calculationForm">
+                <input type="hidden" name="tipo_simulacao" value="sem_rendimentos">
+                <input type="hidden" name="aba_selecionada" value="sem_rendimento">
                 <div class="form-group">
                     <label class="informações" for="objetivo">Objetivo (R$):</label>
                     <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
@@ -22,20 +24,16 @@
             </form>
         </div>
 
-        
         <div class="resultados">
-            {% if montante_acumulado is not none %}
-            <h5>Simulação de Rendimento</h5>
+            {% if sr_mensalidade_por_participante is not none %}
+            <h5>Resultados da Simulação Sem Rendimentos</h5>
             <p>Objetivo: R$ {{ objetivo }}</p>
-            <p>Quantidade de parcelas (meses): {{ num_parcelas }}</p>
-            <p>Mensalidade Total: R$ {{ mensalidade_total }}</p>
-            <p>Mensalidade por Participante: R$ {{ mensalidade_por_participante }}</p>
-            {% endif %} 
+            <p>Quantidade de Parcelas (meses): {{ num_parcelas }}</p>
+            <p>Mensalidade Total: R$ {{ sr_mensalidade_total }}</p>
+            <p>Mensalidade por Participante: R$ {{ sr_mensalidade_por_participante }}</p>
+            {% endif %}
             <br>
-
         </div>            
     </div>
 </div>
-
-
 {% endblock %}

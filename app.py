@@ -326,7 +326,7 @@ def login():
         usuario = User.encontrar(email)
         if usuario and check_password_hash(usuario.senha, senha):
             login_user(usuario)
-            return redirect(url_for('juros'))
+            return redirect(url_for('simulacao'))
         else:
             return "Credenciais inválidas", 401
 
@@ -338,13 +338,16 @@ def login():
 @login_required
 def simulacao():
     tipo_simulacao = request.form.get('tipo_simulacao')
-        
+    aba_selecionada = request.form.get('aba_selecionada', 'juros')
+
     objetivo = request.form.get("objetivo", '')
     num_participantes = request.form.get("num_participantes", '')
     descricao = request.form.get("descricao", '')
     data_ini = request.form.get("data_ini", '')
     data_fim = request.form.get("data_fim", '')
+    periodo_meses=0
     juros_compostos_taxa = request.form.get("juros_compostos_taxa", '')
+    juros_taxa_exibir=0
     jc_mensalidade_por_participante=0
     jc_mensalidade_total=0
     jc_montante_acumulado=0
@@ -373,6 +376,7 @@ def simulacao():
         periodo_meses = planilha.periodo_meses()
 
         if tipo_simulacao == 'sem_rendimentos':
+            aba_selecionada = 'sem_rendimento'
             modelo = SimulacaoSemRendimento(objetivo, planilha.periodo_meses(), num_participantes)
             sr_mensalidade_por_participante, sr_mensalidade_total, sr_montante_acumulado = modelo.simular()
             sr_mensalidade_por_participante = round(sr_mensalidade_por_participante, 2)
@@ -386,6 +390,7 @@ def simulacao():
             jc_mensalidade_por_participante = round(jc_mensalidade_por_participante, 2)
             jc_mensalidade_total = round(jc_mensalidade_total, 2)
             jc_montante_acumulado = round(jc_montante_acumulado, 2)
+            juros_taxa_exibir = (juros_compostos_taxa) * 100 * 12
         else:
             raise Exception('tipo_simulacao inválido.')
 
@@ -400,17 +405,21 @@ def simulacao():
     
     return render_template(
         'simulacao.html',
+        aba_selecionada=aba_selecionada,
         objetivo=objetivo,
         num_participantes=num_participantes,
         descricao=descricao,
         juros_compostos_taxa=juros_compostos_taxa,
+        juros_taxa_exibir=juros_taxa_exibir,
         data_ini=data_ini,
         data_fim=data_fim,
         jc_mensalidade_por_participante=jc_mensalidade_por_participante,
         jc_mensalidade_total=jc_mensalidade_total,
         jc_montante_acumulado=jc_montante_acumulado,
         sr_mensalidade_por_participante=sr_mensalidade_por_participante,
-        sr_mensalidade_total=sr_mensalidade_total)
+        sr_mensalidade_total=sr_mensalidade_total,
+        num_parcelas=periodo_meses)
+        
 
 
 @app.route('/logout')

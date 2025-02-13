@@ -36,17 +36,18 @@
         <div class="tabs">
             <h4>Escolha uma Simulação</h4>
             <ul class="tab-list">
-                <li class="tab-item active" onclick="showTab('juros', event)">Simulação de Juros</li>
-                <li class="tab-item" onclick="showTab('sem_rendimento', event)">Simulação Sem Rendimentos</li>
+                <li class="tab-item {% if aba_selecionada == 'juros' %}active{% endif %}" onclick="showTab('juros', event)">Simulação de Juros</li>
+                <li class="tab-item {% if aba_selecionada == 'sem_rendimento' %}active{% endif %}" onclick="showTab('sem_rendimento', event)">Simulação Sem Rendimentos</li>
             </ul>
         </div>
 
-        <div id="juros" class="tab-content active">
+        <div id="juros" class="tab-content {% if aba_selecionada == 'juros' %}active{% endif %}">
             <div class="result-box">
                 <h4>Simulação de Juros Compostos</h4>
 
                 <form method="post" class="form-3" id="calculationForm">
                     <input type="hidden" name="tipo_simulacao" value="juros_compostos">
+                    <input type="hidden" name="aba_selecionada" value="juros">
                     <div class="form-group">
                         <label class="form-label" for="num_participantes">Número de Participantes:</label>
                         <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
@@ -62,7 +63,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="taxa">Taxa de Juros (% ao ano):</label>
-                            <input type="text" id="taxa" name="juros_compostos_taxa" class="form-control" required value="{{ juros_compostos_taxa }}">
+                            <input type="text" id="taxa" name="juros_compostos_taxa" class="form-control" required value="{{ juros_taxa_exibir }}">
                         </div>
                     </div>
                     <div class="form-gp">
@@ -82,18 +83,18 @@
             </div>
 
             <div class="resultados">
-                {% if montante_acumulado is not none %}
+                {% if jc_mensalidade_por_participante is not none %}
                 <h5>Simulação de Rendimento</h5>
                 <p>Objetivo: R$ {{ objetivo }}</p>
-                <p>Taxa de Juros: {{ juros_compostos_taxa }}% ao ano</p>
-                <p>Quantidade de Parcelas: {{ periodo_meses }} </p>
+                <p>Taxa de Juros: {{ juros_taxa_exibir }}% ao ano</p>
+                <p>Quantidade de Parcelas: {{ num_parcelas }}</p>
                 <p>Mensalidade Total: R$ {{ jc_mensalidade_total }}</p>
                 <p>Mensalidade por Pessoa: R$ {{ jc_mensalidade_por_participante }}</p>
                 <p>Montante Acumulado após Rendimento: R$ {{ jc_montante_acumulado }}</p>
                 <form method="post">
                     <input type="hidden" name="tipo_simulacao" value="juros_compostos">
                     <input type="hidden" name="objetivo" value="{{ objetivo }}">
-                    <input type="hidden" name="juros_compostos_taxa" value="{{ taxa_juros }}">
+                    <input type="hidden" name="juros_compostos_taxa" value="{{ juros_compostos_taxa }}">
                     <input type="hidden" name="num_participantes" value="{{ num_participantes }}">
                     <input type="hidden" name="descricao" value="{{ descricao }}">
                     <input type="hidden" name="data_ini" value="{{ data_ini }}">
@@ -105,12 +106,13 @@
             </div>
         </div>
 
-        <div id="sem_rendimento" class="tab-content">
+        <div id="sem_rendimento" class="tab-content {% if aba_selecionada == 'sem_rendimento' %}active{% endif %}">
             <div class="result-box">
                 <h4>Simulação Sem Rendimentos</h4>
 
                 <form method="post" class="form-3" id="calculationFormSemRendimento">
                     <input type="hidden" name="tipo_simulacao" value="sem_rendimentos">
+                    <input type="hidden" name="aba_selecionada" value="sem_rendimento">
                     <div class="form-group">
                         <label class="form-label" for="objetivo_sem_rendimento">Objetivo (R$):</label>
                         <input type="text" id="objetivo_sem_rendimento" name="objetivo" class="form-control" required value="{{ objetivo }}">
@@ -133,12 +135,12 @@
                 </form>
                 
             </div>
-
+            
             <div class="resultados">
                 {% if sr_mensalidade_por_participante is not none %}
                 <h5>Resultados da Simulação Sem Rendimentos</h5>
                 <p>Objetivo: R$ {{ objetivo }}</p>
-                <p>Quantidade de Parcelas: {{ periodo_meses }}</p>
+                <p>Quantidade de Parcelas: {{ num_parcelas }}</p>
                 <p>Mensalidade Total: R$ {{ sr_mensalidade_total }}</p>
                 <p>Mensalidade por Participante: R$ {{ sr_mensalidade_por_participante }}</p>
                 <form method="post">
