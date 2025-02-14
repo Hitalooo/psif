@@ -91,7 +91,7 @@
                 <p>Mensalidade Total: R$ {{ jc_mensalidade_total }}</p>
                 <p>Mensalidade por Pessoa: R$ {{ jc_mensalidade_por_participante }}</p>
                 <p>Montante Acumulado após Rendimento: R$ {{ jc_montante_acumulado }}</p>
-                <form method="post">
+                <form method="post" id="criarPlanilhaJurosCompostos">
                     <input type="hidden" name="tipo_simulacao" value="juros_compostos">
                     <input type="hidden" name="objetivo" value="{{ objetivo }}">
                     <input type="hidden" name="juros_compostos_taxa" value="{{ juros_compostos_taxa }}">
@@ -114,8 +114,16 @@
                     <input type="hidden" name="tipo_simulacao" value="sem_rendimentos">
                     <input type="hidden" name="aba_selecionada" value="sem_rendimento">
                     <div class="form-group">
+                        <label class="form-label" for="descricao">Descrição da Planilha:</label>
+                        <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
+                    </div>
+                    <div class="form-group">
                         <label class="form-label" for="objetivo_sem_rendimento">Objetivo (R$):</label>
                         <input type="text" id="objetivo_sem_rendimento" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="num_participantes">Quantidade de Participantes:</label>
+                        <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
                     </div>
                     <div class="form-gp">
                         <div class="form-group">
@@ -126,10 +134,6 @@
                             <label class="form-label" for="data_fim">Data de Fim:</label>
                             <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="num_participantes">Quantidade de Participantes:</label>
-                        <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
                     </div>
                     <button type="submit" class="button" id="calculateButtonSemRendimento">Calcular</button>
                 </form>
@@ -143,11 +147,13 @@
                 <p>Quantidade de Parcelas: {{ num_parcelas }}</p>
                 <p>Mensalidade Total: R$ {{ sr_mensalidade_total }}</p>
                 <p>Mensalidade por Participante: R$ {{ sr_mensalidade_por_participante }}</p>
-                <form method="post">
+                <form method="post" id="criarPlanilhaSemRendimento">
                     <input type="hidden" name="tipo_simulacao" value="sem_rendimentos">
                     <input type="hidden" name="objetivo" value="{{ objetivo }}">
                     <input type="hidden" name="num_participantes" value="{{ num_participantes }}">
                     <input type="hidden" name="descricao" value="{{ descricao }}">
+                    <input type="hidden" name="data_ini" value="{{ data_ini }}">
+                    <input type="hidden" name="data_fim" value="{{ data_fim }}">
                     <button type="submit" name="criar_planilha" class="button">Criar Planilha</button>
                 </form>
                 {% endif %}

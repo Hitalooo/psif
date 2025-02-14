@@ -346,16 +346,10 @@ def simulacao():
     sr_mensalidade_total=0
 
     if request.method == 'POST':
-        try:
-            # Dados da planilha
-            objetivo = float(request.form['objetivo'])
-            num_participantes = int(num_participantes)
-            datetime_ini = datetime.strptime(data_ini, '%Y-%m-%d')
-            datetime_fim = datetime.strptime(data_fim, '%Y-%m-%d')
-        except ValueError:
-            # TODO: devolver valores digitados, mesmo com erro
-            return render_template('simulacao.html', error="Por favor, insira valores numéricos válidos.")
-
+        # Dados da planilha
+        objetivo = float(request.form['objetivo'])
+        num_participantes = int(num_participantes)
+        
         planilha = Planilha(
             id_usuario=current_user.id,
             descricao=descricao,
@@ -369,14 +363,13 @@ def simulacao():
         if tipo_simulacao == 'sem_rendimentos':
             aba_selecionada = 'sem_rendimento'
             modelo = SimulacaoSemRendimento(objetivo, planilha.periodo_meses(), num_participantes)
-            sr_mensalidade_por_participante, sr_mensalidade_total, sr_montante_acumulado = modelo.simular()
+            sr_mensalidade_por_participante, sr_mensalidade_total, _ = modelo.simular()
             sr_mensalidade_por_participante = round(sr_mensalidade_por_participante, 2)
             sr_mensalidade_total = round(sr_mensalidade_total, 2)
         elif tipo_simulacao == 'juros_compostos':
             juros_compostos_taxa = float(juros_compostos_taxa) / 100 / 12
             # Simulação de juros
             modelo = SimulacaoJurosCompostos(objetivo, juros_compostos_taxa, periodo_meses, num_participantes)
-            print(jc_mensalidade_por_participante, jc_mensalidade_total, jc_montante_acumulado)
             jc_mensalidade_por_participante, jc_mensalidade_total, jc_montante_acumulado = modelo.simular()
             jc_mensalidade_por_participante = round(jc_mensalidade_por_participante, 2)
             jc_mensalidade_total = round(jc_mensalidade_total, 2)
