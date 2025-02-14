@@ -96,6 +96,37 @@ def excluir_planilha(id_planilha):
     p.excluir()
     return redirect(url_for('planilhas'))
 
+@app.route('/planilhas/<int:id_planilha>/editar', methods=['GET', 'POST'])
+def editar_planilha(id_planilha):
+    # Recupera a planilha com o id especificado
+    planilha = Planilha.encontrar(id_planilha)
+    
+    if request.method == 'POST':
+        # Obtém os dados enviados pelo formulário
+        descricao = request.form.get('descricao')
+        objetivo = request.form.get('objetivo')
+        data_ini = request.form.get('data_ini')
+        data_fim = request.form.get('data_fim')
+        
+        # Verificar se o campo descricao está vazio
+        if not descricao:
+            # Se estiver vazio, defina um valor padrão ou mostre uma mensagem de erro
+            return "Erro: O campo de descrição não pode estar vazio."
+
+        # Verifica se objetivo está vazio e atribui um valor padrão
+        if not objetivo:
+            objetivo = 0  # ou qualquer valor padrão que você achar apropriado
+
+        # Atualiza no banco de dados
+        editar = Planilha.consultar('UPDATE planilhas SET descricao = ?, objetivo = ?, data_ini = ?, data_fim = ? WHERE id = ?', 
+                                    (descricao, objetivo, data_ini, data_fim, id_planilha))
+        
+        # Após a atualização, redireciona para a página da planilha editada
+        return redirect(url_for('planilhas'))  # ou redireciona para qualquer outra página de sua escolha
+
+    # Se o método for GET, apenas renderiza o formulário para editar a planilha
+    return render_template('editar_planilha.html', planilha=planilha)
+
 ###############################################################
 
 @app.route('/planilhas/<int:id_planilha>/lancamentos', methods=['GET', 'POST'])
@@ -326,7 +357,7 @@ def login():
         usuario = User.encontrar(email)
         if usuario and check_password_hash(usuario.senha, senha):
             login_user(usuario)
-            return redirect(url_for('simulacao'))
+            return redirect(url_for('planilhas'))
         else:
             return "Credenciais inválidas", 401
 
