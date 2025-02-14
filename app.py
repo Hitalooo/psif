@@ -100,26 +100,22 @@ def excluir_planilha(id_planilha):
 def editar_planilha(id_planilha):
     # Recupera a planilha com o id especificado
     planilha = Planilha.encontrar(id_planilha)
+    if planilha is None:
+        return render_template('erro404.html')
     
     if request.method == 'POST':
         # Obtém os dados enviados pelo formulário
-        descricao = request.form.get('descricao')
-        objetivo = request.form.get('objetivo')
-        data_ini = request.form.get('data_ini')
-        data_fim = request.form.get('data_fim')
-        
-        # Verificar se o campo descricao está vazio
-        if not descricao:
-            # Se estiver vazio, defina um valor padrão ou mostre uma mensagem de erro
-            return "Erro: O campo de descrição não pode estar vazio."
+        descricao = request.form['descricao']
+        objetivo = request.form['objetivo']
+        data_ini = request.form['data_ini']
+        data_fim = request.form['data_fim']
 
-        # Verifica se objetivo está vazio e atribui um valor padrão
-        if not objetivo:
-            objetivo = 0  # ou qualquer valor padrão que você achar apropriado
+        planilha.descricao = descricao
+        planilha.objetivo = objetivo
+        planilha.data_ini = data_ini
+        planilha.data_fim = data_fim
 
-        # Atualiza no banco de dados
-        editar = Planilha.consultar('UPDATE planilhas SET descricao = ?, objetivo = ?, data_ini = ?, data_fim = ? WHERE id = ?', 
-                                    (descricao, objetivo, data_ini, data_fim, id_planilha))
+        planilha.alterar()
         
         # Após a atualização, redireciona para a página da planilha editada
         return redirect(url_for('planilhas'))  # ou redireciona para qualquer outra página de sua escolha
