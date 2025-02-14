@@ -41,7 +41,7 @@ class Base:
         # Cria as atribuições no formato SQL campo1 = ?, campo2 = ?, ...
         # O [:-2] retira a vírgula sobrando no final
         atribuicoes = (''.join([k + f' = ?, ' for k in atributos]))[:-2]
-        valores = self.id
+        valores += [self.id]
         # valores = list(atributos.values())
         conn = self._obter_conexao()
         cursor = conn.cursor()
