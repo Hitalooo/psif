@@ -33,6 +33,22 @@ class Base:
         self.id = cursor.lastrowid  # Obtém o id gerado
         conn.close()
         return self.id  # Retorna o id gerado
+
+    def alterar(self):
+        '''Altera o modelo no banco.'''
+        atributos = list(self._atributos().keys())
+        valores = list(self._atributos().values())
+        # Cria as atribuições no formato SQL campo1 = ?, campo2 = ?, ...
+        # O [:-2] retira a vírgula sobrando no final
+        atribuicoes = (''.join([k + f' = ?, ' for k in atributos]))[:-2]
+        valores = self.id
+        # valores = list(atributos.values())
+        conn = self._obter_conexao()
+        cursor = conn.cursor()
+        cursor.execute(f'UPDATE {self._tabela} SET {atribuicoes} WHERE id = ?',
+                       valores)
+        conn.commit()
+        conn.close()
     
     def excluir(self):
         '''Exclui o registro do banco.'''
