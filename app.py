@@ -421,6 +421,12 @@ def simulacao():
         else:
             raise Exception('tipo_simulacao inválido.')
 
+        # Criar a planilha se o botão for pressionado
+        if 'criar_planilha' in request.form:
+            planilha_id = planilha.salvar()  # Salva e obtém o id
+            flash('Planilha criada com sucesso!', 'success')
+            return redirect(url_for('planilha', id=planilha_id))  # Redireciona para a planilha criada
+
         # Arredondar valores para exibição
         objetivo = round(objetivo, 2)
     
