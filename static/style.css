@@ -191,10 +191,10 @@ body {
 
 /* --------------------------- PÁGINA VENTO - meus eventos */
 
-.my-event{
+.meus-eventos {
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   text-align: justify;
   width: 75rem;
@@ -202,12 +202,8 @@ body {
   border: solid black;
   flex-wrap: wrap;
 }
-/* .my-event ul{
-  display: flex;
-  flex-wrap: wrap;
-} */
 
-.my-event li {
+.meus-eventos li {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,7 +215,7 @@ body {
   padding: 3px;
 }
 
-.my-event li .but-editar{
+.meus-eventos li .botao-editar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -232,7 +228,7 @@ body {
   color: #0d0f2e;
 }
 
-.my-event li form .but-excluir{
+.meus-eventos li form .botao-excluir {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -245,7 +241,7 @@ body {
   color: white;
 }
 
-.but-2{
+.botoes {
   display: flex;
   width: 10rem;
   gap: 6px;
@@ -253,16 +249,28 @@ body {
   flex-direction: row;
 }
 
-.my-event .voltar{
+.paginacao {
   display: flex;
-  height: 2rem;
-  width: 5rem;
-  background-color: #0d0f2e;
   justify-content: center;
-  color: white;
+  margin-top: 20px;
+}
+
+.link-pagina {
+  margin: 0 5px;
+  padding: 5px 10px;
   text-decoration: none;
+  color: #0d0f2e;
+  border: 1px solid #0d0f2e;
   border-radius: 4px;
-  margin-top: 2rem;
+}
+
+.link-pagina.ativo {
+  background-color: #0d0f2e;
+  color: white;
+}
+
+.link-pagina:hover {
+  background-color: #cecfd5;
 }
 
 

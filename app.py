@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Flask, session, request, render_template, url_for, redirect, flash
+from math import ceil
 from database.db import obter_conexao
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
@@ -223,9 +224,23 @@ def eventos():
         )
         conn.commit()
     
-    eventos = conn.execute('SELECT * FROM eventos WHERE id_usuario = ?', (current_user.id,)).fetchall()
+    # Paginação
+    pagina = request.args.get('pagina', 1, type=int)  # Página atual
+    eventos_por_pagina = 3  # Quantidade de eventos por página
+    offset = (pagina - 1) * eventos_por_pagina  # Cálculo do deslocamento
+    
+    eventos = conn.execute(
+        'SELECT * FROM eventos WHERE id_usuario = ? LIMIT ? OFFSET ?',
+        (current_user.id, eventos_por_pagina, offset)).fetchall()
+    
+    total_eventos = conn.execute(
+        'SELECT COUNT(*) FROM eventos WHERE id_usuario = ?',
+        (current_user.id,)).fetchone()[0]
+    
+    total_paginas = ceil(total_eventos / eventos_por_pagina)  # Total de páginas
+    
     conn.close()
-    return render_template('eventos.html', eventos=eventos)
+    return render_template('eventos.html', eventos=eventos, pagina=pagina, total_paginas=total_paginas)
 
 @app.route('/eventos/<int:id_evento>/editar', methods=['GET', 'POST'])
 @login_required
