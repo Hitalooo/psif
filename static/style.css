@@ -191,6 +191,10 @@ body {
 
 /* --------------------------- PÁGINA VENTO - meus eventos */
 
+strong{
+  font-size: 20px;
+}
+
 .meus-eventos {
   display: flex;
   align-items: center;
@@ -217,7 +221,7 @@ body {
 
 .meus-eventos li span {
   display: block;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 /* Essas cores são só pra teste, modificar depois */

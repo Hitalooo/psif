@@ -226,7 +226,7 @@ def eventos():
     
     # Paginação
     pagina = request.args.get('pagina', 1, type=int)  # Página atual
-    eventos_por_pagina = 3  # Quantidade de eventos por página
+    eventos_por_pagina = 2  # Quantidade de eventos por página
     offset = (pagina - 1) * eventos_por_pagina  # Cálculo do deslocamento
     
     eventos = conn.execute(
