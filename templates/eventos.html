@@ -32,8 +32,11 @@
         <ul>
             {% for evento in eventos %}
                 <li>
-                    <strong>{{ evento.nome }}</strong> - {{ evento.data_horario }} - {{ evento.local }} - R$ {{ evento.preco }}
-                    <br>Contato: {{ evento.contato }}
+                    <strong>{{ evento.nome }}</strong>  
+                    <span class="evento-data">Data e Hora: {{ evento.data_horario }}</span>  
+                    <span class="evento-local">Local: {{ evento.local }}</span>  
+                    <span class="evento-valor">ValorR$: {{ evento.preco }}</span>  
+                    <span class="evento-contato">Contato: {{ evento.contato }}</span>                    
                     <br>
                     <div class="botoes">
                         <a class="botao-editar" href="{{ url_for('editar_evento', id_evento=evento.id) }}">Editar</a>

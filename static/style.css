@@ -210,10 +210,23 @@ body {
   flex-direction: column;
   border: 1px solid #0d0f2e;
   border-radius: 4px;
-  gap: 12px;
-  margin: 0px 0px 3px 0px;
+  gap: 5px;
+  margin: 0px 0px 5px 0px;
   padding: 3px;
 }
+
+.meus-eventos li span {
+  display: block;
+  font-size: 13px;
+}
+
+/* Essas cores são só pra teste, modificar depois */
+
+.evento-data { font-weight: bold; color: gray; }
+.evento-local { font-weight: bold; color: blue; }
+.evento-valor { font-weight: bold; color: green; }
+.evento-contato { font-weight: bold; color: red; }
+
 
 .meus-eventos li .botao-editar {
   display: flex;
