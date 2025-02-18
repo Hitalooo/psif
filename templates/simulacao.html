@@ -114,16 +114,16 @@
                     <input type="hidden" name="tipo_simulacao" value="sem_rendimentos">
                     <input type="hidden" name="aba_selecionada" value="sem_rendimento">
                     <div class="form-group">
+                        <div class="form-group">
+                            <label class="form-label" for="num_participantes">Número de Participantes:</label>
+                            <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
+                        </div>
                         <label class="form-label" for="descricao">Descrição da Planilha:</label>
                         <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="objetivo_sem_rendimento">Objetivo (R$):</label>
                         <input type="text" id="objetivo_sem_rendimento" name="objetivo" class="form-control" required value="{{ objetivo }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="num_participantes">Quantidade de Participantes:</label>
-                        <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
                     </div>
                     <div class="form-gp">
                         <div class="form-group">
