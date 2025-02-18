@@ -206,15 +206,6 @@ def lista_lancamentos(id_planilha):
 
 #################################################################
 
-@app.route('/evento')
-@login_required
-def evento():
-    return render_template('eventos.html')
-
-@app.route('/eventos/<nome_evento>')
-def evento_detalhe(nome_evento):
-    return render_template('evento_detalhe.html', nome_evento=nome_evento)
-
 @app.route('/eventos', methods=['GET', 'POST'])
 @login_required
 def eventos():
