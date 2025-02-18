@@ -207,21 +207,11 @@ def lista_lancamentos(id_planilha):
 #################################################################
 
 @app.route('/evento')
+@login_required
 def evento():
     return render_template('eventos.html')
 
-@app.route('/submit', methods=['GET'])
-def submit():
-    opcao = request.args.get('opcao')
-    
-    if opcao == 'Piscina':
-        return redirect(url_for('evento_detalhe', nome_evento='Piscina'))
-    elif opcao == 'Churrasco':
-        return redirect(url_for('evento_detalhe', nome_evento='Churrasco'))
-    else:
-        return 'Opção inválida'
-
-@app.route('/evento/<nome_evento>')
+@app.route('/eventos/<nome_evento>')
 def evento_detalhe(nome_evento):
     return render_template('evento_detalhe.html', nome_evento=nome_evento)
 
