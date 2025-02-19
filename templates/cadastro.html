@@ -1,27 +1,54 @@
 {% extends 'layout.html' %}
 {% block title %}Cadastro{% endblock %}
+{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">{% endblock %}
+
 {% block content %}
-<div class="login-container">
+<div class="container">
+    <div class="form-image">
+        <img src="static/img/formatura1.jpg" alt="">
+    </div>
+    <div class="form">
+        <form method="POST">
+            <div class="form-header">
+                <div class="title">
+                    <h1>Cadastre-se</h1>
+                </div>
+                <div class="login-button">
+                    <button><a href="{{ url_for('login') }}">Entrar</a></button>
+                </div>
+            </div>
 
-    <h2>Registrar Usuário</h2>
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="nome">Nome de Usuário</label>
+                    <input id="nome" type="text" name="nome" placeholder="Digite seu primeiro nome" required>
+                </div>
 
-    <form method="POST" class="form-3">
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome de Usuário:</label>
-            <input type="text" id="nome" class="form-control" name="nome" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" id="email" class="form-control" name="email" required>
-        </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha:</label>
-            <input type="password" id="senha" class="form-control" name="senha" required>
-        </div>
-        
-        <button type="submit" class="btn btn-light" >Registrar</button>
-    </form>
+                <div class="input-box">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email" name="email" placeholder="Digite seu e-mail" required>
+                </div>
 
-    <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login aqui</a>.</p>
+                <div class="input-box">
+                    <label for="senha">Senha</label>
+                    <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
+                </div>
+
+
+                <div class="input-box">
+                    <label for="confirmPassword">Confirme sua Senha</label>
+                    <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Digite sua senha novamente" required>
+                </div>
+
+            </div>
+
+            <div class="continue-button">
+                <button type="submit">Continuar</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+
+
 {% endblock %}

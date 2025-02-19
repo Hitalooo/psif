@@ -2,7 +2,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: 'Poppins';
 }
 
@@ -10,392 +9,113 @@ body {
   width: 100%;
   height: 100vh;
 }
-
-.container-fluid {
+header{
   background-color: #0d0f2e;
+  box-shadow: 0px 3px 10px #0d0f2e;
 }
-.container-fluid .navbar-brand{
-  color: white;
-}
-
-#navbarNav .nav-link{
-  color: white;
-}
-
-
-.container-principal{
+.container-box{
+  display: flex;
+  height: 90vh;
   width: 100%;
-  height: 100%;
-  background-color:white;
-}
-
-.login-container{
-  display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-  align-items: center;
-  justify-content: center;
-  height: 80%;
-}
-
-.form-3{
-  width: 40%;
-}
-
-
-
-/* PÁGINA SIMULAÇÃO - simulaão de juros compostos e criação de planilha */
-
-.content .content-wrapper{
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items:center;
-}
-.content-wrapper{
-  gap: 8rem;
-}
-
-.content-wrapper .result-box{
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #252642;
-  color: white;
-  height: 50vh;
-  width: 30vw;
-  gap: 3rem;
-  border-radius: 8px;
-  margin-top: 6rem;
-  box-shadow: 0px 4px 4px 0px gray;
 }
 
-.result-box .form-container{
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 6rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h1 {
+  color: #fff;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list ul {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
+  list-style: none;
 }
 
-.result-box .button{
-  background-color: white;
+.nav-item {
+  margin: 0 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: 400;
+}
+
+.login-button button {
   border: none;
+  padding: 10px 15px;
   border-radius: 5px;
-  height: 2rem;
-  width: 5rem;
-  gap: 3rem;
-  align-self: center;
+  background-color: #0187a7;
 }
 
-.button:hover{
-  border: 2px solid white;
-  background-color: #0d0f2e;
-  color: white;
-}
-
-.content-wrapper .resultados{
-  display: flex;
-  justify-content:center;
-  align-items: last baseline;
-  flex-direction: column;
-  background-color:#cecfd5;
-  box-shadow: 0px 4px 4px 0px gray;
-  color: #0d0f2e;
-  text-align: justify;
-  width:60vh;
-  height: 50vh;
-  margin-top: 6rem;
-  border-radius: 8px;
-
-}
-
-
-
-
-/* -------------------SIMULAÇÃO SEM RENDIMENTO */
-.content-wrapper .resultados{
-  display: flex;
-  padding: 0rem 5.7rem 0rem 0rem;
-}
-
-
-/* -----------------PÁGINA EVENTOS - cadastrar novo evento */
-
-.content{
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: flex-start;
-  margin: 5rem 0rem 0rem 5rem;
-  gap: 2rem;
-}
-
-.content h3{
-  margin: 2.5rem 0rem 1rem 0rem;
-  text-align: center;
-}
-
-.content-event{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  height: 60vh;
-  width: 28vw;
-  background-color: #cecfd5;
-  border-radius: 8px;
-}
-
-.event-form{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-}
-
-.event-form input{
-  border: none;
-  border-radius: 4px;
-  width: 15rem;
-  height: 2rem;
-}
-
-.event-form .but-event{
-  display: flex;
-  align-self: center;
-  justify-content: center;
-  justify-items: center;
-  background-color:#0d0f2e;
-  color: white;
-  border-radius: 4px;
-  border: none;
-  height: 2rem;
-  width: 10rem;
-  margin: 10px 0px 10px;
-}
-
-.event-form .but-event:hover{
-  background-color: aliceblue;
-  border: 2px solid #0d0f2e;
-  color: #0d0f2e;
-}
-
-.content .voltar{
-  width: 8rem;
-  height: 2rem;
-  background-color: white;
-  border: 2px solid #0d0f2e;
-}
-
-/* --------------------------- PÁGINA VENTO - meus eventos */
-
-strong{
-  font-size: 20px;
-}
-
-.meus-eventos {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  text-align: justify;
-  width: 75rem;
-  height: 40rem;
-  border: solid black;
-  flex-wrap: wrap;
-}
-
-.meus-eventos li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border: 1px solid #0d0f2e;
-  border-radius: 4px;
-  gap: 5px;
-  margin: 0px 0px 5px 0px;
-  padding: 3px;
-}
-
-.meus-eventos li span {
-  display: block;
-  font-size: 16px;
-}
-
-/* Essas cores são só pra teste, modificar depois */
-
-.evento-data { font-weight: bold; color: gray; }
-.evento-local { font-weight: bold; color: blue; }
-.evento-valor { font-weight: bold; color: green; }
-.evento-contato { font-weight: bold; color: red; }
-
-
-.meus-eventos li .botao-editar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.login-button button a {
   text-decoration: none;
-  width: 6rem;
-  height: 2rem;
-  background-color: #cecfd5;
-  border: none;
-  border-radius: 4px;
-  color: #0d0f2e;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 
-.meus-eventos li form .botao-excluir {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  width: 6rem;
-  height: 2rem;
-  background-color: rgb(110, 5, 5);
-  border: none;
-  border-radius: 4px;
-  color: white;
+.mobile-menu-icon {
+  display: none;
 }
 
-.botoes {
-  display: flex;
-  width: 10rem;
-  gap: 6px;
-  justify-content: center;
-  flex-direction: row;
+.mobile-menu {
+  display: none;
 }
 
-.paginacao {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+@media screen and (max-width: 730px) {
+  .nav-bar {
+      padding: 1.5rem 4rem;
+  }
+  .nav-item {
+      display: none;
+  }
+  .login-button {
+      display: none;
+  }
+  .mobile-menu-icon {
+      display: block;
+  }
+  .mobile-menu-icon button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+  }
+  .mobile-menu ul {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      padding-bottom: 1rem;
+  }
+  .mobile-menu .nav-item {
+      display: block;
+      padding-top: 1.2rem;
+  }
+  .mobile-menu .login-button {
+      display: block;
+      padding: 1rem 2rem;
+  }
+  .mobile-menu .login-button button {
+      width: 100%;
+  }
+  .open {
+      display: block;
+  }
 }
-
-.link-pagina {
-  margin: 0 5px;
-  padding: 5px 10px;
-  text-decoration: none;
-  color: #0d0f2e;
-  border: 1px solid #0d0f2e;
-  border-radius: 4px;
-}
-
-.link-pagina.ativo {
-  background-color: #0d0f2e;
-  color: white;
-}
-
-.link-pagina:hover {
-  background-color: #cecfd5;
-}
-
-
-/* ------------------------------------PLANILHAS */
-.planilhas-conteiner{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem 0rem 0rem 0rem;
-}
-
-.planilhas-conteiner form{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30vw;
-  height: 60vh;
-  background-color: #cecfd5;
-  gap: 1rem;
-  margin: 1rem 0rem 0rem 0rem;
-  border-radius: 8px;
-}
-
-form input{
-  border: none;
-  border-radius: 4px;
-  width: 13rem;
-  height: 1.5rem;
-}
-
-form .botao-planilha{
-  background-color: #252642;
-  color: white;
-  width: 10rem;
-}
-
-.botao-planilha:hover{
-  background-color: white;
-  border: 2px solid #0d0f2e;
-  color: #0d0f2e;
-
-}
-
-
-/* ------------------------JUROS E PLANILHA */
-
-.content-juros .box-juros{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 5rem;
-  margin: 3rem 0rem 0rem 0rem;
-}
-
-.result h5{
-  margin: 0rem 0rem 2.5rem 0rem;
-}
-
-.box-juros .result{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #cecfd5;
-  width: 40vw;
-  height: 73vh;
-  padding: 8px;
-  border-radius: 8px;
-}
-
-.form-container .button{
-  background-color: #0d0f2e;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  width: 10rem;
-  margin: 1rem 0rem 0rem 0rem;
-  align-self: center;
-}
-
-.button:hover{
-  background-color: white;
-  border: 2px solid #0d0f2e;
-  color: #0d0f2e;
-}
-
-.box-juros .result-2{
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  flex-direction: column;
-  background-color: #cecfd5;
-  width: 40vw;
-  height: 73vh;
-  text-align: justify;
-  padding: 8px;
-  border-radius: 8px;
-}
-
-
-
-
-
-
-
-
-
-
