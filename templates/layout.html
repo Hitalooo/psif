@@ -32,10 +32,14 @@
                     {% endif %}
                 </ul>
             </div>
-            <div class="login-button">
-                <button><a href="{{ url_for('login') }}">Entrar</a></button>
-            </div>
+            {% if current_user.is_authenticated %}
+            
+            {% else %}
+                <div class="login-button">
+                    <button><a href="{{ url_for('login') }}">Entrar</a></button>
+                </div>
 
+            {% endif %}
             <div class="mobile-menu-icon">
                 <button onclick="menuShow()"><img class="icon" src="assets/img/menu_white_36dp.svg" alt=""></button>
             </div>
