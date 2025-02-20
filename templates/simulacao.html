@@ -1,37 +1,9 @@
 {% extends 'layout.html' %}
 {% block title %}Simulação de Juros e Planilha{% endblock %}
+{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='simulacao.css') }}">{% endblock %}
 {% block content %}
-<style>
-    .tabs {
-        margin: 20px 0;
-    }
-    .tab-list {
-        list-style: none;
-        padding: 0;
-        display: flex;
-    }
-    .tab-item {
-        cursor: pointer;
-        padding: 10px 20px;
-        background: #f1f1f1;
-        margin-right: 5px;
-        border-radius: 5px;
-    }
-    .tab-item.active {
-        background: #d1d1d1;
-        font-weight: bold;
-    }
-    .tab-content {
-        display: none;
-        margin-top: 20px;
-    }
-    .tab-content.active {
-        display: block;
-    }
-</style>
 
-<div class="content">
-    <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
+<div class="container">
     <div class="content-wrapper">
         <div class="tabs">
             <h4>Escolha uma Simulação</h4>
@@ -48,34 +20,37 @@
                 <form method="post" class="form-3" id="calculationForm">
                     <input type="hidden" name="tipo_simulacao" value="juros_compostos">
                     <input type="hidden" name="aba_selecionada" value="juros">
-                    <div class="form-group">
-                        <label class="form-label" for="num_participantes">Número de Participantes:</label>
-                        <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="descricao">Descrição da Planilha:</label>
-                        <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
-                    </div>
-                    <div class="form-gp">
+                    <div class="form-group-gp">
                         <div class="form-group">
-                            <label class="form-label" for="objetivo">Objetivo (R$):</label>
-                            <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                            <label class="form-label" for="num_participantes">Número de Participantes:</label>
+                            <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="taxa">Taxa de Juros (% ao ano):</label>
-                            <input type="text" id="taxa" name="juros_compostos_taxa" class="form-control" required value="{{ juros_taxa_exibir }}">
+                            <label class="form-label" for="descricao">Descrição da Planilha:</label>
+                            <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
+                        </div>
+                        <div class="form-gp">
+                            <div class="form-group">
+                                <label class="form-label" for="objetivo">Objetivo (R$):</label>
+                                <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="taxa">Taxa de Juros (% ao ano):</label>
+                                <input type="text" id="taxa" name="juros_compostos_taxa" class="form-control" required value="{{ juros_taxa_exibir }}">
+                            </div>
+                        </div>
+                        <div class="form-gp">
+                            <div class="form-group">
+                                <label class="form-label" for="data_ini">Data de Início:</label>
+                                <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="data_fim">Data de Fim:</label>
+                                <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-gp">
-                        <div class="form-group">
-                            <label class="form-label" for="data_ini">Data de Início:</label>
-                            <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="data_fim">Data de Fim:</label>
-                            <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
-                        </div>
-                    </div>
+                    
                     
                     <button type="submit" class="button" id="calculateButton">Calcular</button>
                 </form>
@@ -84,7 +59,7 @@
 
             <div class="resultados">
                 {% if jc_mensalidade_por_participante is not none %}
-                <h5>Simulação de Rendimento</h5>
+                <h4>Simulação de Rendimento</h4>
                 <p>Objetivo: R$ {{ objetivo }}</p>
                 <p>Taxa de Juros: {{ juros_taxa_exibir }}% ao ano</p>
                 <p>Quantidade de Parcelas: {{ num_parcelas }}</p>
@@ -159,7 +134,10 @@
                 {% endif %}
             </div>
         </div>
+        <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
+
     </div>
+
 </div>
 
 <script>
