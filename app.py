@@ -319,6 +319,32 @@ def login():
 
     return render_template('login.html')
 
+################################################################################
+
+@app.route('/usuario', methods=['GET', 'POST'])
+@login_required
+def usuario():
+    # TODO: Criar função para não repetir esse código da rota Planilhas.
+
+    usuario = User.get(current_user.id)
+
+    return render_template('usuario.html', usuario=usuario)
+
+################################################################################
+
+@app.route('/usuario/<int:id_usuario>/excluir', methods=['GET','POST'])
+@login_required
+def excluir_usuario(id_usuario):
+    conn = obter_conexao()
+    user_delete = 'DELETE FROM usuarios WHERE id = ?'
+    planilhas = Planilha.consultar('SELECT * FROM planilhas WHERE id_usuario=?', (id_usuario,))
+    planilha_delete = 'DELETE FROM planilhas WHERE id = ?'
+    evento_delete = 'DELETE FROM evento WHERE id_planilha = ?'
+    conn.execute(user_delete, planilha_delete, evento_delete(id_usuario, planilhas.id,planilhas.id))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
 #################################################################################
 
 @app.route('/simulacao', methods=['GET', 'POST'])

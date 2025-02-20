@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}Usuario{% endblock %}
+{% block content %}
+<div>
+    <h2>Pagina de Usuario</h2>
+
+    <li>{{ usuario.id }} | {{ usuario.nome }} | Contato: {{ usuario.email }}</li>
+    <li> 
+        <a href="">Editar</a>
+        <a href="{{ url_for('excluir_usuario', id_usuario=usuario.id) }}" method="POST">Excluir</a>
+    </li>
+
+</div>
+{% endblock %}
