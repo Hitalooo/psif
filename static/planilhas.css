@@ -1,0 +1,185 @@
+/* Estilos gerais para o container */
+.container {
+    display: flex; /* Alinha os filhos lado a lado */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    padding-top: 30px;
+}
+
+/* Título da página */
+.planilhas-conteiner h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Formulário de cadastro */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0;
+}
+
+/* Estilo para os campos de entrada do formulário */
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilo para o botão de cadastro */
+.botao-planilha {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.botao-planilha:hover {
+    background-color: #df8600;
+}
+
+/* Estilo para os links de cada planilha */
+.planilhas-conteiner a {
+    font-size: 16px;
+    color: #000020;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.planilhas-conteiner a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para os botões de excluir e editar */
+.btn-excluir {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-excluir:hover {
+    background-color: #c82333;
+}
+
+/* Garantir que os botões de excluir e editar fiquem na mesma linha */
+.btns {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    margin-top: 10px;
+}
+
+/* Estilo para o layout da página de planilhas */
+.planilhas-conteiner {
+    margin-top: 20px;
+    padding: 20px;
+    display: flex; /* Alinha os filhos lado a lado */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    background-color: #000020;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 80%;
+    width: 100%; /* Definindo largura para o container das planilhas */
+}
+.planilha-cadastro{
+    background-color: #000020;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.planilha-grid {
+    width: 70%;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    background-color: #ff9800;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.plan {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 180px;
+    height: 180px; /* Aumentado para deixar o quadrado mais visível */
+    border-radius: 10px; /* Cantos arredondados */
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+    background-color: #ffffff;
+    transition: transform 0.3s ease; /* Efeito de hover */
+}
+
+/* Efeito de hover para as planilhas */
+.plan:hover {
+    transform: scale(1.05); /* Aumenta o tamanho levemente ao passar o mouse */
+}
+
+.plan a {
+    font-size: 16px;
+    color: #000020;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.plan a:hover {
+    text-decoration: underline;
+}
+
+.plan .btns {
+    display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+}
+
+/* Responsividade para telas menores */
+@media screen and (max-width: 1330px) {
+    .container {
+        flex-direction: column; /* Empilha os itens em telas pequenas */
+        align-items: center; /* Alinha o conteúdo ao centro */
+    }
+    
+
+    .planilhas-conteiner {
+        width: 100%; /* Ocupa toda a largura disponível em telas menores */
+        flex-direction: column;
+        height: 110%;
+    }
+
+    form {
+        width: 100%; /* O formulário também ocupa toda a largura disponível */
+    }
+
+    .planilha-grid {
+        width: 100%; /* A grid ocupa toda a largura em telas pequenas */
+        justify-content: center; /* Centraliza os "quadradinhos" */
+    }
+}

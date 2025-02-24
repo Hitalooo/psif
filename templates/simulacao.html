@@ -4,7 +4,9 @@
 {% block content %}
 
 <div class="container">
+
     <div class="content-wrapper">
+        
         <div class="tabs">
             <h4>Escolha uma Simulação</h4>
             <ul class="tab-list">
@@ -77,7 +79,7 @@
                     <button type="submit" name="criar_planilha" class="button">Criar Planilha</button>
                 </form>
                 {% endif %}
-                <br>
+                <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
             </div>
         </div>
 
@@ -88,26 +90,28 @@
                 <form method="post" class="form-3" id="calculationFormSemRendimento">
                     <input type="hidden" name="tipo_simulacao" value="sem_rendimentos">
                     <input type="hidden" name="aba_selecionada" value="sem_rendimento">
-                    <div class="form-group">
+                    <div class="form-group-gp">
                         <div class="form-group">
-                            <label class="form-label" for="num_participantes">Número de Participantes:</label>
-                            <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
-                        </div>
-                        <label class="form-label" for="descricao">Descrição da Planilha:</label>
-                        <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="objetivo_sem_rendimento">Objetivo (R$):</label>
-                        <input type="text" id="objetivo_sem_rendimento" name="objetivo" class="form-control" required value="{{ objetivo }}">
-                    </div>
-                    <div class="form-gp">
-                        <div class="form-group">
-                            <label class="form-label" for="data_ini">Data de Início:</label>
-                            <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
+                            <div class="form-group">
+                                <label class="form-label" for="num_participantes">Número de Participantes:</label>
+                                <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
+                            </div>
+                            <label class="form-label" for="descricao">Descrição da Planilha:</label>
+                            <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="data_fim">Data de Fim:</label>
-                            <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
+                            <label class="form-label" for="objetivo_sem_rendimento">Objetivo (R$):</label>
+                            <input type="text" id="objetivo_sem_rendimento" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                        </div>
+                        <div class="form-gp">
+                            <div class="form-group">
+                                <label class="form-label" for="data_ini">Data de Início:</label>
+                                <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="data_fim">Data de Fim:</label>
+                                <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="button" id="calculateButtonSemRendimento">Calcular</button>
@@ -132,9 +136,9 @@
                     <button type="submit" name="criar_planilha" class="button">Criar Planilha</button>
                 </form>
                 {% endif %}
+                <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
             </div>
         </div>
-        <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
 
     </div>
 

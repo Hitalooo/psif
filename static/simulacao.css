@@ -1,159 +1,141 @@
+/* Estilos gerais para o container */
 .container {
-    width: 100%;
+    width: 80%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 2rem;
-    align-items: center;
-    gap: 2rem;
-
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
 }
 
-.container p{
-    max-width: 50rem;
+/* Estilos para o título e tabs */
+.content-wrapper {
+    padding: 20px;
 }
 
-.content-wrapper{
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
+.tabs h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.tabs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    margin: 20px 0;
-}
-.tabs h4{
-    font-size: 40px;
-}
 .tab-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
     display: flex;
+    gap: 10px;
 }
+
 .tab-item {
     cursor: pointer;
     padding: 10px 20px;
-    background: #ff9800;
-    margin-right: 5px;
-    font-weight: bold;
-    color: #000020;
+    background-color: #f0f0f0;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
+
 .tab-item.active {
-    background: #d1d1d1;
-    font-weight: bold;
-    background: #000020;
-    color: #ff9800;
+    background-color: #ff9800;
+    color: white;
 }
+
+.tab-item:hover {
+    background-color: #ddd;
+}
+
+/* Estilos para o conteúdo das tabs */
 .tab-content {
     display: none;
     margin-top: 20px;
 }
+
 .tab-content.active {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 90%;
-    height: 50%;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.result-box{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70%;
-    background-color: #d1d1d1;
-    border-radius: 15px;
-    justify-content: space-around;
-}
-
-.result-box h4{
-    font-size: 25px;
-}
-.resultados{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 29%;
-    background-color:#d1d1d1;
-    border-radius: 15px;
-}
-.form-3{
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    gap: 20px;
     flex-wrap: wrap;
-    align-items: center;
-    margin-top: 3rem;
+}
 
+/* Formulários */
+.form-3 {
+    margin-top: 20px;
 }
-.form-3 button{
-    width: 200px;
-    margin-top: 3rem;
-}
-.form-group{
+
+.form-group-gp {
     display: flex;
-    width: 80%;
+    padding: 15px;
+    flex-direction: column;
 }
-.form-group input{
+
+.form-group,
+.form-gp {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #000020;
     border-radius: 5px;
-    width: 100%;
-    height: 80%;
-    border: transparent;
-    font-size: 15px;
-}
-.form-gp{
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    
-}
-.form-group-gp{
-    display: flex;
-    width: 100%;
-    font-size: 20px;
-    flex-direction: column;
-    align-items: center;
-}
-@media screen and (max-width: 1330px) {
-    .container {
-        width: 95%;
-    }
-    .result-box{
-        width: 80%;
-        background-color: #d1d1d1;
-        border-radius: 15px;
-    
-    }
-    .resultados{
-        width: 80%;
-        background-color:#d1d1d1;
-        border-radius: 15px;
-    }
+    font-size: 16px;
 }
 
-@media screen and (max-width: 1064px) {
-    .container {
-        width: 95%;
-    }
-    .result-box{
-        width: 80%;
-        background-color: #d1d1d1;
-        border-radius: 15px;
-    
-    }
-    .resultados{
-        width: 80%;
-        background-color:#d1d1d1;
-        border-radius: 15px;
-    }
+.button {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #e48900;
+}
+
+/* Resultados */
+.result-box {
+    color:white;
+    width: 60%;
+    padding: 20px;
+    background-color: #000020;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resultados{
+    width: 30%;
+}
+
+.result-box h4,
+.resultados h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.resultados p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Adiciona espaço entre o texto informativo */
+p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 1330px) {
+   .result-box{
+    width: 100%;
+   }
+   .resultados{
+    width: 100%;
+   }
 }

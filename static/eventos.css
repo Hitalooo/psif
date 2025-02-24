@@ -1,0 +1,107 @@
+/* Estilos gerais para o container */
+.container {
+    display: flex; /* Alinha os filhos lado a lado */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    padding-top: 30px;
+}
+.eventos-container{
+    padding: 20px;
+    display: flex; /* Alinha os filhos lado a lado */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    background-color: #000020;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 85%;
+    width: 100%; /* Definindo largura para o container das planilhas */
+}
+/* Título da página */
+h3 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo para o formulário de eventos */
+.event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0;
+    padding: 15px;
+    background-color: #000020;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para os campos de entrada do formulário */
+.event-form input[type="text"],
+.event-form input[type="number"],
+.event-form input[type="datetime-local"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilo para o botão de adicionar evento */
+.but-event {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.but-event:hover {
+    background-color: #df8600;
+}
+
+/* Estilo para os botões de editar e excluir */
+.botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.botao-editar, .botao-excluir {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.botao-editar:hover, .botao-excluir:hover {
+    background-color: #c82333;
+}
+
+/* Estilo para os links de eventos */
+.meus-eventos a {
+    font-size: 16px;
+    color: #000020;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.meus-eventos a:hover {
+    text-decoration: underline;
+}
+
