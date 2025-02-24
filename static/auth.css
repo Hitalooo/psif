@@ -77,11 +77,13 @@ header{display: none;}
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 1rem 0;
+    flex-direction: column;
 }
 
 .input-box {
     display: flex;
     flex-direction: column;
+    width: 400px;
     margin-bottom: 1.1rem;
 }
 

@@ -23,11 +23,15 @@
         <div class="planilha-grid">
             {% for p in planilhas %}
                 <div class="plan">
-                    <a href="{{ url_for('planilha', id=p.id) }}">{{p.id}}
-                    {{p.descricao}}
-                    {{p.objetivo}}
-                    {{p.data_ini}}
-                    {{p.data_fim}}</a>
+                    <a href="{{ url_for('planilha', id=p.id) }}">
+                    
+                    <h4>Descrição: {{ p['descricao'] }}</h4>
+                    <h4>Objetivo: {{ p['objetivo'] }}</h4>
+                    <h4>Data inicio: {{ p['data_ini'] }}</h4>
+                    <h4>Data fim: {{ p['data_fim'] }}</h4>
+                    </a>
+
+                
 
                     <div class="btns">
                         <form action="{{ url_for('excluir_planilha', id_planilha=p.id) }}" method="post">
@@ -35,7 +39,7 @@
                         </form>
 
                         <a href="{{ url_for('editar_planilha', id_planilha=p.id) }}">
-                                <button type="submit" class="btn-excluir">Editar</button>
+                                <button type="submit" class="btn-editar">Editar</button>
                         </a>
                     </div>
 

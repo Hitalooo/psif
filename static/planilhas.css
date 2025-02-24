@@ -70,7 +70,19 @@ input[type="date"] {
 
 /* Estilo para os botões de excluir e editar */
 .btn-excluir {
-    background-color: #dc3545;
+    background-color: #f10404;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #000020;
     color: white;
     padding: 8px 16px;
     border: none;
@@ -118,8 +130,8 @@ input[type="date"] {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    background-color: #ff9800;
-    justify-content: space-between;
+    background-color: white;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     overflow-y: auto;
 }
@@ -133,7 +145,7 @@ input[type="date"] {
     border-radius: 10px; /* Cantos arredondados */
     padding: 10px;
     margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.329); /* Sombra para dar destaque */
     background-color: #ffffff;
     transition: transform 0.3s ease; /* Efeito de hover */
 }
