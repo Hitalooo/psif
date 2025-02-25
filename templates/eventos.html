@@ -6,7 +6,8 @@
 <div class="container">
 
     <div class="eventos-container">
-        <div class="content-event">
+
+        <div class="evento-cadastro">
             <h3>Cadastrar Novo Evento</h3>
             <form class="event-form" action="{{ url_for('eventos') }}" method="POST">
                 <label for="nome">Nome:</label>
@@ -42,29 +43,15 @@
                             <span class="evento-contato">Contato: {{ evento.contato }}</span>                    
                             <br>
                             <div class="botoes">
-                                <a class="botao-editar" href="{{ url_for('editar_evento', id_evento=evento.id) }}">Editar</a>
+                                <a href="{{ url_for('editar_evento', id_evento=evento.id) }}"><button class="btn-editar">Editar</button></a>
                                 <form action="{{ url_for('excluir_evento', id_evento=evento.id) }}" method="POST" style="display:inline;">
-                                    <button class="botao-excluir" type="submit">Excluir</button>
+                                    <button class="btn-excluir" type="submit">Excluir</button>
                                 </form>
                             </div>
                         </li>
                     {% endfor %}
                 </ul>
                 
-                <!-- Botões de Paginação
-                <div class="paginacao">
-                    {% if pagina > 1 %}
-                        <a href="{{ url_for('eventos', pagina=pagina-1) }}" class="link-pagina">Anterior</a>
-                    {% endif %}
-                    
-                    {% for p in range(1, total_paginas + 1) %}
-                        <a href="{{ url_for('eventos', pagina=p) }}" class="link-pagina {% if p == pagina %}ativo{% endif %}">{{ p }}</a>
-                    {% endfor %}
-                    
-                    {% if pagina < total_paginas %}
-                        <a href="{{ url_for('eventos', pagina=pagina+1) }}" class="link-pagina">Próxima</a>
-                    {% endif %}
-                </div> -->
             </div>
         </div>
 

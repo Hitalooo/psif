@@ -1,18 +1,24 @@
 {% extends 'layout.html' %}
 
 {% block title %}Planilha{% endblock %}
+{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='editar.css') }}">{% endblock %}
 
 {% block content %}
 
-<div class="planilhas-conteiner">
-    <h2>Editar Planilha</h2>
+<div class="container">
+    <h1>Editar Planilha</h1>
 
     <form action="{{ url_for('editar_planilha', id_planilha=planilha.id) }}" method="POST">
-        Título: <input type="text" name="descricao" value="{{ planilha.descricao }}" required>
-        Objetivo: <input type="number" name="objetivo" value="{{ planilha.objetivo }}" required>
-        Data de Início: <input type="date" name="data_ini" value="{{ planilha.data_ini }}" required>
-        Data de Fim: <input type="date" name="data_fim" value="{{ planilha.data_fim }}" required>
-        <input class="botao-planilha" type="submit" value="Editar">
+
+        <label for="descricao">Título:</label>
+        <input type="text" name="descricao" value="{{ planilha.descricao }}" required>
+        <label for="objetivo">Objetivo:</label>
+        <input type="number" name="objetivo" value="{{ planilha.objetivo }}" required>
+        <label for="data_ini">Data de Início:</label>
+        <input type="date" name="data_ini" value="{{ planilha.data_ini }}" required>
+        <label for="data_fim">Data de Fim:</label>
+        <input type="date" name="data_fim" value="{{ planilha.data_fim }}" required>
+        <button type="submit">Editar</button>
     </form>
     
    

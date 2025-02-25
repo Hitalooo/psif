@@ -1,0 +1,87 @@
+/* Estiliza o corpo da página */
+.container {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    color: #333;
+    display: flex;
+    align-items: center;    
+    flex-direction: column;
+    height: 100%;
+    padding-top: 45px;
+}
+
+/* Estiliza o contêiner do formulário */
+form {
+    background-color: #000020;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título da página */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estiliza os rótulos dos campos */
+label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+/* Estiliza os campos de entrada */
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+input[type="date"]  {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="datetime-local"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estiliza o botão de envio */
+button {
+    padding: 12px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Estiliza o link de cancelamento */
+a {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

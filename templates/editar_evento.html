@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 {% block title %} {{nome_evento}} {% endblock %}
+{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='editar.css') }}">{% endblock %}
 {% block content %}
+<div class="container">
+
     <h1>Editar Evento</h1>
 
     <form action="{{ url_for('editar_evento', id_evento=evento.id) }}" method="POST">
@@ -23,4 +26,6 @@
     </form>
 
     <a href="{{ url_for('eventos') }}">Cancelar</a>
+
+</div>
 {% endblock %}

@@ -1,0 +1,174 @@
+/* Estiliza o contêiner principal */
+.container {
+    width: 80%;
+    margin-top: 35px;
+    height: 100%;
+}
+
+/* Estilo para os títulos */
+h2 {
+    color: #007bff;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* Estiliza a seção de dados da planilha */
+.dados-planilha {
+    margin-bottom: 30px;
+}
+
+.titulo-planilha {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.info-planilha {
+    font-size: 16px;
+    color: #555;
+}
+
+.info-planilha strong {
+    color: #333;
+}
+
+/* Estiliza os links de navegação */
+a {
+    color: #007bff;
+    font-size: 16px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para as seções de gráfico e participantes */
+.graf-part {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Estiliza as seções de participantes e lançamentos */
+.graf-part > div {
+    width: 48%;
+}
+
+/* Formulário de cadastro de participante */
+form {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="date"]:focus,
+form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estilo do botão de submit */
+input[type="submit"], .btn-adicionar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover, .btn-adicionar:hover {
+    background-color: #218838;
+}
+
+/* Estilo do link de lista de participantes */
+form a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    font-size: 14px;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para os lançamentos */
+.lancamentos {
+    margin-top: 20px;
+}
+
+.form-container-lancamento {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo das linhas de formulários */
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row input[type="date"],
+.form-row select {
+    width: calc(50% - 10px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-row input[type="text"]:focus,
+.form-row input[type="number"]:focus,
+.form-row input[type="date"]:focus,
+.form-row select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estiliza o link de lista de lançamentos */
+.lancamentos a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.lancamentos a:hover {
+    text-decoration: underline;
+}
