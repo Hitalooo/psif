@@ -29,7 +29,37 @@
 
 {% endblock %}
 {% block content %}
-    <div id="chart_div"></div>
-
+    <!-- <div id="chart_div"></div> -->
+    <div>
+        <h2>Gráfico</h2>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Participante</th>
+                        {% for m in meses %}
+                        <th>{{ m }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in planilha.dados_tabela() %}
+                    <tr>
+                        <td>
+                            {{ linha[0].nome }}
+                        </td>
+                        {% for dado in linha[1:] %}
+                        <td>
+                            {{ dado }}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <a href="{{ request.referrer }}">← Voltar para a planilha</a>
     <a href="{{ request.referrer }}">← Voltar para a planilha</a>
 {% endblock %}
