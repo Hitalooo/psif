@@ -101,8 +101,6 @@ input[type="date"] {
 .btns {
     display: flex;
     flex-direction: row;
-    width: 20%;
-    margin-top: 10px;
 }
 
 /* Estilo para o layout da página de planilhas */
@@ -140,7 +138,7 @@ input[type="date"] {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 180px;
+    width: 200px;
     height: 180px; /* Aumentado para deixar o quadrado mais visível */
     border-radius: 10px; /* Cantos arredondados */
     padding: 10px;
@@ -166,11 +164,6 @@ input[type="date"] {
     text-decoration: underline;
 }
 
-.plan .btns {
-    display: flex;
-    justify-content: space-around;
-    margin-top: auto;
-}
 
 /* Responsividade para telas menores */
 @media screen and (max-width: 1330px) {
