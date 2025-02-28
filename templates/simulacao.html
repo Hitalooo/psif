@@ -31,15 +31,9 @@
                             <label class="form-label" for="descricao">Descrição da Planilha:</label>
                             <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
                         </div>
-                        <div class="form-gp">
-                            <div class="form-group">
+                        <div class="form-group">
                                 <label class="form-label" for="objetivo">Objetivo (R$):</label>
                                 <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="taxa">Taxa de Juros (% ao ano):</label>
-                                <input type="text" id="taxa" name="juros_compostos_taxa" class="form-control" required value="{{ juros_taxa_exibir }}">
-                            </div>
                         </div>
                         <div class="form-gp">
                             <div class="form-group">
@@ -49,6 +43,10 @@
                             <div class="form-group">
                                 <label class="form-label" for="data_fim">Data de Fim:</label>
                                 <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="taxa">Taxa de Juros (% ao ano):</label>
+                                <input type="text" id="taxa" name="juros_compostos_taxa" class="form-control" required value="{{ juros_taxa_exibir }}">
                             </div>
                         </div>
                     </div>

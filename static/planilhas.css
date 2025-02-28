@@ -1,7 +1,5 @@
 /* Estilos gerais para o container */
 .container {
-    display: flex; /* Alinha os filhos lado a lado */
-    justify-content: space-between; /* Espaça os itens igualmente */
     width: 80%;
     margin: 0 auto;
     height: 100%;

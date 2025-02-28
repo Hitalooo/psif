@@ -1,7 +1,5 @@
 /* Estilos gerais para o container */
 .container {
-    display: flex; /* Alinha os filhos lado a lado */
-    justify-content: space-between; /* Espaça os itens igualmente */
     width: 80%;
     margin: 0 auto;
     height: 100%;
@@ -19,10 +17,10 @@ h3 {
 
 /* Estilo para o formulário de eventos */
 .event-form {
-   display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: flex;
     max-width: 500px;
+    flex-direction: column;
+    gap: 12px;
     margin: 0;
 }
 

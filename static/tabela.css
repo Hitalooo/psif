@@ -1,0 +1,66 @@
+.container {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#chart_div{
+    width: 100%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-family: Arial, sans-serif;
+}
+
+table th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #000020;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd; 
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.tabela {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+table th, td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+a {
+    color: #000020;
+    text-decoration: none;
+    padding-bottom: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
