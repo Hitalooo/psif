@@ -10,7 +10,8 @@
         <div class="tabs">
             <h4>Escolha uma Simulação</h4>
             <ul class="tab-list">
-                <li class="tab-item {% if aba_selecionada == 'juros' %}active{% endif %}" onclick="showTab('juros', event)">Simulação de Juros</li>
+                <li class="tab-item {% if aba_selecionada == 'juros' %}active{% endif %}" onclick="showTab('juros', event)">Simulação de Juros Compostos</li>
+                <li class="tab-item {% if aba_selecionada == 'juros_simples' %}active{% endif %}" onclick="showTab('juros_simples', event)">Simulação de Juros Simples</li>
                 <li class="tab-item {% if aba_selecionada == 'sem_rendimento' %}active{% endif %}" onclick="showTab('sem_rendimento', event)">Simulação Sem Rendimentos</li>
             </ul>
         </div>
@@ -139,7 +140,69 @@
         </div>
 
     </div>
+        <!-- Aba de Juros Simples -->
+        <div id="juros_simples" class="tab-content {% if aba_selecionada == 'juros_simples' %}active{% endif %}">
+            <div class="result-box">
+                <h4>Simulação de Juros Simples</h4>
 
+                <form method="post" class="form-3" id="calculationFormJurosSimples">
+                    <input type="hidden" name="tipo_simulacao" value="juros_simples">
+                    <input type="hidden" name="aba_selecionada" value="juros_simples">
+                    <div class="form-group-gp">
+                        <div class="form-group">
+                            <label class="form-label" for="num_participantes">Número de Participantes:</label>
+                            <input type="text" id="num_participantes" name="num_participantes" class="form-control" required value="{{ num_participantes }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="descricao">Descrição da Planilha:</label>
+                            <input type="text" id="descricao" name="descricao" class="form-control" required value="{{ descricao }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="objetivo">Objetivo (R$):</label>
+                            <input type="text" id="objetivo" name="objetivo" class="form-control" required value="{{ objetivo }}">
+                        </div>
+                        <div class="form-gp">
+                            <div class="form-group">
+                                <label class="form-label" for="data_ini">Data de Início:</label>
+                                <input type="date" id="data_ini" name="data_ini" class="form-control" required value="{{ data_ini }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="data_fim">Data de Fim:</label>
+                                <input type="date" id="data_fim" name="data_fim" class="form-control" required value="{{ data_fim }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="taxa_juros_simples">Taxa de Juros Simples (% ao ano):</label>
+                                <input type="text" id="taxa_juros_simples" name="juros_simples_taxa" class="form-control" required value="{{ juros_taxa_exibir }}">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="button" id="calculateButtonJurosSimples">Calcular</button>
+                </form>
+            </div>
+
+            <div class="resultados">
+                {% if js_mensalidade_por_participante is not none %}
+                <h4>Simulação de Rendimento</h4>
+                <p>Objetivo: R$ {{ objetivo }}</p>
+                <p>Taxa de Juros: {{ juros_taxa_exibir }}% ao ano</p>
+                <p>Quantidade de Parcelas: {{ num_parcelas }}</p>
+                <p>Mensalidade Total: R$ {{ js_mensalidade_total }}</p>
+                <p>Mensalidade por Pessoa: R$ {{ js_mensalidade_por_participante }}</p>
+                <p>Montante Acumulado após Rendimento: R$ {{ js_montante_acumulado }}</p>
+                <form method="post" id="criarPlanilhaJurosSimples">
+                    <input type="hidden" name="tipo_simulacao" value="juros_simples">
+                    <input type="hidden" name="objetivo" value="{{ objetivo }}">
+                    <input type="hidden" name="juros_simples_taxa" value="{{ juros_simples_taxa }}">
+                    <input type="hidden" name="num_participantes" value="{{ num_participantes }}">
+                    <input type="hidden" name="descricao" value="{{ descricao }}">
+                    <input type="hidden" name="data_ini" value="{{ data_ini }}">
+                    <input type="hidden" name="data_fim" value="{{ data_fim }}">
+                    <button type="submit" name="criar_planilha" class="button">Criar Planilha</button>
+                </form>
+                {% endif %}
+                <p>Esses valores não são uma garantia de rentabilidade futura, mas uma estimativa projetada usando a taxa do CDI de hoje para todo o período em que seu depósito permanecer na conta. Podem ocorrer variações de acordo com a quantia e a taxa do CDI em cada data de depósito.</p>
+            </div>
+        </div>
 </div>
 
 <script>

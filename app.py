@@ -8,7 +8,7 @@ from models.usuario import User
 from models.lancamentos import Lancamento
 from models.participantes import Participante
 from models.planilhas import Planilha
-from simulacoes import SimulacaoJurosCompostos, SimulacaoSemRendimento
+from simulacoes import SimulacaoJurosCompostos, SimulacaoSemRendimento, SimulacaoJurosSimples
 from util import datas
 
 app = Flask(__name__)
@@ -358,14 +358,18 @@ def simulacao():
     descricao = request.form.get("descricao", '')
     data_ini = request.form.get("data_ini", '')
     data_fim = request.form.get("data_fim", '')
-    periodo_meses=0
+    periodo_meses = 0
     juros_compostos_taxa = request.form.get("juros_compostos_taxa", '')
-    juros_taxa_exibir=0
-    jc_mensalidade_por_participante=0
-    jc_mensalidade_total=0
-    jc_montante_acumulado=0
-    sr_mensalidade_por_participante=0
-    sr_mensalidade_total=0
+    juros_simples_taxa = request.form.get("juros_simples_taxa", '')  # Nova taxa para juros simples
+    juros_taxa_exibir = 0
+    jc_mensalidade_por_participante = 0
+    jc_mensalidade_total = 0
+    jc_montante_acumulado = 0
+    sr_mensalidade_por_participante = 0
+    sr_mensalidade_total = 0
+    js_mensalidade_por_participante = 0  
+    js_mensalidade_total = 0  
+    js_montante_acumulado = 0  
 
     if request.method == 'POST':
         # Dados da planilha
@@ -390,13 +394,23 @@ def simulacao():
             sr_mensalidade_total = round(sr_mensalidade_total, 2)
         elif tipo_simulacao == 'juros_compostos':
             juros_compostos_taxa = float(juros_compostos_taxa) / 100 / 12
-            # Simulação de juros
+            # Simulação de juros compostos
             modelo = SimulacaoJurosCompostos(objetivo, juros_compostos_taxa, periodo_meses, num_participantes)
             jc_mensalidade_por_participante, jc_mensalidade_total, jc_montante_acumulado = modelo.simular()
             jc_mensalidade_por_participante = round(jc_mensalidade_por_participante, 2)
             jc_mensalidade_total = round(jc_mensalidade_total, 2)
             jc_montante_acumulado = round(jc_montante_acumulado, 2)
             juros_taxa_exibir = (juros_compostos_taxa) * 100 * 12
+        elif tipo_simulacao == 'juros_simples':  # Nova condição para juros simples
+            aba_selecionada = 'juros_simples'
+            juros_simples_taxa = float(juros_simples_taxa)
+            # Simulação de juros simples
+            modelo = SimulacaoJurosSimples(objetivo, juros_simples_taxa, periodo_meses, num_participantes)
+            js_mensalidade_por_participante, js_mensalidade_total, js_montante_acumulado = modelo.simular()
+            js_mensalidade_por_participante = round(js_mensalidade_por_participante, 2)
+            js_mensalidade_total = round(js_mensalidade_total, 2)
+            js_montante_acumulado = round(js_montante_acumulado, 2)
+            juros_taxa_exibir = juros_simples_taxa
         else:
             raise Exception('tipo_simulacao inválido.')
 
@@ -416,6 +430,7 @@ def simulacao():
         num_participantes=num_participantes,
         descricao=descricao,
         juros_compostos_taxa=juros_compostos_taxa,
+        juros_simples_taxa=juros_simples_taxa,  
         juros_taxa_exibir=juros_taxa_exibir,
         data_ini=data_ini,
         data_fim=data_fim,
@@ -424,7 +439,11 @@ def simulacao():
         jc_montante_acumulado=jc_montante_acumulado,
         sr_mensalidade_por_participante=sr_mensalidade_por_participante,
         sr_mensalidade_total=sr_mensalidade_total,
-        num_parcelas=periodo_meses)
+        js_mensalidade_por_participante=js_mensalidade_por_participante,  
+        js_mensalidade_total=js_mensalidade_total,  
+        js_montante_acumulado=js_montante_acumulado,  
+        num_parcelas=periodo_meses
+    )
         
 
 
