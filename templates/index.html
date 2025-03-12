@@ -2,22 +2,35 @@
 {% block title %}PSIF{% endblock %}
 {% block content %}
 <style>
-    .form-image {
-        width: 90%;
-        text-align: left;
-        float: left;
-        margin-right: 30px;
-        margin-top: -50px;
-}
-    .texto {
-        overflow: hidden;
+    .container {
+        width: 80%;
+        margin-top: -30px; /* Espaço abaixo da navbar */
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        display: flex;
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center; /* Centraliza verticalmente */
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    h3 {
+        font-size: 18px;
+        text-align: justify;
+        line-height: 1.6;
+        color: #555;
     }
 </style>
-<div class="form-image">
-    <img src="static/img/formatura1.jpg" alt="">
-</div>
-<div class="texto">
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae facere illum exercitationem illo nobis quibusdam rem. Voluptatem magnam velit, necessitatibus, nisi ab unde libero modi incidunt facere quos consequuntur a mollitia dicta architecto earum dignissimos eligendi recusandae. Temporibus autem rerum magni, libero blanditiis, at dolores quaerat nobis tenetur voluptatum eaque, ad incidunt aut hic modi perspiciatis qui. Animi atque ad voluptatum totam, harum a ratione mollitia eius distinctio quis? Doloremque maiores nemo corporis quos ex quaerat id, eius omnis vitae explicabo deleniti modi maxime labore cum architecto dolorem fuga? Consequuntur, sint similique! Est similique quos saepe voluptas dolorem hic officia?</p>
-</div>
-
+<body>
+    <div class="container">
+        <h2>Seja bem vindo(a) ao PSIF! 💙</h2>
+        <h3>
+            Este é um Projeto de Pesquisa submetido ao Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte - Campus Caicó, sob orientação do Prof. Ciro Medeiros e coorientação do Prof. Joaildo Maia, como parte dos requisitos para obtenção do título de Técnico em Informática para Internet. O projeto tem por objetivo criar uma plataforma de simulação de investimentos para formatura que auxilie os alunos a planejarem e alcançarem seus objetivos financeiros através de conceitos matemáticos, tendo em vista que as plataformas digitais representam metodologias de ensino capazes de promover o engajamento dos estudantes em relação a finanças. A aplicação tem uma usabilidade de fácil interação, muito objetiva e que funciona perfeitamente.
+        </h3>
+    </div> 
+</body>
 {% endblock %}
