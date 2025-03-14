@@ -1,36 +1,40 @@
 {% extends 'layout.html' %}
 {% block title %}PSIF{% endblock %}
 {% block content %}
-<style>
-    .container {
-        width: 80%;
-        margin-top: -30px; /* Espaço abaixo da navbar */
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-        display: flex;
-        justify-content: center; /* Centraliza horizontalmente */
-        align-items: center; /* Centraliza verticalmente */
-        font-size: 28px;
-        margin-bottom: 15px;
-        color: #333;
-    }
-    h3 {
-        font-size: 18px;
-        text-align: justify;
-        line-height: 1.6;
-        color: #555;
-    }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
 <body>
     <div class="container">
-        <h2>Seja bem vindo(a) ao PSIF! 💙</h2>
+        <h2>Seja bem-vindo(a) ao PSIF! 💙</h2>
+        
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-item"><img src="{{ url_for('static', filename='img1.jpg') }}" alt="Imagem 1"></div>
+                <div class="carousel-item"><img src="{{ url_for('static', filename='img2.jpg') }}" alt="Imagem 2"></div>
+                <div class="carousel-item"><img src="{{ url_for('static', filename='img3.jpg') }}" alt="Imagem 3"></div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+        
         <h3>
-            Este é um Projeto de Pesquisa submetido ao Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte - Campus Caicó, sob orientação do Prof. Ciro Medeiros e coorientação do Prof. Joaildo Maia, como parte dos requisitos para obtenção do título de Técnico em Informática para Internet. O projeto tem por objetivo criar uma plataforma de simulação de investimentos para formatura que auxilie os alunos a planejarem e alcançarem seus objetivos financeiros através de conceitos matemáticos, tendo em vista que as plataformas digitais representam metodologias de ensino capazes de promover o engajamento dos estudantes em relação a finanças. A aplicação tem uma usabilidade de fácil interação, muito objetiva e que funciona perfeitamente.
+            Este é um Projeto de Pesquisa submetido ao Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte - Campus Caicó, sob orientação do Prof. Ciro Medeiros e coorientação do Prof. Joaildo Maia. O projeto visa criar uma plataforma de simulação de investimentos para formatura, auxiliando alunos a planejarem e alcançarem seus objetivos financeiros. A aplicação é intuitiva, objetiva e altamente funcional.
         </h3>
     </div> 
+    
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        
+        function moveSlide(n) {
+            slides[slideIndex].classList.remove('active');
+            slideIndex = (slideIndex + n + slides.length) % slides.length;
+            slides[slideIndex].classList.add('active');
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            slides[slideIndex].classList.add('active');
+        });
+    </script>
 </body>
 {% endblock %}
