@@ -13,7 +13,7 @@
 }
 
 #cta .title {
-    font-size: 4rem;
+    font-size: 4rem;    
     color: var(--color-neutral-1);;
 }
 
@@ -52,15 +52,13 @@
 
 #banner {
     display: flex;
-    align-items: start;
     justify-content: end;
     width: 70%;
     z-index: 2;
 }
 
 #banner img {
-    height: 100%;
-    width: fit-content;
+    width: 90%;
 }
 
 .shape {
