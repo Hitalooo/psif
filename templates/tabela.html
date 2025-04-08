@@ -1,77 +1,85 @@
 {% extends 'layout.html' %}
 
 {% block title %}Tabela{% endblock %}
-{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='tabela.css') }}">{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='tabela.css') }}">
+{% endblock %}
 
 {% block script %}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawChart);
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                // Cabeçalho
-                ['Participante', {% for m in meses %} '{{ m }}', {% endfor %}],
+<script>
+  function gerarPDF() {
+    const elemento = document.querySelector(".container");
+    html2pdf().set({
+      margin: 10,
+      filename: 'pagina.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(elemento).save();
+  }
 
-                // Dados para cada linha
-                {% for linha in planilha.dados_tabela() %}
-                [
-                    '{{ linha[0].nome }}',  // Nome do participante
-                    {% for dado in linha[1:] %}
-                    {{ dado }},
-                    {% endfor %}
-                ],
-                {% endfor %}
-            ]);
+  google.charts.load('current', {'packages':['corechart', 'bar']});
+  google.charts.setOnLoadCallback(drawChart);
 
-            var options = {
-                height: 400,
-                legend: { position: 'top', maxLines: 3 },
-                bar: { groupWidth: '75%' },
-                isStacked: true
-            };
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Participante', {% for m in meses %} '{{ m }}', {% endfor %}],
+      {% for linha in planilha.dados_tabela() %}
+        ['{{ linha[0].nome }}', {% for dado in linha[1:] %} {{ dado }}, {% endfor %}],
+      {% endfor %}
+    ]);
 
-            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
-    </script>
+    var options = {
+      height: 400,
+      legend: { position: 'top', maxLines: 3 },
+      bar: { groupWidth: '75%' },
+      isStacked: true
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <h2>Gráfico:</h2>
+  <h2>Gráfico:</h2>
+  <div id="chart_div"></div>
 
-    <div id="chart_div"></div>
+  <h2>Tabela:</h2>
+  <div class="tabela">
+    <table>
+      <thead>
+        <tr>
+          <th>Participante</th>
+          {% for m in meses %}
+          <th>{{ m }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for linha in planilha.dados_tabela() %}
+        <tr>
+          <td>{{ linha[0].nome }}</td>
+          {% for dado in linha[1:] %}
+          <td>{{ dado }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>    
+  </div>
 
-    <h2>Tabela:</h2>
-
-    <div class="tabela">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Participante</th>
-                        {% for m in meses %}
-                        <th>{{ m }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for linha in planilha.dados_tabela() %}
-                    <tr>
-                        <td>{{ linha[0].nome }}</td>
-                        {% for dado in linha[1:] %}
-                        <td>{{ dado }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <a href="{{ request.referrer }}">← Voltar para a planilha</a>
-
+  <div class="btn-container">
+    <a href="{{ request.referrer }}">
+      <button class="btn-custom">← Voltar para a planilha</button>
+    </a>
+    <button class="btn-custom" onclick="gerarPDF()">Baixar em PDF</button>
+  </div>
 </div>
 {% endblock %}

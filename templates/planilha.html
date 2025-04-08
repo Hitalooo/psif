@@ -15,14 +15,15 @@
                 </div>
             </div>
 
-            <a href="{{ url_for('tabela', id_planilha=planilha.id) }}">Tabela Ampliada -> </a>
-            
+            <div class="a-plan">
+                <a href="{{ url_for('tabela', id_planilha=planilha.id) }}">-> Planilha de Pagamentos <-</a>
+            </div>            
             <div class="graf-part">
 
                 <div>
                     <strong>Participantes:</strong>
                     <form method="POST" action="{{ url_for('participantes', id_planilha=planilha.id) }}">
-                        <label>Cadastrar Participante:</label><br>
+                        <br>
                         Nome: <input type="text" name="nome_participante" required>
                         Contato: <input type="text" name="contato_participante" required>
                         

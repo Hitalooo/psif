@@ -3,20 +3,15 @@
 {% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">{% endblock %}
 
 {% block content %}
-
-
 <div class="container">
-    <div class="form-image">
-        <img src="static/img/formatura1.jpg" alt="">
-    </div>
     <div class="form">
-        <form method="POST" action="{{ url_for('login') }}">
+        <form method="POST">
             <div class="form-header">
                 <div class="title">
                     <h1>Login</h1>
                 </div>
                 <div class="login-button">
-                    <button><a href="{{ url_for('cadastro') }}">Cadastre-se</a></button>
+                    <button><a href="{{ url_for('cadastro') }}">Cadastro</a></button>
                 </div>
             </div>
 
@@ -32,7 +27,6 @@
                     <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
                 </div>
 
-
             </div>
 
             <div class="continue-button">
@@ -41,5 +35,7 @@
         </form>
     </div>
 </div>
+
+
 
 {% endblock %}

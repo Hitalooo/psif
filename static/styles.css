@@ -21,9 +21,35 @@
 html {
     scroll-behavior: smooth;
 }
-
+.galeria {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 0;
+    flex-wrap: wrap;
+  }
+  
+  .galeria .item {
+    text-align: center;
+    max-width: 350px; /* aumentei um pouco pra acompanhar a nova altura */
+  }
+  
+  .galeria img {
+    width: 100%;
+    height: 300px; /* aqui aumentamos a altura */
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .galeria h3 {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #333;
+  }
+  
 body {
-    background-color: var(--color-primary-1);
+    background-color: white;
 }
 
 section {
