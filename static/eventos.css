@@ -1,156 +1,342 @@
-/* Estilos gerais para o container */
-.container {
-    width: 80%;
-    margin: 0 auto;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    padding-top: 30px;
+/* Estilos gerais para o body */
+body {
+    background-color: #f8f8f8; /* Light background for the whole page */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Make body a flex container */
+    flex-direction: column; /* Stack content vertically */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-/* Título da página */
-h3 {
+/* Estilos para o container principal da página de eventos */
+.container {
+    max-width: 1400px; /* Increased max-width for wider screens */
+    width: 95%; /* Take more width, keep it responsive */
+    margin: 20px auto; /* Add top/bottom margin for spacing from header/footer */
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* White background for the main content area */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    flex-grow: 1; /* Allow container to grow and fill remaining vertical space in body */
+    padding: 30px; /* Overall padding inside the container */
+    display: flex; /* Make container a flex container */
+    flex-direction: column; /* Stack contents inside container (like title and the main events-container) */
+    min-height: calc(100vh - 40px); /* Ensure container fills vertical space, accounting for body margin */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Título da página (global) */
+.container > h3 { /* Target h3 directly inside .container */
     font-size: 28px;
     font-weight: bold;
-    margin-bottom: 20px;
+    color: #333; /* Darker text for main titles */
+    margin-bottom: 25px; /* More space below title */
     text-align: center;
 }
 
-/* Estilo para o formulário de eventos */
+/* Estilo para o container principal que divide a tela (Cadastro e Meus Eventos) */
+.eventos-container {
+    display: flex; /* Alinha os filhos (form e grid) lado a lado */
+    gap: 30px; /* Espaço entre os dois painéis */
+    flex-grow: 1; /* Permite que o container de eventos cresça e preencha o espaço vertical */
+    justify-content: center; /* Center the panels horizontally */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    min-height: 400px; /* Adjust this value as needed */
+}
+
+/* Painel de cadastro de eventos (formulário) */
+.evento-cadastro {
+    background-color: #ffffff; /* White background for the form panel to match eventos-grid */
+    color: #333; /* Darker text color for general text in this panel */
+    padding: 25px; /* Consistent padding */
+    border-radius: 8px; /* Consistent border-radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for distinction */
+    flex: 1; /* Allow it to grow and shrink */
+    min-width: 350px; /* Minimum width for the form panel */
+    max-width: 500px; /* Keep a reasonable max-width for readability */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    align-self: stretch; /* Make it stretch to the height of its flex container (.eventos-container) */
+}
+
+.evento-cadastro h3 {
+    font-size: 24px; /* Adjust title size within the panel */
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ff8c00; /* Orange title for contrast */
+}
+
+/* Estilo para o formulário de eventos dentro do painel */
 .event-form {
     display: flex;
-    max-width: 500px;
     flex-direction: column;
-    gap: 12px;
-    margin: 0;
+    gap: 15px; /* More space between form groups */
+    flex-grow: 1; /* Allow form to take available space */
+}
+
+/* Estilo para os labels */
+.event-form label {
+    font-weight: bold;
+    margin-bottom: 5px; /* Space below label */
+    display: block; /* Ensure label takes its own line */
+    color: #444; /* Darker color for labels on white background */
 }
 
 /* Estilo para os campos de entrada do formulário */
 input[type="text"],
 input[type="number"],
 input[type="datetime-local"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px 10px; /* More padding inside inputs */
+    border: 1px solid #ccc; /* Lighter border for contrast on white background */
+    border-radius: 6px; /* Consistent border-radius */
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
+    background-color: #ffffff; /* White background for inputs */
+    color: #333; /* Dark text for input */
 }
+
+input[type="text"]::placeholder, /* Placeholder styling */
+input[type="number"]::placeholder,
+input[type="datetime-local"]::placeholder {
+    color: #888; /* Darker placeholder text for visibility */
+}
+
+input[type="text"]:focus, /* Focus state for inputs */
+input[type="number"]:focus,
+input[type="datetime-local"]:focus {
+    border-color: #ff8c00;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.3);
+}
+
 /* Estilo para o botão de adicionar evento */
 .but-event {
-    padding: 10px 20px;
+    padding: 12px 25px; /* Larger button */
     background-color: #ff9800;
     color: white;
-    font-size: 16px;
+    font-size: 17px; /* Larger font */
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px; /* Consistent border-radius */
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full width button */
+    margin-top: 20px; /* Space above the button */
 }
 
 .but-event:hover {
-    background-color: #df8600;
+    background-color: #e48900;
+    transform: translateY(-1px);
 }
 
-/* Estilo para os botões de editar e excluir */
+/* Painel de exibição de eventos (grid) */
+.eventos-grid {
+    background-color: #ffffff; /* White background for events grid */
+    padding: 25px; /* Consistent padding */
+    border-radius: 8px; /* Consistent border-radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 2; /* Allow this panel to take twice the space of the form panel */
+    min-width: 450px; /* Minimum width for the grid panel */
+    display: flex;
+    flex-direction: column; /* Stack contents inside (title, list) */
+    overflow-y: auto; /* THIS IS THE SCROLLBAR */
+    box-sizing: border-box;
+    align-self: stretch; /* Makes it stretch to the height of its flex container (.eventos-container) */
+    max-height: 600px; /* If content exceeds this, it scrolls. Adjust as needed. */
+    min-height: 300px; /* Ensure it has a minimum height even if no events */
+}
 
-.eventos-container a {
-    font-size: 16px;
+.eventos-grid h3 { /* Style for "Meus Eventos" title */
+    font-size: 24px;
+    color: #333; /* Dark text for title */
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee; /* Subtle separator */
+    padding-bottom: 10px;
+    text-align: center;
+    flex-shrink: 0; /* Prevent title from shrinking when content scrolls */
+}
+
+/* Estilo para a lista de eventos (ul) */
+.eventos-grid ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Allow the list to grow and take available space */
+    /* NEW: Use flexbox for the UL to arrange LI items in a grid-like fashion */
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 15px; /* Space between each event item */
+    justify-content: flex-start; /* Align items to the start */
+    align-content: flex-start; /* Align lines to the start */
+}
+
+/* Estilo para cada item de evento (li) */
+.eventos-grid li {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    color: #444;
+    font-size: 14px;
+
+    /* Refined Flexbox properties for 'quadradinhos' */
+    flex-basis: calc(50% - 7.5px); /* This sets the desired width for 2 items per row */
+    min-width: 180px; /* Adjust this value if 200px is too large on certain screen sizes. Make it smaller than half of the .eventos-grid width when stacked. */
+    max-width: calc(50% - 7.5px); /* Keep this to ensure it doesn't grow beyond 50% */
+    box-sizing: border-box; /* Crucial: ensures padding and border are included in the width */
+}
+
+.eventos-grid li strong {
+    font-size: 16px; /* SLIGHTLY SMALLER FONT for event name */
+    color: #ff8c00; /* Orange for event name */
+    margin-bottom: 3px; /* Reduced margin */
+}
+
+.eventos-grid li span {
+    display: block; /* Ensure each detail is on its own line */
+}
+
+/* Estilo para os botões de editar e excluir dentro de cada evento */
+.botoes {
+    display: flex;
+    flex-direction: row;
+    gap: 8px; /* Slightly reduced gap between buttons */
+    margin-top: 8px; /* Slightly reduced margin above buttons */
+    justify-content: flex-end; /* Align buttons to the right */
+}
+
+.btn-excluir,
+.btn-editar {
+    padding: 6px 12px; /* REDUCED PADDING for buttons */
+    border: none;
+    border-radius: 4px; /* Slightly less rounded buttons */
+    cursor: pointer;
+    font-size: 13px; /* SLIGHTLY SMALLER FONT for buttons */
+    transition: background-color 0.3s ease;
     color: white;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.eventos-container a:hover {
-    text-decoration: underline;
 }
 
 .btn-excluir {
-    background-color: #f10404;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
+    background-color: #f10404; /* Red for delete */
+}
+
+.btn-excluir:hover {
+    background-color: #cc0000;
 }
 
 .btn-editar {
-    background-color: #000020;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
+    background-color: #007bff; /* Blue for edit (or your desired color) */
 }
 
-.eventos-container {
-    margin-top: 20px;
-    padding: 20px;
-    display: flex; /* Alinha os filhos lado a lado */
-    justify-content: space-between; /* Espaça os itens igualmente */
-    background-color: #000020;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 85%;
-    width: 100%; /* Definindo largura para o container das planilhas */
-}
-
-.evento-cadastro{
-    background-color: #000020;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.eventos-grid {
-    width: 70%;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    background-color: white;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    overflow-y: auto;
-}
-
-
-.botoes{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    color: white;
+.btn-editar:hover {
+    background-color: #0056b3;
 }
 
 /* Responsividade para telas menores */
-@media screen and (max-width: 1330px) {
-    .container {
-        flex-direction: column; /* Empilha os itens em telas pequenas */
-        align-items: center; /* Alinha o conteúdo ao centro */
-    }
-    
-
+@media screen and (max-width: 1024px) {
     .eventos-container {
-        width: 100%; /* Ocupa toda a largura disponível em telas menores */
-        flex-direction: column;
-        height: 110%;
+        flex-direction: column; /* Stack panels */
+        align-items: center;
+        gap: 20px;
+        min-height: unset;
     }
 
-    form {
-        width: 100%; /* O formulário também ocupa toda a largura disponível */
+    .evento-cadastro,
+    .eventos-grid {
+        width: 95%;
+        max-width: 500px;
+        min-width: unset;
+        align-self: auto;
     }
 
     .eventos-grid {
-        width: 100%; /* A grid ocupa toda a largura em telas pequenas */
-        justify-content: center; /* Centraliza os "quadradinhos" */
-        padding: 0px;
+        height: auto;
+        max-height: 400px;
+        min-height: 200px;
+        /* Do NOT set flex-direction: column here if you want items side-by-side */
+    }
+
+    /* Here, you can decide if you want 1, 2, or 3 items per row on tablets */
+    .eventos-grid ul {
+        /* Example for 2 items per row on tablets: */
+        flex-direction: row; /* Ensure it's still row for side-by-side */
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center; /* Center the items if there's an odd number */
+    }
+    .eventos-grid li {
+        /* Example for 2 items per row on tablets: */
+        flex: 0 0 calc(50% - 7.5px);
+        max-width: calc(50% - 7.5px);
+        min-width: 150px; /* Adjust min-width for tablet size */
+    }
+
+    /* If you want 1 item per row only on smaller phones, use another media query */
+    @media screen and (max-width: 600px) { /* Or whatever breakpoint makes sense for single column */
+        .eventos-grid ul {
+            flex-direction: column; /* Stack event items in a single column */
+        }
+        .eventos-grid li {
+            flex: 0 0 100%; /* Take full width when stacked */
+            max-width: 100%;
+            min-width: unset;
+        }
+    }
+}
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    .container > h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .evento-cadastro h3,
+    .eventos-grid h3 {
+        font-size: 20px;
+    }
+
+    .event-form label {
+        font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="datetime-local"] {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .but-event {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+
+    .eventos-grid li {
+        padding: 10px; /* Slightly less padding on very small screens */
+        font-size: 13px;
+    }
+
+    .eventos-grid li strong {
+        font-size: 15px;
+    }
+
+    .btn-excluir,
+    .btn-editar {
+        padding: 5px 10px;
+        font-size: 11px;
     }
 }

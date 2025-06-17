@@ -206,6 +206,7 @@ def lista_lancamentos(id_planilha):
     return render_template('lancamentos.html', planilha=p)
 
 #################################################################
+from math import ceil # Make sure ceil is imported
 
 @app.route('/eventos', methods=['GET', 'POST'])
 @login_required
@@ -223,21 +224,14 @@ def eventos():
             (nome, contato, preco, data_horario, local, current_user.id)
         )
         conn.commit()
-    
-    # Paginação
-    pagina = request.args.get('pagina', 1, type=int)  # Página atual
-    eventos_por_pagina = 2  # Quantidade de eventos por página
-    offset = (pagina - 1) * eventos_por_pagina  # Cálculo do deslocamento
-    
+
     eventos = conn.execute(
-        'SELECT * FROM eventos WHERE id_usuario = ? LIMIT ? OFFSET ?',
-        (current_user.id, eventos_por_pagina, offset)).fetchall()
-    
-    total_eventos = conn.execute(
-        'SELECT COUNT(*) FROM eventos WHERE id_usuario = ?',
-        (current_user.id,)).fetchone()[0]
-    
-    total_paginas = ceil(total_eventos / eventos_por_pagina)  # Total de páginas
+        'SELECT * FROM eventos WHERE id_usuario = ? ORDER BY data_horario DESC', # Added ORDER BY for consistent display
+        (current_user.id,)).fetchall()
+        
+    total_eventos = len(eventos) # Get total from the fetched list
+    pagina = 1 # Set to 1 as we are on a single "page" now
+    total_paginas = 1 # There's only one page now, showing all events
     
     conn.close()
     return render_template('eventos.html', eventos=eventos, pagina=pagina, total_paginas=total_paginas)
