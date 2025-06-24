@@ -21,6 +21,8 @@
         </div>
         
         <div class="planilha-grid">
+            <h3>Minhas Planilhas:</h3>
+
             {% for p in planilhas %}
                 <div class="plan">
                     <a href="{{ url_for('planilha', id=p.id) }}">
@@ -34,13 +36,12 @@
                 
 
                     <div class="btns">
-                        <form action="{{ url_for('excluir_planilha', id_planilha=p.id) }}" method="post">
-                            <a href=""><button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir esta Planilha?')">Excluir</button></a> 
-                        </form>
-
                         <a href="{{ url_for('editar_planilha', id_planilha=p.id) }}">
                                 <button type="submit" class="btn-editar">Editar</button>
                         </a>
+                        <form action="{{ url_for('excluir_planilha', id_planilha=p.id) }}" method="post">
+                            <a href=""><button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir esta Planilha?')">Excluir</button></a> 
+                        </form>
                     </div>
 
                 </div>

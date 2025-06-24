@@ -5,19 +5,22 @@
 {% block content %}
 <div class="container">
             <div class="dados-planilha">
-                <div class="titulo-planilha">
-                    <h2>{{ planilha.descricao }}</h2>
+                <div>
+                    <div class="titulo-planilha">
+                        <h2>{{ planilha.descricao }}</h2>
+                    </div>
+                    <div class="info-planilha">
+                        <strong>Objetivo:</strong> <div>{{ planilha.objetivo }}</div> |
+                        <strong>Início:</strong> <div>{{ planilha.data_ini }}</div> |
+                        <strong>Fim:</strong> <div>{{ planilha.data_fim }}</div>
+                    </div>
                 </div>
-                <div class="info-planilha">
-                    <strong>Objetivo:</strong> <div>{{ planilha.objetivo }}</div> |
-                    <strong>Início:</strong> <div>{{ planilha.data_ini }}</div> |
-                    <strong>Fim:</strong> <div>{{ planilha.data_fim }}</div>
-                </div>
+                
+                <div class="a-plan">
+                    <a href="{{ url_for('tabela', id_planilha=planilha.id) }}">-> Planilha de Pagamentos <-</a>
+                </div> 
             </div>
-
-            <div class="a-plan">
-                <a href="{{ url_for('tabela', id_planilha=planilha.id) }}">-> Planilha de Pagamentos <-</a>
-            </div>            
+           
             <div class="graf-part">
 
                 <div>
@@ -25,7 +28,12 @@
                     <form method="POST" action="{{ url_for('participantes', id_planilha=planilha.id) }}">
                         <br>
                         Nome: <input type="text" name="nome_participante" required>
-                        Contato: <input type="text" name="contato_participante" required>
+                        Contato: <input type="tel"
+                        name="contato_participante"
+                        id="contato"
+                        required
+                        pattern="\(\d{2}\)\s\d{4,5}-\d{4}"
+                        placeholder="(99) 99999-9999">
                         
                         <input type="submit" value="Cadastrar">
                     </form>
@@ -60,5 +68,13 @@
                 </div>
             </div>
 </div>
+
+<script src="https://unpkg.com/imask"></script>
+<script>
+  const input = document.getElementById('contato');
+  IMask(input, {
+    mask: '(00) 00000-0000'
+  });
+</script>
 
 {% endblock %}

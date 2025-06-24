@@ -1,189 +1,378 @@
-/* Estilos gerais para o container */
-.container {
-    width: 80%;
-    margin: 0 auto;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    padding-top: 30px;
-}
-
-/* Título da página */
-.planilhas-conteiner h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Formulário de cadastro */
-form {
+/* Estilos gerais para o body */
+body {
+    background-color: #f5f5f7; /* Fundo claro consistente com as outras páginas */
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    max-width: 500px;
-    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Estilos gerais para o container */
+.container {
+    max-width: 1400px; /* Alinha com o container das outras páginas */
+    width: 95%; /* Ocupa 95% da largura, mas com max-width */
+    margin: 30px auto; /* Margem consistente */
+    padding: 30px 20px; /* Padding interno para o conteúdo */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espaçamento entre as seções principais */
+    flex-grow: 1;
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
+}
+
+/* Título da página (similar ao de eventos) */
+.container > h3 { /* Adicionando um h3 para o título principal da página, caso exista */
+    font-size: 32px;
+    font-weight: bold;
+    color: #000020; /* Azul escuro do cabeçalho */
+    margin-bottom: 30px;
+    text-align: center;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.container > h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #ff8c00; /* Laranja de destaque */
+    border-radius: 2px;
+}
+
+
+/* Reajuste do planilhas-conteiner para ser o wrapper dos dois painéis */
+.planilhas-conteiner {
+    margin-top: 0; /* Ajustado para o espaçamento já ser gerado pelo gap do .container */
+    padding: 0; /* Os paddings serão aplicados dentro dos painéis individuais */
+    display: flex;
+    justify-content: center; /* Centraliza os itens quando há espaço extra */
+    gap: 30px; /* Espaçamento entre o formulário e a grid */
+    flex-grow: 1;
+    flex-wrap: wrap; /* Permite que os painéis quebrem a linha em telas menores */
+    align-items: flex-start; /* Alinha os painéis ao topo */
+    /* REMOVIDOS background-color, border-radius, box-shadow daqui para a integração */
+    height: auto; /* Deixa a altura ser determinada pelo conteúdo */
+    width: 100%; /* Ocupa a largura total do .container pai */
+}
+
+/* Painel de cadastro de planilhas (formulário) */
+.planilha-cadastro {
+    background-color: #ffffff; /* Fundo branco para o formulário */
+    color: #333; /* Texto escuro */
+    padding: 30px; /* Padding interno consistente */
+    border-radius: 14px; /* Borda arredondada consistente */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border: 1px solid #e0e0e0; /* Borda clara */
+
+    flex: 1.2; /* Proporção similar ao cadastro de eventos */
+    min-width: 400px; /* Largura mínima para o painel */
+    max-width: 550px; /* Largura máxima para o painel */
+    display: flex;
+    max-height: 750px;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-self: stretch; /* Garante que os painéis tenham a mesma altura */
+}
+
+.planilha-cadastro h2 { /* Título "Cadastro de planilhas" */
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #000020; /* Azul escuro para o título */
+}
+
+/* Formulário de cadastro - ajuste de espaçamento */
+.planilha-cadastro form { /* Use o seletor com o pai para especificidade */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Reduz o espaçamento entre os campos */
+    width: 100%; /* Ocupa a largura total do painel */
+    margin: 0; /* Remove margens externas do form */
+}
+
+/* Estilo para os labels */
+.planilha-cadastro label { /* Labels dentro do form */
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: #555; /* Cor de texto mais suave */
+    font-size: 15px;
 }
 
 /* Estilo para os campos de entrada do formulário */
-input[type="text"],
-input[type="number"],
-input[type="date"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.planilha-cadastro input[type="text"],
+.planilha-cadastro input[type="number"],
+.planilha-cadastro input[type="date"] {
+    padding: 12px 15px; /* Padding maior para melhor toque */
+    border: 1px solid #dcdcdc; /* Borda clara */
+    border-radius: 8px; /* Cantos arredondados */
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
+    background-color: #fefefe; /* Fundo muito claro */
+    color: #333; /* Texto escuro */
+    margin-top: 5px; /* Espaço entre label e input */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.planilha-cadastro input[type="text"]::placeholder,
+.planilha-cadastro input[type="number"]::placeholder,
+.planilha-cadastro input[type="date"]::placeholder {
+    color: #888;
+}
+
+.planilha-cadastro input[type="text"]:focus,
+.planilha-cadastro input[type="number"]:focus,
+.planilha-cadastro input[type="date"]:focus {
+    border-color: #ff8c00;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 140, 0, 0.2);
 }
 
 /* Estilo para o botão de cadastro */
 .botao-planilha {
-    padding: 10px 20px;
+    padding: 15px 30px; /* Padding maior para o botão */
     background-color: #ff9800;
-    color: white;
-    font-size: 16px;
+    color: white; /* Texto branco no botão laranja */
+    font-size: 18px; /* Fonte maior para o botão */
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px; /* Cantos mais arredondados */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     width: 100%;
+    margin-top: 25px; /* Bom espaçamento acima do botão */
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3); /* Sombra de destaque */
 }
 
 .botao-planilha:hover {
-    background-color: #df8600;
+    background-color: #e48900;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.45);
 }
 
-/* Estilo para os links de cada planilha */
-.planilhas-conteiner a {
-    font-size: 16px;
-    color: #000020;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.planilhas-conteiner a:hover {
-    text-decoration: underline;
-}
-
-/* Estilo para os botões de excluir e editar */
-.btn-excluir {
-    background-color: #f10404;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-editar {
-    background-color: #000020;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-excluir:hover {
-    background-color: #c82333;
-}
-
-/* Garantir que os botões de excluir e editar fiquem na mesma linha */
-.btns {
-    display: flex;
-    flex-direction: row;
-}
-
-/* Estilo para o layout da página de planilhas */
-.planilhas-conteiner {
-    margin-top: 20px;
-    padding: 20px;
-    display: flex; /* Alinha os filhos lado a lado */
-    justify-content: space-between; /* Espaça os itens igualmente */
-    background-color: #000020;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 80%;
-    width: 100%; /* Definindo largura para o container das planilhas */
-}
-.planilha-cadastro{
-    background-color: #000020;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/* Painel da grid de planilhas */
 .planilha-grid {
-    width: 70%;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #000020; /* Fundo azul escuro para a grid */
+    color: white; /* Texto claro */
+    padding: 30px; /* Padding interno consistente */
+    border-radius: 14px; /* Borda arredondada consistente */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18); /* Sombra mais forte */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+
+    flex: 2; /* Proporção similar ao grid de eventos */
+    min-width: 500px; /* Largura mínima para o painel */
     display: flex;
-    background-color: white;
-    justify-content: space-evenly;
     flex-wrap: wrap;
-    overflow-y: auto;
+    gap: 20px; /* Espaçamento entre os itens da grid */
+    justify-content: flex-start; /* Alinha os itens ao início */
+    align-content: flex-start;
+    overflow-y: auto; /* Adiciona scroll se necessário */
+    max-height: 750px; /* Altura máxima para a área scrollável */
+    min-height: 300px; /* Altura mínima */
+    box-sizing: border-box;
+    align-self: stretch; /* Garante que os painéis tenham a mesma altura */
 }
 
+/* Título "Minhas Planilhas" ou similar na grid */
+.planilha-grid h3 { /* Adicionado se você tiver um título aqui */
+    font-size: 26px;
+    color: white;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #34495e;
+    padding-bottom: 10px;
+    text-align: center;
+    flex-basis: 100%; /* Garante que o título ocupe toda a largura */
+    flex-shrink: 0;
+}
+
+
+/* Estilo para cada item de planilha individual */
 .plan {
+    background-color: #fefefe; /* Azul escuro levemente mais claro para os itens */
+    border: 1px solid #34495e; /* Borda escura para os itens */
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 0; /* Remove margem do elemento 'plan' se o gap do pai já cuida */
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    width: 200px;
-    height: 180px; /* Aumentado para deixar o quadrado mais visível */
-    border-radius: 10px; /* Cantos arredondados */
-    padding: 10px;
-    margin: 10px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.329); /* Sombra para dar destaque */
-    background-color: #ffffff;
-    transition: transform 0.3s ease; /* Efeito de hover */
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: #ecf0f1; /* Texto claro para detalhes */
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    flex-basis: calc(50% - 10px); /* Para duas colunas com gap de 20px */
+    min-width: 200px;
+    max-width: calc(50% - 10px);
+    box-sizing: border-box;
+    height: auto; /* Deixa a altura se ajustar ao conteúdo */
 }
 
-/* Efeito de hover para as planilhas */
 .plan:hover {
-    transform: scale(1.05); /* Aumenta o tamanho levemente ao passar o mouse */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .plan a {
-    font-size: 16px;
-    color: #000020;
+    font-size: 17px; /* Aumenta o tamanho do título da planilha */
+    color: #ff8c00; /* Laranja para o link do título */
     text-decoration: none;
-    margin-bottom: 10px;
+    margin-bottom: 5px; /* Espaço abaixo do título */
+    font-weight: bold;
 }
 
 .plan a:hover {
     text-decoration: underline;
 }
 
+/* Estilo para os botões de excluir e editar dentro de cada planilha */
+.btns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 15px; /* Espaço acima dos botões */
+    justify-content: flex-end; /* Alinha os botões à direita */
+}
 
-/* Responsividade para telas menores */
-@media screen and (max-width: 1330px) {
-    .container {
-        flex-direction: column; /* Empilha os itens em telas pequenas */
-        align-items: center; /* Alinha o conteúdo ao centro */
-    }
-    
+.btn-excluir,
+.btn-editar {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white;
+    font-weight: 600;
+}
 
+.btn-excluir {
+    background-color: #f10404; /* Vermelho */
+}
+
+.btn-excluir:hover {
+    background-color: #cc0000;
+    transform: translateY(-1px);
+}
+
+.btn-editar {
+    background-color: #007bff; /* Azul */
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+
+/* Responsividade */
+@media screen and (max-width: 1024px) {
     .planilhas-conteiner {
-        width: 100%; /* Ocupa toda a largura disponível em telas menores */
-        flex-direction: column;
-        height: 110%;
+        flex-direction: column; /* Empilha os painéis em telas menores */
+        align-items: center; /* Centraliza os painéis empilhados */
+        gap: 25px; /* Espaçamento entre os painéis empilhados */
+        min-height: unset; /* Remove min-height para ajuste automático */
     }
 
-    form {
-        width: 100%; /* O formulário também ocupa toda a largura disponível */
+    .planilha-cadastro,
+    .planilha-grid {
+        width: 95%; /* Ocupa a maior parte da largura */
+        max-width: 600px; /* Largura máxima para legibilidade */
+        min-width: unset; /* Remove min-width para ajuste flexível */
+        align-self: auto; /* Permite que o item seja alinhado pelo pai */
     }
 
     .planilha-grid {
-        width: 100%; /* A grid ocupa toda a largura em telas pequenas */
-        justify-content: center; /* Centraliza os "quadradinhos" */
-        padding: 0px;
+        height: auto;
+        max-height: 500px; /* Altura máxima para scroll */
+        min-height: 250px;
+    }
+
+    .plan {
+        flex-basis: calc(50% - 7.5px); /* Ajuste para 2 colunas com 15px de gap */
+        max-width: calc(50% - 7.5px);
+        min-width: 160px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .plan {
+        flex: 0 0 100%; /* Uma coluna em telas muito pequenas */
+        max-width: 100%;
+        min-width: unset;
+    }
+    .planilha-grid {
+        justify-content: center; /* Centraliza os itens quando há apenas 1 coluna */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 15px auto;
+    }
+
+    .container > h3 {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .planilha-cadastro h2,
+    .planilha-grid h3 { /* Se existir h3 na grid */
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .planilha-cadastro label {
+        font-size: 14px;
+    }
+
+    .planilha-cadastro input[type="text"],
+    .planilha-cadastro input[type="number"],
+    .planilha-cadastro input[type="date"] {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .botao-planilha {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+
+    .planilha-cadastro,
+    .planilha-grid {
+        padding: 25px;
+    }
+
+    .plan {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+
+    .plan a {
+        font-size: 16px;
+    }
+
+    .btns {
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .btn-excluir,
+    .btn-editar {
+        padding: 6px 12px;
+        font-size: 12px;
     }
 }

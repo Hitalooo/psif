@@ -1,122 +1,310 @@
+/* Core Styling & Typography - Keeping your original Inter */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f7;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 30px auto;
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    font-family: Arial, sans-serif;
 }
 
-/* Título e informações da planilha */
+/* Header/Planilha Info */
 .dados-planilha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: #000020;
-    padding: 20px;
+    padding: 30px 40px;
     color: white;
-    border-radius: 12px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
 }
 
 .titulo-planilha h2 {
-    margin: 0 0 10px;
-    font-size: 22px;
+    margin: 0 0 15px;
+    font-size: 28px;
+    font-weight: 600;
+    border-left: 5px solid #ff9800;
+    padding-left: 15px;
+    line-height: 1.2;
 }
 
 .info-planilha {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    font-size: 14px;
+    gap: 15px;
+    font-size: 15px;
     color: white;
     align-items: center;
 }
 
-/* Links */
-.container a {
-    align-self: center;
-    color: #000020;
-    text-decoration: none;
-    font-weight: bold;
+.info-planilha strong {
+    font-weight: 600;
+    color: white;
 }
-.a-plan{
+
+/* Action Link Button */
+.a-plan {
+    display: inline-block;
     align-self: center;
-    padding: 15px 20px;
+    padding: 16px 30px;
     background-color: #ff9800;
     color: #000020;
     text-decoration: none;
-    border-radius: 10px ;
+    border-radius: 12px;
     font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 15px;
+    letter-spacing: 0.3px;
 }
-.container a:hover {
-    text-decoration: underline;
+.a-plan > a{
+    text-decoration: none;
+    color: #000020;
+
 }
 
-/* Blocos lado a lado: Participantes e Lançamentos */
+.a-plan:hover {
+    background-color: #e08800;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Side-by-side Blocks (Forms) */
 .graf-part {
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
 }
 
-/* Cada bloco */
 .graf-part > div {
     background-color: #ffffff;
-    padding: 25px;
+    padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     flex: 1;
-    min-width: 320px;
+    min-width: 380px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e5e5e5;
 }
 
-/* Títulos dos blocos */
-.graf-part h3 {
-    margin-bottom: 15px;
-    font-size: 18px;
+.graf-part > div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Block Titles */
+.graf-part strong {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 19px;
+    font-weight: 600;
     color: #000020;
+    border-bottom: 2px solid #ff9800;
+    padding-bottom: 8px;
 }
 
-/* Inputs e selects */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
+/* Labels within forms */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
     font-size: 14px;
 }
 
-/* Botões */
+/* Inputs and Selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="tel"],
+select {
+    width: 100%;
+    /* Added horizontal padding here to create space from the left/right edges */
+    padding: 12px 15px; /* TOP/BOTTOM 12px, LEFT/RIGHT 15px */
+    margin-top: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #fefefe;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    color: #444;
+    box-sizing: border-box; /* Crucial: ensures padding doesn't increase total width */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="tel"],
+select:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
+    outline: none;
+}
+
+/* Buttons */
 input[type="submit"],
 .btn-adicionar {
     background-color: #000020;
     color: white;
-    padding: 12px 20px;
+    padding: 14px 22px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    letter-spacing: 0.3px;
 }
 
 input[type="submit"]:hover,
 .btn-adicionar:hover {
     background-color: #1a1a3a;
-    transform: scale(1.03);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
+/* Specific styling for the form rows in lancamentos */
+.form-container-lancamento .form-row {
+    display: flex;
+    /* Increased gap between columns to ensure separation */
+    gap: 25px; /* Adjusted gap between the two labels/inputs in a row */
+    margin-bottom: 20px; /* Consistent margin for rows */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    align-items: flex-end; /* Align items to the bottom of the row */
+}
+
+.form-container-lancamento .form-row label {
+    flex: 1; /* Allows each label/input pair to take equal space */
+    min-width: 160px; /* Minimum width before wrapping */
+    margin-bottom: 0; /* Reset margin-bottom as gap handles vertical spacing */
+}
+
+.form-container-lancamento .form-row input,
+.form-container-lancamento .form-row select {
+    margin-bottom: 0; /* Remove extra bottom margin from individual inputs in a row */
+}
+
+/* Fix for the labels being on top of inputs in "Lançamentos" */
+.form-container-lancamento .form-row label {
+    display: flex; /* Make the label itself a flex container */
+    flex-direction: column; /* Stack label text and input vertically */
+    flex: 1; /* Allow it to grow */
+    min-width: 150px; /* Ensure a minimum width before wrapping */
+}
+
+/* Links within blocks (e.g., "Lista de Participantes") */
+.graf-part > div > a {
+    display: block;
+    margin-top: 25px;
+    text-align: right;
+    color: #ff9800;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.graf-part > div > a:hover {
+    color: #e08800;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
     .graf-part {
         flex-direction: column;
+        align-items: center;
     }
 
-    .form-row {
+    .graf-part > div {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .info-planilha {
         flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-planilha > div {
+        margin-bottom: 5px;
+    }
+
+    .info-planilha strong {
+        margin-right: 5px;
+    }
+
+    /* Stack form elements in lancamentos on smaller screens */
+    .form-container-lancamento .form-row {
+        flex-direction: column;
+        gap: 0; /* Remove horizontal gap when stacked */
+    }
+
+    .form-container-lancamento .form-row label {
+        min-width: unset; /* Remove min-width when stacking */
+    }
+
+    .form-container-lancamento .form-row input,
+    .form-container-lancamento .form-row select {
+        margin-bottom: 20px; /* Re-add bottom margin when stacked */
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .dados-planilha {
+        padding: 25px 20px;
+    }
+
+    .titulo-planilha h2 {
+        font-size: 24px;
+        padding-left: 10px;
+    }
+
+    .info-planilha {
+        font-size: 14px;
+    }
+
+    .a-plan {
+        padding: 14px 25px;
+        font-size: 14px;
+    }
+
+    .graf-part > div {
+        padding: 25px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    input[type="submit"],
+    .btn-adicionar {
+        padding: 12px 20px;
+        font-size: 14px;
     }
 }
