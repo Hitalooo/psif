@@ -1,13 +1,39 @@
 {% extends 'layout.html' %}
-{% block title %}Gráfico{% endblock %}
-{% block content %}
-<div>
-    <h2>Lista de Participantes</h2>
-    
-    {% for p in planilha.participantes %}
-        <li>{{ p.id }} | {{ p.nome }} | Contato: {{ p.contato }}</li>
-    {% endfor %}
+{% block title %}Lista de Participantes{% endblock %}
 
-<a href="{{ request.referrer }}">← Voltar para a planilha</a>
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='participantes.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <h2>Lista de Participantes</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Contato</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in planilha.participantes %}
+            <tr>
+                <td>
+                    <div class="nome-container">
+                        <div class="icone-nome">
+                            {{ p.nome[0]|upper }}
+                        </div>
+                        <span>{{ p.nome }}</span>
+                    </div>
+                </td>
+                <td>{{ p.contato }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{{ request.referrer }}" class="a-plan">← Voltar para a planilha</a>
 </div>
 {% endblock %}
