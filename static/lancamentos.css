@@ -1,0 +1,89 @@
+/* Título da página */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo da tabela */
+table {
+    border-collapse: collapse;
+    width: 500px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    
+}
+
+th {
+    background-color: #000020;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e0f7fa;
+}
+
+/* Botão de excluir */
+.btn-excluir {
+    background-color: #dc3545;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b;
+}
+
+/* Link de voltar */
+.a-plan {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #000020;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+
+
+/* Espaçamento geral */
+.lancamentos {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+h2 {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #000020;
+    margin: 15px;
+    padding: 30px 40px;
+    width: 420px;
+    color: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    border-left: 5px solid #ff9800;
+
+    
+
+}

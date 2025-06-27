@@ -26,7 +26,7 @@ tr:hover {
 }
 
 /* Estilo do título */
-h2 {
+.titulo {
 
     display: flex;
     flex-direction: row;
@@ -83,3 +83,92 @@ h2 {
     font-size: 15px;
     margin-left: 20px;
    }
+
+/* ====== Modal ====== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: abrirModal 0.3s ease;
+}
+
+/* Animação de abertura do modal */
+@keyframes abrirModal {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+/* Tabela do Modal */
+.tabela-modal {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.modal-content .titulo {
+    background-color: #000020;
+    padding: 16px 24px;
+    margin: 0 auto 20px auto;
+    color: white;
+    border-radius: 14px;
+    margin-left: 50px;
+    border-left: 5px solid #ff9800;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+    width: 547px;
+    max-width: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tabela-modal th {
+    background-color: #000020;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabela-modal td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabela-modal tr:hover {
+    background-color: #f5f5f5;
+}

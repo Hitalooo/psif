@@ -14,7 +14,7 @@
   function gerarPDF() {
     const elemento = document.querySelector(".container");
     html2pdf().set({
-      margin: 10,
+      margin: 0,
       filename: 'pagina.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },

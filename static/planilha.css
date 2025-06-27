@@ -16,6 +16,28 @@ body {
     flex-direction: column;
     gap: 30px;
 }
+.lancamentos{
+    height: 370px;
+}
+
+#modal-lancamentos .titulo-lan{
+        background-color: #000020;
+        padding: 16px 24px;
+        margin: 0 auto 20px auto;
+        color: white;
+        border-radius: 14px;
+        margin-left: 50px;
+        border-left: 5px solid #ff9800;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    
+        width: 547px;
+        max-width: 600px;
+    
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+  
+}
 
 /* Header/Planilha Info */
 .dados-planilha {
@@ -263,6 +285,7 @@ input[type="submit"]:hover,
     .form-container-lancamento .form-row input,
     .form-container-lancamento .form-row select {
         margin-bottom: 20px; /* Re-add bottom margin when stacked */
+        
     }
 }
 
@@ -308,3 +331,5 @@ input[type="submit"]:hover,
         font-size: 14px;
     }
 }
+
+

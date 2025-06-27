@@ -1,21 +1,45 @@
 {% extends 'layout.html' %}
-{% block title %}Gráfico{% endblock %}
+
+{% block title %}Lista de Lançamentos{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lancamentos.css') }}">
+{% endblock %}
+
 {% block content %}
 <div>
     <h2>Lista de Lançamentos</h2>
-    <div class="lancamentos">
-        {% for l in planilha.lancamentos %}
-        <ul>
-            <li>{{ l.participante }} |
-                {{ l.descricao }} |
-                {{ l.data }} |
-                {{ l.valor }}</li>
-            </ul>
-            <form action="{{ url_for('excluir_lancamento', id_planilha=planilha.id, id_lancamento=l.id) }}" method="post">
-                <button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este lançamento?')">Excluir</button>
-            </form>
-        {% endfor %}
-    </div>
-    <a href="{{ request.referrer }}">← Voltar para a planilha</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Participante</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in planilha.lancamentos %}
+            <tr>
+                <td>{{ l.participante }}</td>
+                <td>{{ l.descricao }}</td>
+                <td>{{ l.data }}</td>
+                <td>{{ l.valor }}</td>
+                <td>
+                    <form action="{{ url_for('excluir_lancamento', id_planilha=planilha.id, id_lancamento=l.id) }}" method="post">
+                        <button type="submit" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir este lançamento?')">
+                            <i class='bx  bx-trash' style='color:#ffffff'></i>  
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{{ request.referrer }}" class="a-plan">← Voltar para a planilha</a>
 </div>
 {% endblock %}

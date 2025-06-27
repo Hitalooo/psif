@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 {% block title %}Planilha{% endblock %}
-{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='planilha.css') }}">{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='planilha.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='participantes.css') }}">
+{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -37,7 +40,8 @@
                         
                         <input type="submit" value="Cadastrar">
                     </form>
-                    <a href="{{ url_for('lista_participantes', id_planilha=planilha.id) }}">Lista de Participantes -> </a>
+                    <a href="#" onclick="abrirModal()">Lista de Participantes -> </a>
+
 
                 </div>
                 <div class="lancamentos">
@@ -63,11 +67,29 @@
                             <button type="submit" class="btn-adicionar">Adicionar</button>
                         </form>
                     </div>
-                    <a href="{{ url_for('lista_lancamentos', id_planilha=planilha.id) }}">Lista de Lançamentos -> </a>
+                    <a href="#" onclick="abrirModalLancamentos()">Lista de Lançamentos →</a>
                     
                 </div>
             </div>
 </div>
+
+<script>
+    function abrirModal() {
+        document.getElementById("modal-participantes").style.display = "block";
+    }
+
+    function fecharModal() {
+        document.getElementById("modal-participantes").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        let modal = document.getElementById("modal-participantes");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
 
 <script src="https://unpkg.com/imask"></script>
 <script>
@@ -76,5 +98,99 @@
     mask: '(00) 00000-0000'
   });
 </script>
+
+
+
+<div id="modal-participantes" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2 class="titulo">Lista de Participantes</h2>
+        <table class="tabela-modal">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Contato</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in planilha.participantes %}
+                <tr>
+                    <td>
+                        <div class="nome-container">
+                            <div class="icone-nome">
+                                {{ p.nome[0]|upper }}
+                                
+                            </div>
+                            <span>{{ p.nome }}</span>
+                        </div>
+                    </td>
+                    <td>{{ p.contato }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function abrirModalLancamentos() {
+        document.getElementById("modal-lancamentos").style.display = "block";
+    }
+
+    function fecharModalLancamentos() {
+        document.getElementById("modal-lancamentos").style.display = "none";
+    }
+
+    // Fechar ao clicar fora do modal
+    window.onclick = function(event) {
+        const modalLanc = document.getElementById("modal-lancamentos");
+        if (event.target == modalLanc) {
+            modalLanc.style.display = "none";
+        }
+    }
+</script>
+
+
+<div id="modal-lancamentos" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModalLancamentos()">&times;</span>
+        <h2 class="titulo-lan">Lista de Lançamentos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Participante</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in planilha.lancamentos %}
+                <tr>
+                    <td>{{ l.participante }}</td>
+                    <td>{{ l.descricao }}</td>
+                    <td>{{ l.data }}</td>
+                    <td>R$ {{ '%.2f'|format(l.valor|float) }}</td>
+                    <td>
+                        <form action="{{ url_for('excluir_lancamento', id_planilha=planilha.id, id_lancamento=l.id) }}" method="post">
+                            <button type="submit" class="btn-excluir" onclick="return confirm('Deseja excluir este lançamento?')">
+                                <i class='bx bx-trash' style='color:#fff'></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
 
 {% endblock %}
